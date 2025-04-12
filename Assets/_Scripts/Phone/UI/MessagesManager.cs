@@ -49,19 +49,19 @@ public class MessagesManager : MonoBehaviour
         }
         else if (content.Length <= 23)
         {
-            DisplayMessage(template.OneMidLine, content);
+            DisplayMessage(template.OneLine, content);
         }
         else if (content.Length <= 46)
         {
-            DisplayMessage(template.OneMidLine, content);
+            DisplayMessage(template.TwoLine, content);
         }
         else if (content.Length <= 69)
         {
-            DisplayMessage(template.OneMidLine, content);
+            DisplayMessage(template.ThreeLine, content);
         }
         else
         {
-            DisplayMessage(template.OneMidLine, content.Substring(0, 69));
+            DisplayMessage(template.ThreeLine, content.Substring(0, 69));
             ComposeMessage(template,content.Substring(69));
         }
     }
