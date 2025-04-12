@@ -16,6 +16,7 @@ public class PlayerAttacks : MonoBehaviour
     private enum MeleeAttackType{
         One,
         Two,
+        Charged,
     }
 
     private MeleeAttackType _meleeAttackType;
