@@ -71,8 +71,8 @@ public class PlayerAttacks : MonoBehaviour
     private void MeleeAttack(GameObject attackVFX)
     {
         RaycastHit raycastHit;
-        if (Physics.SphereCast(transform.position, _meleeAttackArea, Vector3.right * _facingRight, out raycastHit, _meleeAttackRange)) return;
-        Instantiate(attackVFX, transform.position + new Vector3(_meleeAttackRange, 0,0), Quaternion.identity);
+        if (!Physics.SphereCast(transform.position, _meleeAttackArea, Vector3.right * _facingRight, out raycastHit, _meleeAttackRange)) return;
+        Instantiate(attackVFX, transform.position + new Vector3(_meleeAttackRange, 0,0) * _facingRight, Quaternion.identity);
         Debug.Log(" "+raycastHit.point);
     }
 

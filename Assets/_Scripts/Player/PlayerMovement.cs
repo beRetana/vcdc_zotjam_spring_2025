@@ -1,29 +1,33 @@
 using System;
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float _movementSpeed = 10;
+    [SerializeField, Range(0f, 100f)] private float _movementSpeed = 10;
+    [SerializeField, Range(0f, 100f)] private float _dashTime = 2f;
+    [SerializeField, Range(0f, 100f)] private float _dashSpeed = 5f;
     private PlayerController _playerController;
     private PlayerAttacks _playerAttacks;
+    private Rigidbody _rigidbody;
     private Vector2 _movementInput;
 
     void Start()
     {
         _playerController = new();
         _playerAttacks = GetComponent<PlayerAttacks>();
-        Enable();
+        _rigidbody = GetComponent<Rigidbody>();
+        SetUpMovement();
     }
 
-    void Enable()
+    void SetUpMovement()
     {
         _playerController.PlayerActions.WASD.performed += HandleMovementInput;
         _playerController.PlayerActions.WASD.started += HandleMovementInput;
         _playerController.PlayerActions.WASD.canceled += HandleMovementInput;
         _playerController.PlayerActions.Dash.performed += Dash;
-        _playerController.PlayerActions.Enable();
+        EnableMovement();
     }
 
     void OnDisable()
@@ -32,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         _playerController.PlayerActions.WASD.started -= HandleMovementInput;
         _playerController.PlayerActions.WASD.canceled -= HandleMovementInput;
         _playerController.PlayerActions.Dash.performed -= Dash;
-        _playerController.PlayerActions.Disable();
+        DisableMovement();
     }
 
     public void DisableMovement()
@@ -40,25 +44,49 @@ public class PlayerMovement : MonoBehaviour
         _playerController.PlayerActions.Disable();
     }
 
+    public void EnableMovement()
+    {
+        _playerController.PlayerActions.Enable();
+    }
+
     void HandleMovementInput(InputAction.CallbackContext context)
     {
         _movementInput = context.action.ReadValue<Vector2>();
-        SwitchFacing();
-        _playerAttacks.FacingRight = (int)_movementInput.x;
+        SwitchFacing((int)_movementInput.x);
+        _playerAttacks.FacingRight = (int)transform.localScale.x;
     }
 
-    void SwitchFacing()
+    void SwitchFacing(int side)
     {
-        transform.localScale = transform.localScale*-1;
+        switch (side)
+        {
+            case 1: // 1 means facing right
+                if (transform.localScale.x < 0) 
+                    transform.localScale *= -1;
+                break;
+            case -1: // -1 means facing left
+                if (transform.localScale.x > 0)
+                    transform.localScale *= -1;
+                break;
+        }
     }
 
     void Dash(InputAction.CallbackContext context)
     {
-
+        StartCoroutine(Dashing());
     }
 
-    void Update()
+    IEnumerator Dashing()
     {
-        transform.position += new Vector3(_movementInput.x, 0f ,_movementInput.y) * _movementSpeed * Time.deltaTime;
+        _rigidbody.AddForce(new Vector3(_movementInput.x, 0f, _movementInput.y) * _dashSpeed, ForceMode.Impulse);
+        DisableMovement();
+        yield return new WaitForSeconds(_dashTime);
+        EnableMovement();
+        _rigidbody.linearVelocity = Vector3.zero;
+    }
+
+    private void Update()
+    {
+        _rigidbody.position += new Vector3(_movementInput.x, 0f, _movementInput.y) * _movementSpeed * Time.deltaTime;
     }
 }
