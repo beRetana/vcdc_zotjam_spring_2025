@@ -8,7 +8,7 @@ public class CSVReader : MonoBehaviour
     public TextAsset textAssetData;
 
     [System.Serializable]
-    public class DialogueRow
+    public struct DialogueRow
     {
         public string rowName;
         public int scene;
