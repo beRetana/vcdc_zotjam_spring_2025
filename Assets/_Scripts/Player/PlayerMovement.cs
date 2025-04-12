@@ -5,19 +5,24 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField, Range(0f, 100f)] private float _movementSpeed = 10;
-    [SerializeField, Range(0f, 100f)] private float _dashTime = 2f;
-    [SerializeField, Range(0f, 100f)] private float _dashSpeed = 5f;
+    [SerializeField, Range(0f, 100f)] private float _baseSpeed = 5;
+    [SerializeField, Range(0f, 100f)] private float _sprintSpeed = 7;
+    [SerializeField, Range(0f, 100f)] private float _dashTime = .5f;
+    [SerializeField, Range(0f, 100f)] private float _dashSpeed = 10f;
+
     private PlayerController _playerController;
     private PlayerAttacks _playerAttacks;
     private Rigidbody _rigidbody;
     private Vector2 _movementInput;
+
+    private float _movementSpeed;
 
     void Start()
     {
         _playerController = new();
         _playerAttacks = GetComponent<PlayerAttacks>();
         _rigidbody = GetComponent<Rigidbody>();
+        _movementSpeed = _baseSpeed;
         SetUpMovement();
     }
 
@@ -27,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
         _playerController.PlayerActions.WASD.started += HandleMovementInput;
         _playerController.PlayerActions.WASD.canceled += HandleMovementInput;
         _playerController.PlayerActions.Dash.performed += Dash;
+        _playerController.PlayerActions.Sprint.started += StartSprint;
+        _playerController.PlayerActions.Sprint.canceled += EndSprint;
         EnableMovement();
     }
 
@@ -76,6 +83,16 @@ public class PlayerMovement : MonoBehaviour
         StartCoroutine(Dashing());
     }
 
+    void StartSprint(InputAction.CallbackContext context)
+    {
+        _movementSpeed = _sprintSpeed;
+    }
+
+    void EndSprint(InputAction.CallbackContext context)
+    {
+        _movementSpeed = _baseSpeed;
+    }
+
     IEnumerator Dashing()
     {
         _rigidbody.AddForce(new Vector3(_movementInput.x, 0f, _movementInput.y) * _dashSpeed, ForceMode.Impulse);
@@ -87,6 +104,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        _rigidbody.position += new Vector3(_movementInput.x, 0f, _movementInput.y) * _movementSpeed * Time.deltaTime;
+        transform.position += new Vector3(_movementInput.x, 0f, _movementInput.y) * _movementSpeed * Time.deltaTime;
     }
 }

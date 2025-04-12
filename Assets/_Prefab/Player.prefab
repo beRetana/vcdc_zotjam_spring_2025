@@ -136,8 +136,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _movementSpeed: 10
-  _dashTime: 2
-  _dashSpeed: 2
+  _dashTime: 0.5
+  _dashSpeed: 15
 --- !u!114 &547331374711749930
 MonoBehaviour:
   m_ObjectHideFlags: 0
