@@ -1,10 +1,14 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private float _movementSpeed = 10;
     private PlayerController _playerController;
+    private Vector2 _movementInput;
+    private float _movement;
 
     void Start()
     {
@@ -37,11 +41,17 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleMovementInput(InputAction.CallbackContext context)
     {
-
+        _movementInput = context.action.ReadValue<Vector2>();
+        Debug.Log(_movementInput);
     }
 
     void Dash(InputAction.CallbackContext context)
     {
 
+    }
+
+    void Update()
+    {
+        transform.position += new Vector3(_movementInput.x, _movementInput.y, 0f) * _movementSpeed * Time.deltaTime;
     }
 }
