@@ -1,0 +1,32 @@
+RowName,Scene,Event,SectionIndex,Type,MessageIndex,Character,Dialogue,LovePoints
+0-Opening-0-Std-0,0,Opening,0,Std,0,Her,Hey,
+0-Opening-1-Q-0,0,Opening,1,Q,0,Her,What are we?,
+0-Opening-1-R1-0,0,Opening,1,R1,0,Me,You tell me,
+0-Opening-1-R1-1,0,Opening,1,R1,1,Her,Why can't you?,1
+0-Opening-1-R1-2,0,Opening,1,R1,2,Me,Idk,
+0-Opening-1-R2-0,0,Opening,1,R2,0,Me,I don't like labels,
+0-Opening-1-R2-1,0,Opening,1,R2,1,Her,Being you must be freeing,-2
+0-Opening-1-R3-0,0,Opening,1,R3,0,Me,Together?,
+0-Opening-1-R3-1,0,Opening,1,R3,1,Her,Good answer,5
+0-Opening-2-Wait-0,0,Opening,2,Wait,0,None,5,
+0-Opening-3-Std-0,0,Opening,3,Std,0,Her,I like labels,
+0-Opening-3-Std-0,0,Opening,3,Std,0,Her,Hey,
+0-Opening-4-Q-0,0,Opening,4,Q,0,Her,What are we?,
+0-Opening-4-R1-0,0,Opening,4,R1,0,Me,You tell me,
+0-Opening-4-R1-1,0,Opening,4,R1,1,Her,Why can't you?,1
+0-Opening-4-R1-2,0,Opening,4,R1,2,Me,Idk,
+0-Opening-4-R2-0,0,Opening,4,R2,0,Me,I don't like labels,
+0-Opening-4-R2-1,0,Opening,4,R2,1,Her,Being you must be freeing,-2
+0-Opening-4-R3-0,0,Opening,4,R3,0,Me,Together?,
+0-Opening-4-R3-1,0,Opening,4,R3,1,Her,Good answer,5
+0-Opening-5-Wait-0,0,Opening,5,Wait,0,None,5,
+0-Opening-6-Std-0,0,Opening,6,Std,0,Her,I like labels,
+0-ExitHouse-0-Q-0,0,ExitHouse,0,Q,0,Her,Where you off to?,
+0-ExitHouse-0-R1-0,0,ExitHouse,0,R1,0,Me,[R1 Me],
+0-ExitHouse-0-R1-1,0,ExitHouse,0,R1,1,Her,[R1 Her],0
+0-ExitHouse-0-R2-0,0,ExitHouse,0,R2,0,Me,[R2 Me],
+0-ExitHouse-0-R2-1,0,ExitHouse,0,R2,1,Her,[R2 Her],0
+0-ExitHouse-0-R3-0,0,ExitHouse,0,R3,0,Me,[R3 Me],
+0-ExitHouse-0-R3-1,0,ExitHouse,0,R3,1,Her,[R3 Her],0
+---Std-,,,,Std,,None,,
+Default--0-Std-0,Default,,0,Std,0,None,,

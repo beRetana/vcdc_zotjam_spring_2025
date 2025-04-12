@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class DialogueController : MonoBehaviour
 {
     private PlayerController _playerController;
+    [SerializeField] DialogueParser dialogueParser;
 
     void Start()
     {
@@ -35,6 +36,7 @@ public class DialogueController : MonoBehaviour
     private void TakeAction(int actionNum)
     {
         Debug.Log($"Taking Action: {actionNum}");
+        dialogueParser.TakeAction(actionNum);
     }
 
 }
