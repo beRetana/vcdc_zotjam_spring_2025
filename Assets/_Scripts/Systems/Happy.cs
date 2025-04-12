@@ -9,6 +9,7 @@ public class Happy : MonoBehaviour
     // ultimate state
     public static int ultimateCount; // count. 
     public static bool ultReady; // to use in other functions for combat and whatnot
+    public static float mult; // multiplies 
     
     // call this in other functions
     public static bool gameOver; // to use in other functions for combat and whatnot
@@ -16,9 +17,10 @@ public class Happy : MonoBehaviour
     
     [SerializeField] private TextMeshProUGUI happyDebug; // text
     [SerializeField] private TextMeshProUGUI ultimateDebug; // text
+    [SerializeField] private TextMeshProUGUI multDebug; // text
     [SerializeField] public int herHappy = 20; // her happiness, defualt 20
     [SerializeField] public int ultCap = 20; // liimit to the ultimate amt
-
+    
 
     void Start()
     {
@@ -26,6 +28,7 @@ public class Happy : MonoBehaviour
         ultimateCount = 0;
         ultReady = false;
         gameOver = false;
+        mult = 1.0f;
     }
 
     // Update is called once per frame
@@ -38,7 +41,7 @@ public class Happy : MonoBehaviour
         }
     }
 
-    void editHerHappy(int amt)
+    public void editHerHappy(int amt)
     {
         // in the case amt is negative, cant go to negatives basically
         if (herHappy + amt < 0) {
@@ -56,7 +59,7 @@ public class Happy : MonoBehaviour
                 herHappy += amt;
             }
         }
-
+        setMultplier();
         updateUltimate(amt);
 
         UpdateHappinessUI();
@@ -73,6 +76,7 @@ public class Happy : MonoBehaviour
 // updates the ultimate count with hwatever the amount should be
     void updateUltimate(int amt)
     {
+
         if (amt < 0 )
         {
             // do nothing. 
@@ -81,13 +85,15 @@ public class Happy : MonoBehaviour
         }
         else
         {
-            if(ultimateCount + amt >= ultCap)
+            if(ultimateCount + amt * mult >= ultCap)
             {
                 ultimateCount = ultCap;
                 ultReady = true;
             }
-            else{
-                ultimateCount += amt;
+            else
+            {
+
+                ultimateCount += (int)(amt * mult);
             }
         }
 
@@ -96,5 +102,20 @@ public class Happy : MonoBehaviour
         {
             ultimateDebug.text = "Ult: " + ultimateCount;
         }
+    }
+
+    void setMultplier()
+    {
+        // if multiplier calc would be less than 5 
+        if (herHappy < 20) 
+        {
+            mult = 0.025f * herHappy + 0.5f;
+        }
+        else
+        {
+            mult = Mathf.Pow(herHappy-20, 0.5f) * 1 / (2.0f  * Mathf.Sqrt(5.0f) ) + 1.0f; // playing around . plug into desmos lol
+        }
+
+        multDebug.text = "Multplier: " + mult;
     }
 }
