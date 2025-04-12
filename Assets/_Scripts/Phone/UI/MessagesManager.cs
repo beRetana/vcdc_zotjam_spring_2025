@@ -1,16 +1,24 @@
+using System;
+using System.Collections;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class MessagesManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private MessagesSizes playerMessagesSizes;
+
+    [Serializable]
+    public struct MessagesSizes
     {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    private Queue messagesHistory;
+
+    void Start ()
     {
-        
+        messagesHistory = new Queue();
     }
+
+
 }

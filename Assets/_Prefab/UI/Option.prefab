@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 7806790853521161158}
   - component: {fileID: 3109143802006662987}
   - component: {fileID: 8421988537678518053}
+  - component: {fileID: 6969416389542328776}
   m_Layer: 5
-  m_Name: Options
+  m_Name: Option
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,6 +78,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6969416389542328776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25930457156797802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3469352c461f437e87675ce5a58649c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _indexText: {fileID: 1877201911270005146}
+  _contentText: {fileID: 1972057934826087165}
 --- !u!1 &1635435340639224557
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,7 +104,7 @@ GameObject:
   - component: {fileID: 1089923526988757007}
   - component: {fileID: 1972057934826087165}
   m_Layer: 5
-  m_Name: DialogueOption
+  m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +157,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 20 chars
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 736e69b492994d441917744cdd6494ce, type: 2}
   m_sharedMaterial: {fileID: 2731494967533173093, guid: 736e69b492994d441917744cdd6494ce, type: 2}
@@ -225,7 +240,7 @@ GameObject:
   - component: {fileID: 7338030917472794905}
   - component: {fileID: 1877201911270005146}
   m_Layer: 5
-  m_Name: OptionIndex
+  m_Name: Index
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
