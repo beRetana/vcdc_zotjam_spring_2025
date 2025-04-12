@@ -113,7 +113,7 @@ public class Happy : MonoBehaviour
         }
         else
         {
-            mult = Mathf.Pow(herHappy-20, 0.5f) * 1 / (2.0f  * Mathf.Sqrt(5.0f) ) + 1.0f; // playing around . plug into desmos lol
+            mult = Mathf.Pow(0.5f * herHappy - 10, 0.5f) * 0.4f + 1.0f; // playing around . plug into desmos lol
         }
 
         multDebug.text = "Multplier: " + mult;

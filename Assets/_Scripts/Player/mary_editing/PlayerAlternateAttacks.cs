@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerAttacks : MonoBehaviour
+public class PlayerAlternateAttacks : MonoBehaviour
 {
     [SerializeField, Range(.2f, 2f), Tooltip("How long the player has to switch into attack two")] 
     private float _attackSpeed = 1f;
@@ -11,13 +11,12 @@ public class PlayerAttacks : MonoBehaviour
     [SerializeField, Range(2f, 20f)] private float _rangedAttackRange = 8f;
     [SerializeField] private GameObject meleeAttackOneVFX;
     [SerializeField] private GameObject meleeAttackTwoVFX;
-    private PlayerController _playerController;
 
+    private PlayerController _playerController;
 
     // counts if youre in a loop yet or not
     private Coroutine _attackTimerCoroutine;
 
-    // tells you if you can enter into two to continue the combo
     private bool can_go_into_two;
 
     private enum MeleeAttackType{
@@ -52,23 +51,6 @@ public class PlayerAttacks : MonoBehaviour
 
     private void MeleeAttacks(InputAction.CallbackContext context)
     {
-        /*
-        switch (_meleeAttackType)
-        {
-            case MeleeAttackType.One:
-                AttackMeleeOne();
-                break;
-            case MeleeAttackType.Two:
-                AttackMeleeTwo();
-                break;
-        }
-        */
-
-        // mary code, remove if it doesnt work
-        // /*
-        // its not cases because i dont rlly wanna do cases if im not using two.
-        // maybe implement cases if we have more and more attacks but i do NOT
-        // want to animate ALLAT!!! 😭
         if(_meleeAttackType ==  MeleeAttackType.One)
         {
             if(!can_go_into_two)
@@ -96,58 +78,25 @@ public class PlayerAttacks : MonoBehaviour
                 _meleeAttackType = MeleeAttackType.One;
                 can_go_into_two = false;
             }
+
         }
-        // /*
+                
     }
 
-    /*
-    private void AttackMeleeOne()
-    {
-        MeleeAttack(meleeAttackOneVFX);
-        StartCoroutine(AttackTimer());
-    }
-
-    private void AttackMeleeTwo()
-    {
-        StopCoroutine(AttackTimer());
-        MeleeAttack(meleeAttackTwoVFX);
-        _meleeAttackType = MeleeAttackType.One;
-    }
-
-    IEnumerator AttackTimer(){
-        _meleeAttackType = MeleeAttackType.Two;
-        yield return new WaitForSeconds(_attackSpeed);
-        _meleeAttackType = MeleeAttackType.One;
-    }
-    */
-
-    // mary edits:
-    // /*
     private void AttackMeleeOne()
     {
         Debug.Log("1");
         MeleeAttack(meleeAttackOneVFX);
+        // StartCoroutine(AttackTimer());
     }
 
     private void AttackMeleeTwo()
     {
         Debug.Log("2");
+        // StopCoroutine(AttackTimer());
         MeleeAttack(meleeAttackTwoVFX);
+        // _meleeAttackType = MeleeAttackType.One;
     }
-
-    IEnumerator AttackTimer(){
-        // wait for this time, to see if you enter again
-        yield return new WaitForSeconds(_attackSpeed);
-
-        // didnt go fast enough, now youre cooked.
-        can_go_into_two = false;
-
-        // reset if nothing
-        _meleeAttackType = MeleeAttackType.One;
-        _attackTimerCoroutine = null;
-    }
-
-    // */
 
     private void MeleeAttack(GameObject attackVFX)
     {
@@ -157,5 +106,14 @@ public class PlayerAttacks : MonoBehaviour
         Debug.Log(" "+raycastHit.point);
     }
 
-    
+    IEnumerator AttackTimer(){
+        // wait for this time, to see if you enter again
+        yield return new WaitForSeconds(_attackSpeed);
+
+        can_go_into_two = false;
+
+        // reset if nothing
+        _meleeAttackType = MeleeAttackType.One;
+        _attackTimerCoroutine = null;
+    }
 }
