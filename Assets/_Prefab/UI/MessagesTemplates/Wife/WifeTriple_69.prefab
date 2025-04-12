@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 3262939543257754940}
   - component: {fileID: 2459692322838773627}
   - component: {fileID: 6411413012632707524}
+  - component: {fileID: 1260336192012830165}
   m_Layer: 5
   m_Name: WifeTriple_69
   m_TagString: Untagged
@@ -212,3 +213,16 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1260336192012830165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6588434967931035227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2438011f261bd7c45a02d41433d31c09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: 3
