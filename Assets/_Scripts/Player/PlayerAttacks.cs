@@ -13,6 +13,13 @@ public class PlayerAttacks : MonoBehaviour
     [SerializeField] private GameObject meleeAttackTwoVFX;
     private PlayerController _playerController;
 
+
+    // counts if youre in a loop yet or not
+    private Coroutine _attackTimerCoroutine;
+
+    // tells you if you can enter into two to continue the combo
+    private bool can_go_into_two;
+
     private enum MeleeAttackType{
         One,
         Two,
@@ -45,6 +52,7 @@ public class PlayerAttacks : MonoBehaviour
 
     private void MeleeAttacks(InputAction.CallbackContext context)
     {
+        /*
         switch (_meleeAttackType)
         {
             case MeleeAttackType.One:
@@ -54,8 +62,45 @@ public class PlayerAttacks : MonoBehaviour
                 AttackMeleeTwo();
                 break;
         }
+        */
+
+        // mary code, remove if it doesnt work
+        // /*
+        // its not cases because i dont rlly wanna do cases if im not using two.
+        // maybe implement cases if we have more and more attacks but i do NOT
+        // want to animate ALLAT!!! 😭
+        if(_meleeAttackType ==  MeleeAttackType.One)
+        {
+            if(!can_go_into_two)
+            {
+                AttackMeleeOne();
+                can_go_into_two = true;
+
+                // no overlap!
+                if (_attackTimerCoroutine != null){
+                    StopCoroutine(_attackTimerCoroutine);
+                }
+                // starts the wait timer to see if we enter the other attack
+                _attackTimerCoroutine = StartCoroutine(AttackTimer());
+            }
+            else
+            {
+                AttackMeleeTwo();
+
+                // no overlap, again
+                if (_attackTimerCoroutine != null) {
+                    StopCoroutine(_attackTimerCoroutine);
+                }
+
+                // go back to the first attack type. no need to wait for anything 
+                _meleeAttackType = MeleeAttackType.One;
+                can_go_into_two = false;
+            }
+        }
+        // /*
     }
 
+    /*
     private void AttackMeleeOne()
     {
         MeleeAttack(meleeAttackOneVFX);
@@ -69,6 +114,41 @@ public class PlayerAttacks : MonoBehaviour
         _meleeAttackType = MeleeAttackType.One;
     }
 
+    IEnumerator AttackTimer(){
+        _meleeAttackType = MeleeAttackType.Two;
+        yield return new WaitForSeconds(_attackSpeed);
+        _meleeAttackType = MeleeAttackType.One;
+    }
+    */
+
+    // mary edits:
+    // /*
+    private void AttackMeleeOne()
+    {
+        Debug.Log("1");
+        MeleeAttack(meleeAttackOneVFX);
+    }
+
+    private void AttackMeleeTwo()
+    {
+        Debug.Log("2");
+        MeleeAttack(meleeAttackTwoVFX);
+    }
+
+    IEnumerator AttackTimer(){
+        // wait for this time, to see if you enter again
+        yield return new WaitForSeconds(_attackSpeed);
+
+        // didnt go fast enough, now youre cooked.
+        can_go_into_two = false;
+
+        // reset if nothing
+        _meleeAttackType = MeleeAttackType.One;
+        _attackTimerCoroutine = null;
+    }
+
+    // */
+
     private void MeleeAttack(GameObject attackVFX)
     {
         RaycastHit raycastHit;
@@ -77,9 +157,5 @@ public class PlayerAttacks : MonoBehaviour
         Debug.Log(" "+raycastHit.point);
     }
 
-    IEnumerator AttackTimer(){
-        _meleeAttackType = MeleeAttackType.Two;
-        yield return new WaitForSeconds(_attackSpeed);
-        _meleeAttackType = MeleeAttackType.One;
-    }
+    
 }
