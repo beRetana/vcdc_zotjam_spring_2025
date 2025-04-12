@@ -1098,6 +1098,86 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1147503339335026408, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1147503339335026408, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1147503339335026408, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1147503339335026408, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2459374027121894056, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2459374027121894056, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2459374027121894056, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2459374027121894056, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4284519924813911952, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4284519924813911952, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4284519924813911952, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4284519924813911952, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5765747808893677790, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: wifeMessageTemplates.OneLine
+      value: 
+      objectReference: {fileID: 8480505127938615747, guid: 301ea80c18cfc1f448c411254f0c7b4a, type: 3}
+    - target: {fileID: 5765747808893677790, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: wifeMessageTemplates.TwoLine
+      value: 
+      objectReference: {fileID: 569496719858435141, guid: 8a37b419e23ad474cb0a070a2112ac34, type: 3}
+    - target: {fileID: 5765747808893677790, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: playerMessageTemplates.OneLine
+      value: 
+      objectReference: {fileID: 679580043776499962, guid: 2aea63c66c60cc14d88c404bedca19a2, type: 3}
+    - target: {fileID: 5765747808893677790, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: playerMessageTemplates.TwoLine
+      value: 
+      objectReference: {fileID: 1405311171162779481, guid: 4ad9605b03f584240a374280ccdab2a9, type: 3}
+    - target: {fileID: 5765747808893677790, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: wifeMessageTemplates.ThreeLine
+      value: 
+      objectReference: {fileID: 3262939543257754940, guid: a60a31aef8130784ab9f9e136f0d2a89, type: 3}
+    - target: {fileID: 5765747808893677790, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: wifeMessageTemplates.OneMidLine
+      value: 
+      objectReference: {fileID: 8864471624447387332, guid: 11c5405ad747355499f12590daa29b04, type: 3}
+    - target: {fileID: 5765747808893677790, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: playerMessageTemplates.ThreeLine
+      value: 
+      objectReference: {fileID: 3690940595996077733, guid: c88c6b67a2a37e4448a8aab79e964efa, type: 3}
+    - target: {fileID: 5765747808893677790, guid: d030774560582054097e4e78d02f43b4, type: 3}
+      propertyPath: playerMessageTemplates.OneMidLine
+      value: 
+      objectReference: {fileID: 5478847510776549454, guid: 0f32c98676e73c047a0caa79b896d5ca, type: 3}
     - target: {fileID: 6812312135572032055, guid: d030774560582054097e4e78d02f43b4, type: 3}
       propertyPath: m_Pivot.x
       value: 0
