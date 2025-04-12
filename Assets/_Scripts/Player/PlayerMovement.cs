@@ -7,12 +7,13 @@ public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float _movementSpeed = 10;
     private PlayerController _playerController;
+    private PlayerAttacks _playerAttacks;
     private Vector2 _movementInput;
-    private float _movement;
 
     void Start()
     {
         _playerController = new();
+        _playerAttacks = GetComponent<PlayerAttacks>();
         Enable();
     }
 
@@ -42,7 +43,13 @@ public class PlayerMovement : MonoBehaviour
     void HandleMovementInput(InputAction.CallbackContext context)
     {
         _movementInput = context.action.ReadValue<Vector2>();
-        Debug.Log(_movementInput);
+        SwitchFacing();
+        _playerAttacks.FacingRight = (int)_movementInput.x;
+    }
+
+    void SwitchFacing()
+    {
+        transform.localScale = transform.localScale*-1;
     }
 
     void Dash(InputAction.CallbackContext context)
@@ -52,6 +59,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        transform.position += new Vector3(_movementInput.x, _movementInput.y, 0f) * _movementSpeed * Time.deltaTime;
+        transform.position += new Vector3(_movementInput.x, 0f ,_movementInput.y) * _movementSpeed * Time.deltaTime;
     }
 }
