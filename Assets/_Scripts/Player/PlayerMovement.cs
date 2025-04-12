@@ -10,6 +10,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Range(0f, 100f)] private float _dashTime = .5f;
     [SerializeField, Range(0f, 100f)] private float _dashSpeed = 10f;
 
+    //mary funny
+    [SerializeField] private Happy happyScript;
+
     private PlayerController _playerController;
     private PlayerAttacks _playerAttacks;
     private Rigidbody _rigidbody;
@@ -69,13 +72,18 @@ public class PlayerMovement : MonoBehaviour
         {
             case 1: // 1 means facing right
                 if (transform.localScale.x < 0) 
-                    transform.localScale *= -1;
+                    FlipScale();
                 break;
             case -1: // -1 means facing left
                 if (transform.localScale.x > 0)
-                    transform.localScale *= -1;
+                    FlipScale();
                 break;
         }
+    }
+
+    void FlipScale()
+    {
+        transform.localScale = new Vector3(transform.localScale.x*-1, transform.localScale.y, transform.localScale.z);
     }
 
     void Dash(InputAction.CallbackContext context)
@@ -105,5 +113,13 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         transform.position += new Vector3(_movementInput.x, 0f, _movementInput.y) * _movementSpeed * Time.deltaTime;
+    }
+
+    // mary test
+    void OnCollisionEnter(Collision collision)
+    {
+        // Debug.Log("Collided with: " + collision.gameObject.name);
+
+        happyScript.editHerHappy(2);
     }
 }
