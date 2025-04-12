@@ -72,13 +72,18 @@ public class PlayerMovement : MonoBehaviour
         {
             case 1: // 1 means facing right
                 if (transform.localScale.x < 0) 
-                    transform.localScale *= -1;
+                    FlipScale();
                 break;
             case -1: // -1 means facing left
                 if (transform.localScale.x > 0)
-                    transform.localScale *= -1;
+                    FlipScale();
                 break;
         }
+    }
+
+    void FlipScale()
+    {
+        transform.localScale = new Vector3(transform.localScale.x*-1, transform.localScale.y, transform.localScale.z);
     }
 
     void Dash(InputAction.CallbackContext context)

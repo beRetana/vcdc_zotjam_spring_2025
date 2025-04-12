@@ -2,15 +2,25 @@ using UnityEngine;
 
 public class DialogueOptionsManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private DialogueOption[] _dialogueOptionsUI;
+
+    public void DisplayResponseOptions(CSVReader.DialogueRow[] dialogueOptions)
     {
-        
+        for (int index = 0; index < dialogueOptions.Length; ++index)
+        {
+            _dialogueOptionsUI[index].UpdateOption(index+1, dialogueOptions[index].dialogue);
+            _dialogueOptionsUI[index].gameObject.SetActive(true);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void DisableResponseOptions()
     {
-        
+        for (int index = 0; index < _dialogueOptionsUI.Length; ++index)
+            _dialogueOptionsUI[index].gameObject.SetActive(false);
+    }
+
+    private void Counter()
+    {
+
     }
 }
