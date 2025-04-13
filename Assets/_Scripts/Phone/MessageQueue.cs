@@ -312,7 +312,7 @@ public class MessageQueue : MonoBehaviour
         messageTimer = 0f;
         previousTextEnum = TextEnum.ResponseOptions;
 
-        ProcessMessaging();
+        //ProcessMessaging();
 
         //ExitMessage();
         //ExitStandardMessage(_MessageQueue.First.Value.dialogueRow);
