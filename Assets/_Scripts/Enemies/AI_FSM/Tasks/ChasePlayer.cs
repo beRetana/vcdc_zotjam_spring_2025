@@ -34,7 +34,6 @@ public class ChasePlayer : TaskBase
         _aiController.MoveTo(_player.transform.position);
         if (CloseEnough())
         {
-            Debug.Log("Got Close Engough: Switching to Attacking");
             _actor.UpdateBehaviour(Enemy.EnemyState.Attacking);
         }
     }
