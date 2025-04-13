@@ -16,7 +16,16 @@ public class Love : MonoBehaviour
     
     [SerializeField] private TextMeshProUGUI loveDebug; // text
     [SerializeField] int herLove = 20; // her happiness, defualt 20
-    
+
+    private void OnEnable()
+    {
+        SceneTransition.OnSceneLoaded += FindPointsScript;
+    }
+
+    private void FindPointsScript()
+    {
+        pointScript = FindFirstObjectByType<Points>();
+    }
 
     void Start()
     {

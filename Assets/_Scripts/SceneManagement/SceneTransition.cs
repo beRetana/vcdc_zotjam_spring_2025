@@ -9,20 +9,33 @@ public class SceneTransition : MonoBehaviour
     public enum SceneTypeEnum { Mid, Game };
     public SceneTypeEnum sceneTypeEnum { get; private set; }
 
-    public string nextSceneName;
-    [SerializeField] string firstLevelSceneName;
+    public delegate void SceneLoaded();
+    public static SceneLoaded OnSceneLoaded;
+
+    public string nextSceneName = "conner";
+
+    public delegate void StartGamePlay();
+    public static StartGamePlay OnStartGamePlay;
 
     void Start()
     {
         canvasGroup.alpha = 1f;
-        nextSceneName = firstLevelSceneName;
-        SetUpEnterGameScene(); //remove
-    }    
+        //SetUpEnterMidScene();
+        //LoadNextSceneInBackground();
+        //OnStartGamePlay?.Invoke();
+    }
 
 
     public void NextScene(string nextSceneStringName)
     {
         nextSceneName = nextSceneStringName;
+        if(nextSceneName == "conner")
+        {
+            canvasGroup.alpha = 1f;
+            SceneManager.LoadScene("conner");
+            OnStartGamePlay?.Invoke();
+            return;
+        }
         StartCoroutine(ExitCurrentSceneLoadNextScene());
     }
 
@@ -73,7 +86,7 @@ public class SceneTransition : MonoBehaviour
             yield return null;
         }
         canvasGroup.alpha = 0f;
-
+        OnSceneLoaded?.Invoke();
     }
 
     IEnumerator AlphaToOpaque()
