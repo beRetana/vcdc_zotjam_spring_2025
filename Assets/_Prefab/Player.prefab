@@ -850,9 +850,9 @@ MonoBehaviour:
   _attackSpeed: 1
   _meleeAttackArea: 0.5
   _meleeAttackRange: 5
-  _meleeAttackOneDamage: 10
+  _meleeAttackOneDamage: 5
   _meleeAttackTwoDamage: 10
-  _chargedAttackDamage: 20
+  _chargedAttackDamage: 30
   _chargingTime: 2
   _chargeHoldingTime: 0.5
   _ultiRangeAttack: 10
