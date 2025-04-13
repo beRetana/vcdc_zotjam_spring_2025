@@ -127,7 +127,9 @@ public class PlayerMovement : MonoBehaviour
         Vector3 direction = new Vector3(_movementInput.x, 0f, _movementInput.y);
         _rigidbody.AddForce(direction * _dashSpeed, ForceMode.Impulse);
         DisableMovement();
+        _playerAnimations.Dashing(true);
         yield return new WaitForSeconds(_dashTime);
+        _playerAnimations.Dashing(false);
         EnableMovement();
         _rigidbody.linearVelocity = Vector3.zero;
         RaycastHit hit;
