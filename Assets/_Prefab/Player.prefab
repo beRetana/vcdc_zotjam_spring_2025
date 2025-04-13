@@ -243,9 +243,9 @@ Transform:
   m_GameObject: {fileID: 1571614576836108499}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 363963424735403029}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -292,9 +292,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 62afa0d8ea625624fa635fc61f0d7b71, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
+  m_Color: {r: 0, g: 0.5415806, b: 0.6698113, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -795,7 +795,7 @@ GameObject:
   - component: {fileID: 6267031927199751902}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -833,6 +833,7 @@ MonoBehaviour:
   _sprintSpeed: 7
   _dashTime: 0.5
   _dashSpeed: 15
+  _dashDamage: 10
   happyScript: {fileID: 4284072329252252643}
 --- !u!114 &547331374711749930
 MonoBehaviour:
@@ -851,9 +852,14 @@ MonoBehaviour:
   _meleeAttackRange: 5
   _meleeAttackOneDamage: 10
   _meleeAttackTwoDamage: 10
-  _rangedAttackRange: 8
-  meleeAttackOneVFX: {fileID: 3023164379861629155, guid: 5021f19e10fab4609961482b77df9f1e, type: 3}
-  meleeAttackTwoVFX: {fileID: 9100096776695324944, guid: 9a6ae64c0a7184b3eb0281e9cb902ebe, type: 3}
+  _chargedAttackDamage: 20
+  _chargingTime: 2
+  _chargeHoldingTime: 0.5
+  _ultiRangeAttack: 10
+  _ultiDamageAttack: 50
+  _enemiesMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!114 &4674449396441536891
 MonoBehaviour:
   m_ObjectHideFlags: 0
