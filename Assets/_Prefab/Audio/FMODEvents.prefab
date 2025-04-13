@@ -128,3 +128,10 @@ MonoBehaviour:
       Data3: 1700041639
       Data4: 1973314669
     Path: event:/SadNoise
+  <ShankAttack>k__BackingField:
+    Guid:
+      Data1: -1676329698
+      Data2: 1123209183
+      Data3: -1359307635
+      Data4: 1709648833
+    Path: event:/EnemyShank
