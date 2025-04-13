@@ -163,19 +163,19 @@ public class PlayerAttacks : MonoBehaviour
     // */
 
     private bool MeleeAttack(float damage)
-{
-    RaycastHit raycastHit;
-    if (Physics.SphereCast(transform.position, _meleeAttackArea, Vector3.right * _facingRight, out raycastHit, _meleeAttackRange))
     {
-        var enemyHealth = raycastHit.transform.GetComponent<EnemyHealth>();
-        if (enemyHealth != null)
+        RaycastHit raycastHit;
+        if (Physics.SphereCast(transform.position, _meleeAttackArea, Vector3.right * _facingRight, out raycastHit, _meleeAttackRange))
         {
-            enemyHealth.ModifyHealth(damage);
-            return true; // It hit!
+            var enemyHealth = raycastHit.transform.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
+            {
+                enemyHealth.ModifyHealth(damage);
+                return true; // It hit!
+            }
         }
+        return false; // It missed!
     }
-    return false; // It missed!
-}
 
     
 }
