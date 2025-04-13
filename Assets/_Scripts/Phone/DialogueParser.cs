@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class DialogueParser : MonoBehaviour
 {
     [SerializeField] CSVReader _CSVReader;
+    [SerializeField] MessageQueue _DialogueQueue;
 
     private LinkedList<CSVReader.DialogueRow> _dialogueList;
     private CSVReader.TypeEnum responseType;
@@ -170,13 +171,15 @@ public class DialogueParser : MonoBehaviour
 
     private void SendMessage(CSVReader.DialogueRow r)
     {
-        Debug.Log(r);
+        //Debug.Log(r);
+        _DialogueQueue.QueueMessage(r);
     }
 
-    private void SendReponseOptions(string[] reponseChoices)
+    private void SendReponseOptions(string[] responseChoices)
     {
-        Debug.Log($"[1] {reponseChoices[0]}");
-        Debug.Log($"[2] {reponseChoices[1]}");
-        Debug.Log($"[3] {reponseChoices[2]}");
+        //Debug.Log($"[1] {reponseChoices[0]}");
+        //Debug.Log($"[2] {reponseChoices[1]}");
+        //Debug.Log($"[3] {reponseChoices[2]}");
+        _DialogueQueue.QueueResponseOptions(responseChoices);
     }
 }
