@@ -103,6 +103,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Dash(InputAction.CallbackContext context)
     {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.DashSFX,this.transform.position);
         StartCoroutine(Dashing());
     }
 

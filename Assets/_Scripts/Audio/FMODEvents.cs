@@ -28,6 +28,9 @@ public class FMODEvents : MonoBehaviour
      [field: Header("Haymaker Impact")]
      [field: SerializeField] public EventReference HaymakerImpact {get; private set;}
 
+     [field: Header("Ultimate SFX")]
+     [field: SerializeField] public EventReference ULTSFX {get; private set;}
+
     //AudioManager.instance.PlayOneShot(FMODEvents.instance.PunchWhiff,this.transform.position);
     
     

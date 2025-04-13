@@ -76,6 +76,8 @@ public class PlayerAttacks : MonoBehaviour
         var hits = Physics.OverlapSphere(transform.position, _ultiRangeAttack, _enemiesMask);
         foreach (var c in hits)
         {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.ULTSFX,this.transform.position);
+
             float ratio = Mathf.Min(1, _ultiRangeAttack / (c.transform.position - transform.position).magnitude);
             c.GetComponent<EnemyHealth>()?.ModifyHealth(ratio * _ultiDamageAttack);
         }
