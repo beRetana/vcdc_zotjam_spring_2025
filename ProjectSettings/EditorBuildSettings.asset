@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/_Scenes/BUILD/MainMenu.unity
     guid: 57e655bb4c80fc043921994ce75fd1b8
   - enabled: 1
-    path: Assets/_Scenes/BUILD/Forest_F1.unity
+    path: Assets/_Scenes/SALVAGE/Forest_F1.unity
     guid: 627d3630ff4fac54d969ca20759dc091
   - enabled: 1
     path: Assets/_Scenes/BUILD/City_2.unity
