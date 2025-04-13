@@ -33,9 +33,11 @@ public class Enemy : AIActor
 
     public virtual void UpdateBehaviour(EnemyState newEnemyState)
     {
+        Debug.Log($"Old {_enemyState}: New {newEnemyState}");
         if (newEnemyState != _enemyState)
         {
             _enemyState = newEnemyState;
+            
             AbortBehaviors();
         }
         TransitionOfBehaviors();
@@ -61,5 +63,10 @@ public class Enemy : AIActor
         _chasePlayer?.Disable();
         _enemyAttack?.Disable();
         _stunned?.Disable();
+    }
+
+    public bool CloseEnough()
+    {
+        return (_player.transform.position - transform.position).magnitude < _chasePlayer.AttackRange;
     }
 }

@@ -22,6 +22,7 @@ public class EnemyHealth : MonoBehaviour
     public virtual void ModifyHealth(float modifier)
     {
         _health = Mathf.Max(_health - modifier, 0f);
+        Debug.Log($"The Enemy Health is: {_health}");
         if (_health <= 0f) OnDeath();
         else OnEnemyAttacked?.Invoke();
     }
