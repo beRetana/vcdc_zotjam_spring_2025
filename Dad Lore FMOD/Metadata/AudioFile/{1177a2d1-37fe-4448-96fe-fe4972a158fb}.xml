@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{1177a2d1-37fe-4448-96fe-fe4972a158fb}">
+		<property name="assetPath">
+			<value>Enemy Crowbar.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.3950566893424037</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{db4b3adc-723a-4831-b228-6fae46c4f919}</destination>
+		</relationship>
+	</object>
+</objects>
