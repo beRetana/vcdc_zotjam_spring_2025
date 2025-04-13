@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/BUILD/Church_3.unity
     guid: c87924d7d8c7d764280c672a41179e50
+  - enabled: 1
+    path: Assets/_Scenes/BUILD/EndingScene.unity
+    guid: dd623d505aef8df48ab64dc95680e56d
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: f6ad3729400de4bfbb63e34be308f1df, type: 3}
   m_UseUCBPForAssetBundles: 0

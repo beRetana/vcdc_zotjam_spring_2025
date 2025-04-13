@@ -141,7 +141,8 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator DashAttack(Rigidbody rb, EnemyHealth enemyHealth, Vector3 direction)
     {
-        rb.isKinematic = false;
+        if (rb != null)
+            rb.isKinematic = false;
         enemyHealth.ModifyHealth(_dashDamage);
         rb?.AddForce(_dashSpeed * direction, ForceMode.Impulse);
         yield return new WaitForSeconds(1f);
