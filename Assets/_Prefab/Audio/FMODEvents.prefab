@@ -114,3 +114,17 @@ MonoBehaviour:
       Data3: -688827468
       Data4: -336769410
     Path: event:/EnemyTakeDamage
+  <HappyNoise>k__BackingField:
+    Guid:
+      Data1: 1741720693
+      Data2: 1309456585
+      Data3: -1030987902
+      Data4: 1638310369
+    Path: event:/HappyNoise
+  <SadNoise>k__BackingField:
+    Guid:
+      Data1: 1932882702
+      Data2: 1255940579
+      Data3: 1700041639
+      Data4: 1973314669
+    Path: event:/SadNoise

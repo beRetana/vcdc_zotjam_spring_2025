@@ -60,11 +60,11 @@ public class FaceUI : MonoBehaviour
         image.sprite = standardFaces[faceIndex];
         if (faceIndex > currentFaceIndex)
         {
-            // got happier
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.HappyNoise,this.transform.position);
         }
         else if (faceIndex < currentFaceIndex)
         {
-            // got sadder
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.SadNoise,this.transform.position);
         }
 
         currentFaceIndex = faceIndex;
