@@ -98,6 +98,8 @@ GameObject:
   - component: {fileID: 363963424735403029}
   - component: {fileID: 7749727972789210419}
   - component: {fileID: 547331374711749930}
+  - component: {fileID: 4674449396441536891}
+  - component: {fileID: 4284072329252252643}
   - component: {fileID: 3169220560898088210}
   - component: {fileID: 384687502169301907}
   m_Layer: 0
@@ -135,9 +137,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c463d060ffd6f4946b4fabfc7bfd087a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movementSpeed: 10
+  _baseSpeed: 5
+  _sprintSpeed: 7
   _dashTime: 0.5
   _dashSpeed: 15
+  happyScript: {fileID: 0}
 --- !u!114 &547331374711749930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +160,36 @@ MonoBehaviour:
   _rangedAttackRange: 8
   meleeAttackOneVFX: {fileID: 3023164379861629155, guid: 5021f19e10fab4609961482b77df9f1e, type: 3}
   meleeAttackTwoVFX: {fileID: 9100096776695324944, guid: 9a6ae64c0a7184b3eb0281e9cb902ebe, type: 3}
+--- !u!114 &4674449396441536891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8510501772523145487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc470cfef17e8994180b3c7330e92a12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  happyScript: {fileID: 4284072329252252643}
+--- !u!114 &4284072329252252643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8510501772523145487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b0d91648bc55e04e9b0729b24cc4fa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  happyDebug: {fileID: 0}
+  ultimateDebug: {fileID: 0}
+  multDebug: {fileID: 0}
+  herHappy: 20
+  ultCap: 20
 --- !u!136 &3169220560898088210
 CapsuleCollider:
   m_ObjectHideFlags: 0
