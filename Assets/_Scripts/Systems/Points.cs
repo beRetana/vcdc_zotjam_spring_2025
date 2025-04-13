@@ -48,6 +48,8 @@ public class Points : MonoBehaviour
     }
 
     // how many points the enemy is worth, goes into this
+    // @ BRANDON!!!!!!
+    // AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH 
     public void EnemyDeath(int enemy_value)
     {
         points += (int)(mult * enemy_value);
