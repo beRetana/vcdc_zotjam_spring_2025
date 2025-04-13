@@ -31,6 +31,12 @@ public class FMODEvents : MonoBehaviour
      [field: Header("Ultimate SFX")]
      [field: SerializeField] public EventReference ULTSFX {get; private set;}
 
+     [field: Header("Take Damage")]
+     [field: SerializeField] public EventReference TakeDamage {get; private set;}
+
+     [field: Header("Enemy Damage")]
+     [field: SerializeField] public EventReference EnemyTakeDamage {get; private set;}
+
     //AudioManager.instance.PlayOneShot(FMODEvents.instance.PunchWhiff,this.transform.position);
     
     
