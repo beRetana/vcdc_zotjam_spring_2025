@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 public class MessageQueue : MonoBehaviour
 {
-    const float AVG_CHARACTERS_PER_SECOND = 10f;
+    const float AVG_CHARACTERS_PER_SECOND = 12f;
+    const float AVG_ADDITIONAL_MESSAGE_TIME = .5f;
     const float AVG_RESPONSE_TIMER = 6.9f;
 
     public bool AcceptingResponses { get; private set; } = false;
@@ -170,7 +171,7 @@ public class MessageQueue : MonoBehaviour
     {
         timerEnum = TimerEnum.Typing;
 
-        messageTimer = typingTime;
+        messageTimer = typingTime + AVG_ADDITIONAL_MESSAGE_TIME;
     }
     private void ExitStandardMessage(CSVReader.DialogueRow dialogueRow)
     {
