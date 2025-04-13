@@ -74,7 +74,12 @@ public class PlayerAttacks : MonoBehaviour
 
     private void UltimateAttack(InputAction.CallbackContext ctx)
     {
-        if (_ultiCurrentPoints < _ultiNecessaryPoints) return;
+        //if (_ultiCurrentPoints < _ultiNecessaryPoints) return;
+        _playerAnimations.Ulti();
+    }
+
+    public void LogicUlti()
+    {
         var hits = Physics.OverlapSphere(transform.position, _ultiRangeAttack, _enemiesMask);
         foreach (var c in hits)
         {
@@ -90,6 +95,7 @@ public class PlayerAttacks : MonoBehaviour
             if (!can_go_into_two)
             {
                 AttackMeleeOne();
+                _playerAnimations.Jab_One();
                 can_go_into_two = true;
                 if (_attackTimerCoroutine != null) StopCoroutine(_attackTimerCoroutine);
                 _attackTimerCoroutine = StartCoroutine(AttackTimer());
@@ -97,6 +103,7 @@ public class PlayerAttacks : MonoBehaviour
             else
             {
                 AttackMeleeTwo();
+                _playerAnimations.Jab_Two();
                 if (_attackTimerCoroutine != null) StopCoroutine(_attackTimerCoroutine);
                 _meleeAttackType = MeleeAttackType.One;
                 can_go_into_two = false;
