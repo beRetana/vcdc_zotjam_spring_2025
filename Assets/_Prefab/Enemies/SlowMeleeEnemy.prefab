@@ -17,6 +17,10 @@ PrefabInstance:
       value: 1.421
       objectReference: {fileID: 0}
     - target: {fileID: 4097725625922718787, guid: 58c4254f9af840f4b93776b968f42417, type: 3}
+      propertyPath: _range
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4097725625922718787, guid: 58c4254f9af840f4b93776b968f42417, type: 3}
       propertyPath: _damage
       value: 2
       objectReference: {fileID: 0}
