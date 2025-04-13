@@ -7,10 +7,12 @@ public class QuickMeleeAttack : EnemyAttack
     [SerializeField] protected float _timeBetweenAttacks = .1f;
 
     protected Enemy _enemy;
+    protected EnemyAnimations _anim;
 
     protected override void Start()
     {
         _enemy = GetComponent<Enemy>();
+        _anim = GetComponent<EnemyAnimations>();
     }
 
     public override void Enable()
@@ -27,6 +29,7 @@ public class QuickMeleeAttack : EnemyAttack
     {
         RaycastHit hit;
         Vector3 direction = GetPlayerDirection();
+        _anim.Attack();
         if (Physics.Raycast(transform.position  + Vector3.up, direction, out hit, _range))
         {
             Damage(hit.transform.GetComponent<Health>(), _damage);
