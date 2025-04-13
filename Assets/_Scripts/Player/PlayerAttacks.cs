@@ -218,8 +218,9 @@ public class PlayerAttacks : MonoBehaviour
 
     private bool MeleeAttack(float damage)
     {
+        Debug.Log("Trying To Hit");
         RaycastHit raycastHit;
-        if (Physics.SphereCast(transform.position, _meleeAttackArea, Vector3.right * _facingRight, out raycastHit, _meleeAttackRange))
+        if (Physics.Raycast(transform.position + Vector3.up, Vector3.right * _facingRight, out raycastHit, _meleeAttackRange))
         {
             var enemyHealth = raycastHit.transform.GetComponent<EnemyHealth>();
             if (enemyHealth != null)

@@ -32,7 +32,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     void Start()

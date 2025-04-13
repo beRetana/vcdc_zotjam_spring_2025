@@ -4,9 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] private const string _sceneName = "Forest_S1";
+
     public void StartGame()
     {
-        SceneManager.LoadScene("Stage 1");
+        SceneManager.LoadScene(_sceneName);
     }
 
     public void QuitGame()
