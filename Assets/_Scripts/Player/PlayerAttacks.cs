@@ -20,6 +20,8 @@ public class PlayerAttacks : MonoBehaviour
     [SerializeField, Range(1f, 100f)] private float _ultiNecessaryPoints = 100f;
     [SerializeField] private LayerMask _enemiesMask;
 
+    [SerializeField] private GameObject ultiVFX;
+
     private PlayerController _playerController;
     private PlayerAnimations _playerAnimations;
     private float _ultiCurrentPoints;
@@ -48,7 +50,7 @@ public class PlayerAttacks : MonoBehaviour
         _playerController = new PlayerController();
         _playerAnimations = GetComponent<PlayerAnimations>();
         Enable();
-        HaymakerCharge = AudioManager.instance.CreateInstance(FMODEvents.instance.HaymakerCharge);
+        //HaymakerCharge = AudioManager.instance.CreateInstance(FMODEvents.instance.HaymakerCharge);
         HaymakerImpact = AudioManager.instance.CreateInstance(FMODEvents.instance.HaymakerImpact);
     }
 
@@ -74,8 +76,16 @@ public class PlayerAttacks : MonoBehaviour
 
     private void UltimateAttack(InputAction.CallbackContext ctx)
     {
-        if (_ultiCurrentPoints < _ultiNecessaryPoints) return;
+        //if (_ultiCurrentPoints < _ultiNecessaryPoints) return;
+        _playerAnimations.Ulti();
+    }
+
+    public void LogicUlti()
+    {
         var hits = Physics.OverlapSphere(transform.position, _ultiRangeAttack, _enemiesMask);
+        var game = Instantiate(ultiVFX, transform);
+        Destroy(game, 2f);
+
         foreach (var c in hits)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.ULTSFX,this.transform.position);
@@ -92,6 +102,7 @@ public class PlayerAttacks : MonoBehaviour
             if (!can_go_into_two)
             {
                 AttackMeleeOne();
+                _playerAnimations.Jab_One();
                 can_go_into_two = true;
                 if (_attackTimerCoroutine != null) StopCoroutine(_attackTimerCoroutine);
                 _attackTimerCoroutine = StartCoroutine(AttackTimer());
@@ -99,6 +110,7 @@ public class PlayerAttacks : MonoBehaviour
             else
             {
                 AttackMeleeTwo();
+                _playerAnimations.Jab_Two();
                 if (_attackTimerCoroutine != null) StopCoroutine(_attackTimerCoroutine);
                 _meleeAttackType = MeleeAttackType.One;
                 can_go_into_two = false;
@@ -137,6 +149,7 @@ public class PlayerAttacks : MonoBehaviour
     private void StartCharge(InputAction.CallbackContext ctx)
     {
         if (_charging != null) StopCoroutine(_charging);
+        _playerAnimations.Charging(true);
         _charging = StartCoroutine(ChargeAttack());
 
     }
@@ -161,6 +174,8 @@ public class PlayerAttacks : MonoBehaviour
             // cancelled too early
             HaymakerCharge.stop(STOP_MODE.IMMEDIATE);
         }
+
+        _playerAnimations.Charging(false);
 
         // reset
         _currentChargeTime = 0f;
@@ -198,6 +213,7 @@ public class PlayerAttacks : MonoBehaviour
                 _isCharging = false;
                 HaymakerCharge.stop(STOP_MODE.ALLOWFADEOUT);
                 HaymakerImpact.start();
+                _playerAnimations.Charging(false);
                 MeleeAttack(_chargedAttackRatio * _chargedAttackDamage);
                 yield break;
             }

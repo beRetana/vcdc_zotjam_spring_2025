@@ -861,6 +861,7 @@ MonoBehaviour:
   _enemiesMask:
     serializedVersion: 2
     m_Bits: 64
+  ultiVFX: {fileID: 5019045727518092891, guid: 6f093e73f5600074fb151db9b6aff9e1, type: 3}
 --- !u!114 &4674449396441536891
 MonoBehaviour:
   m_ObjectHideFlags: 0

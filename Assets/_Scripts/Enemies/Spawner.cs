@@ -1,14 +1,20 @@
-using System.Collections.Generic;
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private Transform enemy;
-    [SerializeField] private List<Transform> locations;
+    [SerializeField] private Transform[] wave1;
+    [SerializeField] private Transform[] wave2;
+    [SerializeField] private Transform[] wave3;
+    [SerializeField] private Transform[] wave4;
+    [SerializeField] private Transform[] wave5;
     [SerializeField] private TextMeshProUGUI textMeshPro;
     [SerializeField] private GameObject portal;
-
+    [SerializeField] private float inbetwenSpawn;
+    private Transform[][] waves;
     private int counter;
 
     public static Spawner Instance { get; private set; }
@@ -27,13 +33,34 @@ public class Spawner : MonoBehaviour
     private void Start()
     {
         portal.SetActive(false);
-        counter = locations.Count;
+        StartCoroutine(Spawning());
+        waves = new Transform[5][];
+        waves[0] = wave1;
+        waves[1] = wave2;
+        waves[2] = wave3;
+        waves[3] = wave4;
+        waves[4] = wave5;
+    }
 
-        foreach (Transform t in locations) { 
+    private void Spawn(Transform[] wave)
+    {
+        counter = wave.Length;
+        textMeshPro.text = $"Enemies Left: {counter}";
+        foreach (Transform t in wave)
+        {
             Instantiate(enemy, t.position, Quaternion.identity);
         }
+    }
 
-        textMeshPro.text = $"Enemies Left: {counter}";
+    private IEnumerator Spawning()
+    {
+        for (int i = 0; i < waves.Length; ++i)
+        {
+            yield return new WaitForSecondsRealtime(inbetwenSpawn);
+            Spawn(waves[i]);
+        }
+
+        portal.SetActive(true);
     }
 
     public void UpdateCounter()
