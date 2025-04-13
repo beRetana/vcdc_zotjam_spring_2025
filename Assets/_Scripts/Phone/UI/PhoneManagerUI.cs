@@ -5,7 +5,7 @@ public class PhoneManagerUI : MonoBehaviour
 {
     [SerializeField] private DialogueOptionsManager _optionsManager;
     [SerializeField] private MessagesManager _messagesManager;
-
+    [SerializeField] private FaceUI _faceManager;
     
 
     private List<CSVReader.DialogueRow> tests;

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 
 public class MessageQueue : MonoBehaviour
 {
-    const float AVG_CHARACTERS_PER_SECOND = 10f;
+    const float AVG_CHARACTERS_PER_SECOND = 12f;
+    const float AVG_ADDITIONAL_MESSAGE_TIME = .5f;
     const float AVG_RESPONSE_TIMER = 6.9f;
 
     public bool AcceptingResponses { get; private set; } = false;
 
     private PhoneManagerUI phoneManagerUI;
+    [SerializeField] Love loveManager;
 
     public enum TimerEnum { None, Typing, Responding };
     TimerEnum timerEnum = TimerEnum.None;
@@ -28,7 +30,7 @@ public class MessageQueue : MonoBehaviour
         public TextEnum textEnum;
         public CSVReader.DialogueRow dialogueRow; //TK
         public float lengthInSeconds;
-        public string[] dialogueStrings;
+        public CSVReader.DialogueRow[] responseChoices;
 
         public MessageObject (CSVReader.DialogueRow dialogueRow, TextEnum textEnum = TextEnum.Message)
         {
@@ -39,10 +41,10 @@ public class MessageQueue : MonoBehaviour
                 lengthInSeconds = (float)dialogueRow.dialogue.Length / AVG_CHARACTERS_PER_SECOND;
         }
 
-        public MessageObject(string[] dialogueStrings, TextEnum textEnum = TextEnum.ResponseOptions)
+        public MessageObject(CSVReader.DialogueRow[] responseChoices, TextEnum textEnum = TextEnum.ResponseOptions)
         {
             this.textEnum = textEnum;
-            this.dialogueStrings = dialogueStrings;
+            this.responseChoices = responseChoices;
 
             if (textEnum == TextEnum.ResponseOptions)
                 lengthInSeconds = AVG_RESPONSE_TIMER;
@@ -57,6 +59,21 @@ public class MessageQueue : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        phoneManagerUI = FindFirstObjectByType<PhoneManagerUI>();
+        //loveManager = FindFirstObjectByType<Love>();
+
+        _MessageQueue = new LinkedList<MessageObject>();
+
+        phoneManagerUI.DisplayNoOptionsUI();
+        //typingSpeed = Time.fixedDeltaTime * AVG_CHARACTERS_PER_SECOND;
+    }
+
+    void FixedUpdate()
+    {
+        ProcessMessaging();
+    }
 
 
     private void ProcessMessaging()
@@ -102,7 +119,7 @@ public class MessageQueue : MonoBehaviour
         switch (currentMessage.textEnum)
         {
             case TextEnum.ResponseOptions:
-                EnterResponses(currentMessage.dialogueStrings);
+                EnterResponses(currentMessage.responseChoices);
                 break;
 
             case TextEnum.Message:
@@ -154,12 +171,18 @@ public class MessageQueue : MonoBehaviour
     {
         timerEnum = TimerEnum.Typing;
 
-        messageTimer = typingTime;
+        messageTimer = typingTime + AVG_ADDITIONAL_MESSAGE_TIME;
     }
     private void ExitStandardMessage(CSVReader.DialogueRow dialogueRow)
     {
         SendMessage(dialogueRow);
         previousTextEnum = TextEnum.Message;
+
+
+        if (dialogueRow.lovePoints != 0)
+           loveManager.editHerLove(dialogueRow.lovePoints);
+        //else
+          //  Debug.Log("No Love Manager");
     }
     private void SendMessage(CSVReader.DialogueRow dialogueRow)
     {
@@ -167,43 +190,67 @@ public class MessageQueue : MonoBehaviour
     }
 
 
-    private void EnterResponses(string[] dialogueStrings)
+    private void EnterResponses(CSVReader.DialogueRow[] dialogueStrings)
     {
         timerEnum = TimerEnum.Responding;
 
         AcceptingResponses = true;
 
-        phoneManagerUI.DisplayStringOptionsUI(dialogueStrings);
+        phoneManagerUI.DisplayOptionsUI(dialogueStrings);
 
-        messageTimer = AVG_RESPONSE_TIMER * 1.0f; //TK multiplier
-
-        //if (_MessageQueue.Count > 1)
-        //{
-        //    messageTimer = 0f;
-        //    NextMessage();
-        //}
+        if (loveManager != null)
+            messageTimer = 1.618f * Mathf.Log(loveManager.getLove() + 1.618f); //TK multiplier
+        else
+            messageTimer = AVG_RESPONSE_TIMER;
     }
     private void ExitResponses(bool selectedOption)
     {
         previousTextEnum = TextEnum.ResponseOptions;
 
-        //if(!selectedOption)
+        if(!selectedOption)
+        {
+            AcceptingResponses = false;
+            GetWorstResponse();
+
+            //EnterWait(_MessageQueue.First.Value.lengthInSeconds);
+            //ExitStandardMessage(_MessageQueue.First.Value.dialogueRow);
+            //EnterMessage();
+                //EnterMessage();
+            //ExitMessage();
+            //ExitStandardMessage(_MessageQueue.First.Value.dialogueRow);
+                //ExitResponses(true);
+            //EnterMessage();
+            //ExitStandardMessage(_MessageQueue.First.Value.dialogueRow);
+            //ProcessMessaging();
+            //AcceptingResponses = false;
+
+            //ExitResponses(true);
+            //NextMessage();
+            //messageTimer = 0f;
+            //ProcessMessaging();
+        }
+          //  _MessageQueue.First.Value.dialogueRow.sectionIndex
+
             //TK Select Random Option
         phoneManagerUI.DisplayNoOptionsUI();
     }
 
-
-    private void Start()
+    private void GetWorstResponse()
     {
-        phoneManagerUI = FindFirstObjectByType<PhoneManagerUI>();
-        _MessageQueue = new LinkedList<MessageObject>();
-        //typingSpeed = Time.fixedDeltaTime * AVG_CHARACTERS_PER_SECOND;
+        CSVReader.DialogueRow[] responseChoices = _MessageQueue.First.Value.responseChoices;
+
+        int love0 = responseChoices[0].lovePoints;
+        int love1 = responseChoices[1].lovePoints;
+        int love2 = responseChoices[2].lovePoints;
+
+        CSVReader.TypeEnum worstType = CSVReader.TypeEnum.R3;
+        if (love0 <= love1 && love0 <= love2) worstType = CSVReader.TypeEnum.R1;
+        if (love1 <= love0 && love0 <= love2) worstType = CSVReader.TypeEnum.R2;
+
+        FindFirstObjectByType<DialogueParser>().GetWorstDialogue(worstType);
     }
 
-    void FixedUpdate()
-    {
-        ProcessMessaging();
-    }
+
 
     private void SetTimer()
     {
@@ -240,7 +287,7 @@ public class MessageQueue : MonoBehaviour
     }
 
 
-    public void QueueResponseOptions(string[] responseChoices)
+    public void QueueResponseOptions(CSVReader.DialogueRow[] responseChoices)
     {
         MessageObject newMessage = new MessageObject(responseChoices, TextEnum.ResponseOptions);
         _MessageQueue.AddLast(newMessage);
@@ -257,4 +304,21 @@ public class MessageQueue : MonoBehaviour
         messageTimer = 0f;
         ProcessMessaging();
     }
+
+    public void SelectedWorstDialogue()
+    {
+        AcceptingResponses = false;
+        //ExitResponses(true);
+        messageTimer = 0f;
+        previousTextEnum = TextEnum.ResponseOptions;
+
+        //ProcessMessaging();
+
+        //ExitMessage();
+        //ExitStandardMessage(_MessageQueue.First.Value.dialogueRow);
+        //NextMessage();
+        //messageTimer = 0f;
+        //ProcessMessaging();
+    }
+
 }

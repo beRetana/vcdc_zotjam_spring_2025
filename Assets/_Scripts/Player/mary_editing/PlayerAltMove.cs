@@ -11,7 +11,7 @@ public class PlayerAltMove : MonoBehaviour
     [SerializeField, Range(0f, 100f)] private float _dashSpeed = 10f;
 
     //mary funny
-    [SerializeField] private Happy happyScript;
+    [SerializeField] private Love happyScript;
 
     private PlayerController _playerController;
     private PlayerAlternateAttacks _playerAttacks;
@@ -115,6 +115,6 @@ public class PlayerAltMove : MonoBehaviour
     {
         // Debug.Log("Collided with: " + collision.gameObject.name);
 
-        happyScript.editHerHappy(2);
+        happyScript.editHerLove(2);
     }
 }

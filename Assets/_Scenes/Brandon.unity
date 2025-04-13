@@ -841,6 +841,14 @@ PrefabInstance:
       value: 534822509
       objectReference: {fileID: 0}
     - target: {fileID: 5862519148765574797, guid: bab05e0d45dbf7a43857e874c65119b5, type: 3}
+      propertyPath: <HaymakerCharge>k__BackingField.Path
+      value: event:/Haymaker Charge
+      objectReference: {fileID: 0}
+    - target: {fileID: 5862519148765574797, guid: bab05e0d45dbf7a43857e874c65119b5, type: 3}
+      propertyPath: <HaymakerImpact>k__BackingField.Path
+      value: event:/Haymaker Impact
+      objectReference: {fileID: 0}
+    - target: {fileID: 5862519148765574797, guid: bab05e0d45dbf7a43857e874c65119b5, type: 3}
       propertyPath: <JabPunch>k__BackingField.Guid.Data1
       value: -99786115
       objectReference: {fileID: 0}
@@ -891,6 +899,38 @@ PrefabInstance:
     - target: {fileID: 5862519148765574797, guid: bab05e0d45dbf7a43857e874c65119b5, type: 3}
       propertyPath: <PunchWhiff>k__BackingField.Guid.Data4
       value: -1683061159
+      objectReference: {fileID: 0}
+    - target: {fileID: 5862519148765574797, guid: bab05e0d45dbf7a43857e874c65119b5, type: 3}
+      propertyPath: <HaymakerCharge>k__BackingField.Guid.Data1
+      value: 193281085
+      objectReference: {fileID: 0}
+    - target: {fileID: 5862519148765574797, guid: bab05e0d45dbf7a43857e874c65119b5, type: 3}
+      propertyPath: <HaymakerCharge>k__BackingField.Guid.Data2
+      value: 1095222015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5862519148765574797, guid: bab05e0d45dbf7a43857e874c65119b5, type: 3}
+      propertyPath: <HaymakerCharge>k__BackingField.Guid.Data3
+      value: 486727837
+      objectReference: {fileID: 0}
+    - target: {fileID: 5862519148765574797, guid: bab05e0d45dbf7a43857e874c65119b5, type: 3}
+      propertyPath: <HaymakerCharge>k__BackingField.Guid.Data4
+      value: -673421680
+      objectReference: {fileID: 0}
+    - target: {fileID: 5862519148765574797, guid: bab05e0d45dbf7a43857e874c65119b5, type: 3}
+      propertyPath: <HaymakerImpact>k__BackingField.Guid.Data1
+      value: -711542344
+      objectReference: {fileID: 0}
+    - target: {fileID: 5862519148765574797, guid: bab05e0d45dbf7a43857e874c65119b5, type: 3}
+      propertyPath: <HaymakerImpact>k__BackingField.Guid.Data2
+      value: 1116603558
+      objectReference: {fileID: 0}
+    - target: {fileID: 5862519148765574797, guid: bab05e0d45dbf7a43857e874c65119b5, type: 3}
+      propertyPath: <HaymakerImpact>k__BackingField.Guid.Data3
+      value: 1220518334
+      objectReference: {fileID: 0}
+    - target: {fileID: 5862519148765574797, guid: bab05e0d45dbf7a43857e874c65119b5, type: 3}
+      propertyPath: <HaymakerImpact>k__BackingField.Guid.Data4
+      value: 1444911552
       objectReference: {fileID: 0}
     - target: {fileID: 5862519148765574797, guid: bab05e0d45dbf7a43857e874c65119b5, type: 3}
       propertyPath: <MessageReceived>k__BackingField.Guid.Data1

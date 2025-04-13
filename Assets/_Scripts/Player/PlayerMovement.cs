@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Range(0f, 100f)] private float _dashDamage = 10f;
 
     //mary funny
-    [SerializeField] private Happy happyScript;
+    [SerializeField] private Love happyScript;
 
     private PlayerController _playerController;
     private PlayerAttacks _playerAttacks;

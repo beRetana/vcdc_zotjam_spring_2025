@@ -22,6 +22,12 @@ public class FMODEvents : MonoBehaviour
      [field: Header("MessageReceived")]
      [field: SerializeField] public EventReference MessageReceived {get; private set;}
 
+     [field: Header("Haymaker Charge")]
+     [field: SerializeField] public EventReference HaymakerCharge {get; private set;}
+
+     [field: Header("Haymaker Impact")]
+     [field: SerializeField] public EventReference HaymakerImpact {get; private set;}
+
     //AudioManager.instance.PlayOneShot(FMODEvents.instance.PunchWhiff,this.transform.position);
     
     
