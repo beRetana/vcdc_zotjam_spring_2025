@@ -582,8 +582,8 @@ MonoBehaviour:
   _chargedAttackDamage: 100
   _chargingTime: 2
   _chargeHoldingTime: 0.5
-  _ultiRangeAttack: 25
-  _ultiDamageAttack: 100
+  _ultiRangeAttack: 5
+  _ultiDamageAttack: 25
   _ultiNecessaryPoints: 100
   _enemiesMask:
     serializedVersion: 2
