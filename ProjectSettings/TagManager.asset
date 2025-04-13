@@ -8,6 +8,9 @@ TagManager:
   - Tile Mesh
   - Rule Tile
   - Grid
+  - Grass
+  - Gravel
+  - Wood
   layers:
   - Default
   - TransparentFX
