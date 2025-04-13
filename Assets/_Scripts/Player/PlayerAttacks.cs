@@ -11,11 +11,13 @@ public class PlayerAttacks : MonoBehaviour
     [SerializeField, Range(0f, 100f)] private float _meleeAttackOneDamage = 10f;
     [SerializeField, Range(0f, 100f)] private float _meleeAttackTwoDamage = 10f;
     [SerializeField, Range(0f, 100f)] private float _chargedAttackDamage = 20f;
-    [SerializeField, Range(2f, 20f)] private float _rangedAttackRange = 8f;
     [SerializeField, Range(0f, 2f)] private float _chargingTime = 2f;
     [SerializeField, Range(0f, .5f)] private float _chargeHoldingTime = .5f;
-    [SerializeField] private GameObject meleeAttackOneVFX;
-    [SerializeField] private GameObject meleeAttackTwoVFX;
+
+    //[SerializeField, Range(2f, 20f)] private float _rangedAttackRange = 8f;
+    [SerializeField, Range(1f, 50f)] private float _ultiRangeAttack = 10f;
+    [SerializeField, Range(1f, 100f)] private float _ultiDamageAttack = 50f;
+
     private PlayerController _playerController;
     private float _chargedAttackRatio;
 
@@ -50,7 +52,13 @@ public class PlayerAttacks : MonoBehaviour
         _playerController.PlayerActions.Melee.started += MeleeAttacks;
         _playerController.PlayerActions.Range.started += StartCharge;
         _playerController.PlayerActions.Range.canceled += StopCharge;
+        _playerController.PlayerActions.Ultimate.performed += UltimateAttack;
         _playerController.PlayerActions.Enable();
+    }
+
+    private void UltimateAttack(InputAction.CallbackContext obj)
+    {
+        throw new System.NotImplementedException();
     }
 
     void OnDisable()

@@ -8,7 +8,7 @@ public class PlayerAlternateAttacks : MonoBehaviour
     private float _attackSpeed = 1f;
     [SerializeField, Range(.1f, 5f)] private float _meleeAttackArea = .5f;
     [SerializeField, Range(.1f, 10f)] private float _meleeAttackRange = 5f;
-    [SerializeField, Range(2f, 20f)] private float _rangedAttackRange = 8f;
+    //[SerializeField, Range(2f, 20f)] private float _rangedAttackRange = 8f;
     [SerializeField] private GameObject meleeAttackOneVFX;
     [SerializeField] private GameObject meleeAttackTwoVFX;
 
