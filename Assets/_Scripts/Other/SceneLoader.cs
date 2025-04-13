@@ -24,4 +24,9 @@ public class SceneLoader : MonoBehaviour
         int currentIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentIndex - 1);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        LoadNextScene();
+    }
 }
