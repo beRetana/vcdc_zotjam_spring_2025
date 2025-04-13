@@ -30,6 +30,7 @@ public class EnemyHealth : MonoBehaviour
     protected virtual void OnDeath()
     {
         PlayerMovement.Instance.GetComponent<Points>().EnemyDeath(_rewardPoints);
+        Spawner.Instance.UpdateCounter();
         Destroy(gameObject);
     }
 }
