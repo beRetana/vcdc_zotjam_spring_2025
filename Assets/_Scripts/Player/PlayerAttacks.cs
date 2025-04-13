@@ -48,7 +48,7 @@ public class PlayerAttacks : MonoBehaviour
         _playerController = new PlayerController();
         _playerAnimations = GetComponent<PlayerAnimations>();
         Enable();
-        HaymakerCharge = AudioManager.instance.CreateInstance(FMODEvents.instance.HaymakerCharge);
+        //HaymakerCharge = AudioManager.instance.CreateInstance(FMODEvents.instance.HaymakerCharge);
         HaymakerImpact = AudioManager.instance.CreateInstance(FMODEvents.instance.HaymakerImpact);
     }
 
@@ -135,6 +135,7 @@ public class PlayerAttacks : MonoBehaviour
     private void StartCharge(InputAction.CallbackContext ctx)
     {
         if (_charging != null) StopCoroutine(_charging);
+        _playerAnimations.Charging(true);
         _charging = StartCoroutine(ChargeAttack());
 
     }
@@ -159,6 +160,8 @@ public class PlayerAttacks : MonoBehaviour
             // cancelled too early
             HaymakerCharge.stop(STOP_MODE.IMMEDIATE);
         }
+
+        _playerAnimations.Charging(false);
 
         // reset
         _currentChargeTime = 0f;
@@ -196,6 +199,7 @@ public class PlayerAttacks : MonoBehaviour
                 _isCharging = false;
                 HaymakerCharge.stop(STOP_MODE.ALLOWFADEOUT);
                 HaymakerImpact.start();
+                _playerAnimations.Charging(false);
                 MeleeAttack(_chargedAttackRatio * _chargedAttackDamage);
                 yield break;
             }
