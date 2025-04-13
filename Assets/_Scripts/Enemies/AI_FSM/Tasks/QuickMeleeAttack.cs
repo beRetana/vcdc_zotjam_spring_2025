@@ -25,6 +25,8 @@ public class QuickMeleeAttack : EnemyAttack
 
     public override void Attack()
     {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.ShankAttack,this.transform.position);
+
         RaycastHit hit;
         Vector3 direction = GetPlayerDirection();
         if (Physics.Raycast(transform.position  + Vector3.up, direction, out hit, _range))

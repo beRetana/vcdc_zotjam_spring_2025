@@ -43,6 +43,10 @@ public class FMODEvents : MonoBehaviour
      [field: Header("Sad Noise")]
      [field: SerializeField] public EventReference SadNoise {get; private set;}
 
+    [field: Header("Enemy 1 Attack")]
+     [field: SerializeField] public EventReference ShankAttack {get; private set;}
+
+
     //AudioManager.instance.PlayOneShot(FMODEvents.instance.PunchWhiff,this.transform.position);
     
     
