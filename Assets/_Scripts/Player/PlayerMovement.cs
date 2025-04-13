@@ -113,11 +113,13 @@ public class PlayerMovement : MonoBehaviour
     void StartSprint(InputAction.CallbackContext context)
     {
         _movementSpeed = _sprintSpeed;
+        _playerAnimations.Sprinting(true);
     }
 
     void EndSprint(InputAction.CallbackContext context)
     {
         _movementSpeed = _baseSpeed;
+        _playerAnimations.Sprinting(false);
     }
 
     IEnumerator Dashing()
