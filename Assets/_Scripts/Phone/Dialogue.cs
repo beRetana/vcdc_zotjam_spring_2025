@@ -35,7 +35,7 @@ public class DialogueController : MonoBehaviour
 
     private void TakeAction(int actionNum)
     {
-        Debug.Log($"Taking Action: {actionNum}");
+        //Debug.Log($"Taking Action: {actionNum}");
         dialogueParser.TakeAction(actionNum);
     }
 

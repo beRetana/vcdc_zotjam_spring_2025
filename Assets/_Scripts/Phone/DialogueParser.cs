@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class DialogueParser : MonoBehaviour
 {
     [SerializeField] CSVReader _CSVReader;
+    [SerializeField] MessageQueue _MessageQueue;
 
     private LinkedList<CSVReader.DialogueRow> _dialogueList;
     private CSVReader.TypeEnum responseType;
@@ -128,8 +129,8 @@ public class DialogueParser : MonoBehaviour
 
     public bool TakeAction(int actionNum) // 1 2 or 3
     {
-        //Debug.Log($"Attempt Take Action: {actionNum}. questionOpen = {questionOpen}");
-        if (!questionOpen) return false;
+        Debug.Log($"Attempt Take Action: {actionNum}. questionOpen = {questionOpen && _MessageQueue.AcceptingResponses}");
+        if (!questionOpen || !_MessageQueue.AcceptingResponses) return false;
 
         Debug.Log($"[{actionNum}]");
 
@@ -137,6 +138,7 @@ public class DialogueParser : MonoBehaviour
         questionOpen = false;
 
         SkipToResponse(selectedType);
+        _MessageQueue.SelectedDialogue();
         return true;
 
     }
@@ -170,13 +172,15 @@ public class DialogueParser : MonoBehaviour
 
     private void SendMessage(CSVReader.DialogueRow r)
     {
-        Debug.Log(r);
+        //Debug.Log(r);
+        _MessageQueue.QueueMessage(r);
     }
 
-    private void SendReponseOptions(string[] reponseChoices)
+    private void SendReponseOptions(string[] responseChoices)
     {
-        Debug.Log($"[1] {reponseChoices[0]}");
-        Debug.Log($"[2] {reponseChoices[1]}");
-        Debug.Log($"[3] {reponseChoices[2]}");
+        //Debug.Log($"[1] {reponseChoices[0]}");
+        //Debug.Log($"[2] {reponseChoices[1]}");
+        //Debug.Log($"[3] {reponseChoices[2]}");
+        _MessageQueue.QueueResponseOptions(responseChoices);
     }
 }

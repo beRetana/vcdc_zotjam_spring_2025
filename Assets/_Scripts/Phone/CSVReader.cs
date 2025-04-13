@@ -9,13 +9,12 @@ public class CSVReader : MonoBehaviour
     public delegate void FinishedReadingDialogue();
     public static event FinishedReadingDialogue OnFinishedReadingDialogue;
 
-    public TextAsset textAssetData;
+    [SerializeField] TextAsset textAssetData;
 
     public enum CharacterEnum { None, Her, Me };
     public enum TypeEnum { Std, Q, R1, R2, R3, Wait };
 
-    public EventsDictionary myDialogueEventDictionary;
-
+    [SerializeField] EventsDictionary myDialogueEventDictionary;
 
 
     [System.Serializable]
