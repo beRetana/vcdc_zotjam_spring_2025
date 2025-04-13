@@ -54,7 +54,7 @@ public class Love : MonoBehaviour
 
     void UpdateHappinessUI()
     {
-        //OnUpdatedLove?.Invoke(getLovePercent());
+        OnUpdatedLove?.Invoke(getLovePercent());
         if (loveDebug != null)
         {
             loveDebug.text = "Love: " + herLove;
