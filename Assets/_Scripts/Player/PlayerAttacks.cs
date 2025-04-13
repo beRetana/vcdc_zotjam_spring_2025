@@ -8,6 +8,8 @@ public class PlayerAttacks : MonoBehaviour
     private float _attackSpeed = 1f;
     [SerializeField, Range(.1f, 5f)] private float _meleeAttackArea = .5f;
     [SerializeField, Range(.1f, 10f)] private float _meleeAttackRange = 5f;
+    [SerializeField, Range(0f, 100f)] private float _meleeAttackOneDamage = 10f;
+    [SerializeField, Range(0f, 100f)] private float _meleeAttackTwoDamage = 10f;
     [SerializeField, Range(2f, 20f)] private float _rangedAttackRange = 8f;
     [SerializeField] private GameObject meleeAttackOneVFX;
     [SerializeField] private GameObject meleeAttackTwoVFX;
@@ -126,13 +128,13 @@ public class PlayerAttacks : MonoBehaviour
     private void AttackMeleeOne()
     {
         Debug.Log("1");
-        MeleeAttack(meleeAttackOneVFX);
+        MeleeAttack(_meleeAttackOneDamage);
     }
 
     private void AttackMeleeTwo()
     {
         Debug.Log("2");
-        MeleeAttack(meleeAttackTwoVFX);
+        MeleeAttack(_meleeAttackTwoDamage);
     }
 
     IEnumerator AttackTimer(){
@@ -149,12 +151,11 @@ public class PlayerAttacks : MonoBehaviour
 
     // */
 
-    private void MeleeAttack(GameObject attackVFX)
+    private void MeleeAttack(float damage)
     {
         RaycastHit raycastHit;
         if (!Physics.SphereCast(transform.position, _meleeAttackArea, Vector3.right * _facingRight, out raycastHit, _meleeAttackRange)) return;
-        Instantiate(attackVFX, transform.position + new Vector3(_meleeAttackRange, 0,0) * _facingRight, Quaternion.identity);
-        Debug.Log(" "+raycastHit.point);
+        raycastHit.transform.GetComponent<EnemyHealth>()?.ModifyHealth(damage);
     }
 
     
