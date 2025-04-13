@@ -83,14 +83,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: QuickMeleeEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 5977361145479537321, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
-      propertyPath: _attackRange
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6535207415566726200, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
-      propertyPath: _range
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6535207415566726200, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
       propertyPath: _damage
       value: 1
@@ -104,8 +96,8 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7879496720397367497, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
-      propertyPath: _maxHealth
-      value: 30
+      propertyPath: _rewardPoints
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
