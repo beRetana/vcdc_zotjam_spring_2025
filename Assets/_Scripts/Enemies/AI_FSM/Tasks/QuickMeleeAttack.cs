@@ -1,7 +1,9 @@
 using UnityEngine;
-using AI_FSM;
 
-public class QuickMeleeAttack : TaskBase
+public class QuickMeleeAttack : EnemyAttack
 {
-    
+    public override void Attack()
+    {
+        throw new System.NotImplementedException();
+    }
 }

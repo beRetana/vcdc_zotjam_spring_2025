@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
@@ -6,15 +7,23 @@ public class EnemyHealth : MonoBehaviour
 
     protected float _health;
 
+    public Action OnEnemyAttacked;
+
     private void Start()
     {
         _health = _maxHealth;
     }
 
-    protected virtual void ModifyHealth(float modifier)
+    public void SetOnEnemyAttacked(Action action)
     {
-        _health = Mathf.Min(_health - modifier, 0f);
+        OnEnemyAttacked += action;
+    }
+
+    public virtual void ModifyHealth(float modifier)
+    {
+        _health = Mathf.Max(_health - modifier, 0f);
         if (_health <= 0f) OnDeath();
+        else OnEnemyAttacked?.Invoke();
     }
 
     protected virtual void OnDeath()
