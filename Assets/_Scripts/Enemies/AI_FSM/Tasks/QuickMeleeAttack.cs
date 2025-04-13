@@ -29,7 +29,6 @@ public class QuickMeleeAttack : EnemyAttack
         Vector3 direction = GetPlayerDirection();
         if (Physics.Raycast(transform.position  + Vector3.up, direction, out hit, _range))
         {
-            Debug.Log($"Attaking: {hit.transform.gameObject.name}");
             Damage(hit.transform.GetComponent<Health>(), _damage);
         }
         StartCoroutine(AttackTimer());

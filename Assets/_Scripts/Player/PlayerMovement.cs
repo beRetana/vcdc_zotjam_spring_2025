@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Range(0f, 100f)] private float _sprintSpeed = 7;
     [SerializeField, Range(0f, 100f)] private float _dashTime = .5f;
     [SerializeField, Range(0f, 100f)] private float _dashSpeed = 10f;
+    [SerializeField, Range(0f, 100f)] private float _dashDamage = 10f;
 
     //mary funny
     [SerializeField] private Happy happyScript;
@@ -117,11 +118,26 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator Dashing()
     {
-        _rigidbody.AddForce(new Vector3(_movementInput.x, 0f, _movementInput.y) * _dashSpeed, ForceMode.Impulse);
+        Vector3 direction = new Vector3(_movementInput.x, 0f, _movementInput.y);
+        _rigidbody.AddForce(direction * _dashSpeed, ForceMode.Impulse);
         DisableMovement();
         yield return new WaitForSeconds(_dashTime);
         EnableMovement();
         _rigidbody.linearVelocity = Vector3.zero;
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + Vector3.up, direction, out hit))
+        {
+            StartCoroutine(DashAttack(hit.transform.GetComponent<Rigidbody>(), hit.transform.GetComponent<EnemyHealth>(), direction));
+        }
+    }
+
+    IEnumerator DashAttack(Rigidbody rb, EnemyHealth enemyHealth, Vector3 direction)
+    {
+        rb.isKinematic = false;
+        enemyHealth.ModifyHealth(_dashDamage);
+        rb?.AddForce(_dashSpeed * direction, ForceMode.Impulse);
+        yield return new WaitForSeconds(1f);
+        rb.isKinematic = true;
     }
 
     private void Update()

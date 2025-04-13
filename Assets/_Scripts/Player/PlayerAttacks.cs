@@ -10,14 +10,19 @@ public class PlayerAttacks : MonoBehaviour
     [SerializeField, Range(.1f, 10f)] private float _meleeAttackRange = 5f;
     [SerializeField, Range(0f, 100f)] private float _meleeAttackOneDamage = 10f;
     [SerializeField, Range(0f, 100f)] private float _meleeAttackTwoDamage = 10f;
+    [SerializeField, Range(0f, 100f)] private float _chargedAttackDamage = 20f;
     [SerializeField, Range(2f, 20f)] private float _rangedAttackRange = 8f;
+    [SerializeField, Range(0f, 2f)] private float _chargingTime = 2f;
+    [SerializeField, Range(0f, .5f)] private float _chargeHoldingTime = .5f;
     [SerializeField] private GameObject meleeAttackOneVFX;
     [SerializeField] private GameObject meleeAttackTwoVFX;
     private PlayerController _playerController;
+    private float _chargedAttackRatio;
 
 
     // counts if youre in a loop yet or not
     private Coroutine _attackTimerCoroutine;
+    private Coroutine _charging;
 
     // tells you if you can enter into two to continue the combo
     private bool can_go_into_two;
@@ -43,12 +48,16 @@ public class PlayerAttacks : MonoBehaviour
     void Enable()
     {
         _playerController.PlayerActions.Melee.started += MeleeAttacks;
+        _playerController.PlayerActions.Range.started += StartCharge;
+        _playerController.PlayerActions.Range.canceled += StopCharge;
         _playerController.PlayerActions.Enable();
     }
 
     void OnDisable()
     {
         _playerController.PlayerActions.Melee.started -= MeleeAttacks;
+        _playerController.PlayerActions.Range.started -= StartCharge;
+        _playerController.PlayerActions.Range.canceled -= StopCharge;
         _playerController.PlayerActions.Disable();
     }
 
@@ -132,6 +141,7 @@ public class PlayerAttacks : MonoBehaviour
     {
         Debug.Log("1");
         bool hit = MeleeAttack(_meleeAttackOneDamage);
+        return;
         if (hit)
             AudioManager.instance.PlayOneShot(FMODEvents.instance.JabPunch, this.transform.position);
         else
@@ -160,7 +170,31 @@ public class PlayerAttacks : MonoBehaviour
         _attackTimerCoroutine = null;
     }
 
-    // */
+    private void StartCharge(InputAction.CallbackContext context)
+    {
+        _charging = StartCoroutine(Charging(_chargingTime, _chargeHoldingTime));
+    }
+
+    private void StopCharge(InputAction.CallbackContext context)
+    {
+        StopCoroutine(_charging);
+        MeleeAttack(Mathf.Min(_chargedAttackRatio, 1) * _chargedAttackDamage);
+        _chargedAttackRatio = 0;
+    }
+
+    IEnumerator Charging(float chargeTime, float holdingTime)
+    {
+        float timer = 0;
+        while (timer < chargeTime + holdingTime)
+        {
+            yield return new WaitForFixedUpdate();
+            timer += Time.deltaTime;
+            _chargedAttackRatio = timer / chargeTime;
+        }
+
+        MeleeAttack(Mathf.Min(_chargedAttackRatio, 1) * _chargedAttackDamage);
+        _chargedAttackRatio = 0;
+    }
 
     private bool MeleeAttack(float damage)
     {
@@ -176,6 +210,4 @@ public class PlayerAttacks : MonoBehaviour
         }
         return false; // It missed!
     }
-
-    
 }

@@ -33,7 +33,6 @@ public class Enemy : AIActor
 
     public virtual void UpdateBehaviour(EnemyState newEnemyState)
     {
-        Debug.Log($"Old {_enemyState}: New {newEnemyState}");
         if (newEnemyState != _enemyState)
         {
             _enemyState = newEnemyState;
