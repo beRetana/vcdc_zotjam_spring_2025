@@ -20,6 +20,8 @@ public class PlayerAttacks : MonoBehaviour
     [SerializeField, Range(1f, 100f)] private float _ultiNecessaryPoints = 100f;
     [SerializeField] private LayerMask _enemiesMask;
 
+    [SerializeField] private GameObject ultiVFX;
+
     private PlayerController _playerController;
     private PlayerAnimations _playerAnimations;
     private float _ultiCurrentPoints;
@@ -81,6 +83,9 @@ public class PlayerAttacks : MonoBehaviour
     public void LogicUlti()
     {
         var hits = Physics.OverlapSphere(transform.position, _ultiRangeAttack, _enemiesMask);
+        var game = Instantiate(ultiVFX, transform);
+        Destroy(game, 2f);
+
         foreach (var c in hits)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.ULTSFX,this.transform.position);
