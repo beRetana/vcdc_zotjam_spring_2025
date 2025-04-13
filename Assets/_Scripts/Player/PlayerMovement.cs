@@ -20,6 +20,20 @@ public class PlayerMovement : MonoBehaviour
 
     private float _movementSpeed;
 
+    public static PlayerMovement Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
         _playerController = new();
@@ -113,13 +127,5 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         transform.position += new Vector3(_movementInput.x, 0f, _movementInput.y) * _movementSpeed * Time.deltaTime;
-    }
-
-    // mary test
-    void OnCollisionEnter(Collision collision)
-    {
-        // Debug.Log("Collided with: " + collision.gameObject.name);
-
-        happyScript.editHerHappy(2);
     }
 }

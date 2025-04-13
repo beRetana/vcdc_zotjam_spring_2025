@@ -73,7 +73,7 @@ public class MessagesManager : MonoBehaviour
         MessageUI messageUI= newMessage.GetComponent<MessageUI>();
         messageUI.UpdateText(content);
 
-        while (messageUI.Size + messagesCount > 12)
+        while (messageUI.Size + messagesCount > MAX_MESSAGES)
         {
             Transform temp = messagesHistory.Dequeue();
             messagesCount -= temp.GetComponent<MessageUI>().Size;
