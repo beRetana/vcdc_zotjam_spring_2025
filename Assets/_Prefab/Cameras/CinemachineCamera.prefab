@@ -59,7 +59,7 @@ MonoBehaviour:
   Lens:
     FieldOfView: 40
     OrthographicSize: 4
-    NearClipPlane: 0.1
+    NearClipPlane: -4
     FarClipPlane: 50000
     Dutch: 0
     ModeOverride: 0
@@ -90,8 +90,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TrackerSettings:
     BindingMode: 4
-    PositionDamping: {x: 1, y: 0, z: 1}
+    PositionDamping: {x: 0, y: 0, z: 0}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 0, z: 0}
     QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 5.66, z: -15}
+  FollowOffset: {x: 0, y: 8.5, z: -15}

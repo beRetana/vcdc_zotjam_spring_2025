@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -24.668, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 20.73, y: 0, z: 0}
 --- !u!114 &3535434867355906687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,7 +97,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
+  near clip plane: -4
   far clip plane: 50000
   field of view: 40
   orthographic: 1
