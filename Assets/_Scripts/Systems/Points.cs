@@ -15,7 +15,7 @@ public class Points : MonoBehaviour
     public static bool gameOver; // to use in other functions for combat and whatnot
     
     private static int points; // count.
-    [SerializeField] private Happy happyScript;
+    [SerializeField] private Love happyScript;
     [SerializeField] private TextMeshProUGUI multText; // text
     [SerializeField] private TextMeshProUGUI ultimateDebug; // text
     [SerializeField] public int ultCap = 20; // liimit to the ultimate amt
@@ -94,7 +94,7 @@ public class Points : MonoBehaviour
     public void setMultplier()
     {
         // if multiplier calc would be less than 5 
-        int herHappy = happyScript.getHappy();
+        int herHappy = happyScript.getLove();
         if (herHappy< 20) 
         {
             mult = 0.025f * herHappy + 0.5f;

@@ -10,7 +10,7 @@ public class MessageQueue : MonoBehaviour
     public bool AcceptingResponses { get; private set; } = false;
 
     private PhoneManagerUI phoneManagerUI;
-    private Happy happinessManager;
+    [SerializeField] Love loveManager;
 
     public enum TimerEnum { None, Typing, Responding };
     TimerEnum timerEnum = TimerEnum.None;
@@ -62,7 +62,7 @@ public class MessageQueue : MonoBehaviour
     private void Start()
     {
         phoneManagerUI = FindFirstObjectByType<PhoneManagerUI>();
-        happinessManager = FindFirstObjectByType<Happy>();
+        //loveManager = FindFirstObjectByType<Love>();
 
         _MessageQueue = new LinkedList<MessageObject>();
 
@@ -179,10 +179,10 @@ public class MessageQueue : MonoBehaviour
         previousTextEnum = TextEnum.Message;
 
 
-        if (happinessManager != null)
-            happinessManager.editHerHappy(dialogueRow.lovePoints);
-        else
-            Debug.Log("No Happiness Manager");
+        if (dialogueRow.lovePoints != 0)
+           loveManager.editHerLove(dialogueRow.lovePoints);
+        //else
+          //  Debug.Log("No Love Manager");
     }
     private void SendMessage(CSVReader.DialogueRow dialogueRow)
     {
@@ -198,8 +198,8 @@ public class MessageQueue : MonoBehaviour
 
         phoneManagerUI.DisplayOptionsUI(dialogueStrings);
 
-        if (happinessManager != null)
-            messageTimer = 1.618f * Mathf.Log(happinessManager.getHappy() + 1.618f); //TK multiplier
+        if (loveManager != null)
+            messageTimer = 1.618f * Mathf.Log(loveManager.getLove() + 1.618f); //TK multiplier
         else
             messageTimer = AVG_RESPONSE_TIMER;
     }
@@ -211,7 +211,23 @@ public class MessageQueue : MonoBehaviour
         {
             AcceptingResponses = false;
             GetWorstResponse();
-            ProcessMessaging();
+
+            //EnterWait(_MessageQueue.First.Value.lengthInSeconds);
+            //ExitStandardMessage(_MessageQueue.First.Value.dialogueRow);
+            //EnterMessage();
+                //EnterMessage();
+            //ExitMessage();
+            //ExitStandardMessage(_MessageQueue.First.Value.dialogueRow);
+                //ExitResponses(true);
+            //EnterMessage();
+            //ExitStandardMessage(_MessageQueue.First.Value.dialogueRow);
+            //ProcessMessaging();
+            //AcceptingResponses = false;
+
+            //ExitResponses(true);
+            //NextMessage();
+            //messageTimer = 0f;
+            //ProcessMessaging();
         }
           //  _MessageQueue.First.Value.dialogueRow.sectionIndex
 
@@ -288,4 +304,21 @@ public class MessageQueue : MonoBehaviour
         messageTimer = 0f;
         ProcessMessaging();
     }
+
+    public void SelectedWorstDialogue()
+    {
+        AcceptingResponses = false;
+        //ExitResponses(true);
+        messageTimer = 0f;
+        previousTextEnum = TextEnum.ResponseOptions;
+
+        ProcessMessaging();
+
+        //ExitMessage();
+        //ExitStandardMessage(_MessageQueue.First.Value.dialogueRow);
+        //NextMessage();
+        //messageTimer = 0f;
+        //ProcessMessaging();
+    }
+
 }

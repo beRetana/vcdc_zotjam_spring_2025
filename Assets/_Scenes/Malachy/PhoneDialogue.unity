@@ -479,8 +479,8 @@ GameObject:
   - component: {fileID: 1218276149}
   - component: {fileID: 1218276148}
   - component: {fileID: 1218276147}
-  - component: {fileID: 1218276146}
   - component: {fileID: 1218276145}
+  - component: {fileID: 1218276150}
   m_Layer: 0
   m_Name: Dialogue
   m_TagString: Untagged
@@ -500,20 +500,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d78759ea1aee74a6e99819c5baca51f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1218276146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1218276144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce9930a68122040548dcd44d6d30e33f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _CSVReader: {fileID: 1218276147}
-  _MessageQueue: {fileID: 1218276145}
 --- !u!114 &1218276147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,7 +525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2475f0266f12e4245988f1edf8a81153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueParser: {fileID: 1218276146}
+  dialogueParser: {fileID: 1218276150}
 --- !u!4 &1218276149
 Transform:
   m_ObjectHideFlags: 0
@@ -550,6 +536,67 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1218276150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1218276144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce9930a68122040548dcd44d6d30e33f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _CSVReader: {fileID: 1218276147}
+  _MessageQueue: {fileID: 1218276145}
+--- !u!1 &1734873976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1734873978}
+  - component: {fileID: 1734873977}
+  m_Layer: 0
+  m_Name: TEMP_Systems
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1734873977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734873976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b0d91648bc55e04e9b0729b24cc4fa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointScript: {fileID: 0}
+  loveDebug: {fileID: 0}
+  herLove: 20
+--- !u!4 &1734873978
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734873976}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 332.8674, y: 263.05478, z: -134.24678}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1251,3 +1298,4 @@ SceneRoots:
   - {fileID: 1867367582}
   - {fileID: 4700536145609176536}
   - {fileID: 1218276149}
+  - {fileID: 1734873978}

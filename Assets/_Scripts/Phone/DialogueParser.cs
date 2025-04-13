@@ -131,7 +131,7 @@ public class DialogueParser : MonoBehaviour
     {
         questionOpen = false;
         SkipToResponse(worstType);
-        _MessageQueue.SelectedDialogue();
+        _MessageQueue.SelectedWorstDialogue();
     }
 
 
