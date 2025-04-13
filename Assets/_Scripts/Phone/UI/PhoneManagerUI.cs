@@ -75,6 +75,16 @@ public class PhoneManagerUI : MonoBehaviour
 
     public void DisplayMessage(CSVReader.DialogueRow dialogueRow)
     {
+        if(dialogueRow.character == CSVReader.CharacterEnum.Her)
+        {
+            //send
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.MessageReceived,this.transform.position);
+        }
+        else if(dialogueRow.character == CSVReader.CharacterEnum.Me)
+        {
+            //receive
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.MessageReceived,this.transform.position);
+        }
         _messagesManager.SendMessage(dialogueRow);
     }
 }

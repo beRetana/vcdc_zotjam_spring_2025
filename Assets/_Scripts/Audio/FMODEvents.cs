@@ -22,6 +22,9 @@ public class FMODEvents : MonoBehaviour
      [field: Header("MessageReceived")]
      [field: SerializeField] public EventReference MessageReceived {get; private set;}
 
+     [field: Header("MessageSent")]
+     [field: SerializeField] public EventReference MessageSent {get; private set;}
+
      [field: Header("Haymaker Charge")]
      [field: SerializeField] public EventReference HaymakerCharge {get; private set;}
 
