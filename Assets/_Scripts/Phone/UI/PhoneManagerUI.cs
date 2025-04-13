@@ -28,12 +28,24 @@ public class PhoneManagerUI : MonoBehaviour
         CSVReader.DialogueRow test4 = new CSVReader.DialogueRow();
         test4.character = CSVReader.CharacterEnum.Me;
         test4.dialogue = "lol"; // 3, one 1
+        CSVReader.DialogueRow test5 = new CSVReader.DialogueRow();
+        test5.character = CSVReader.CharacterEnum.Her;
+        test5.dialogue = "This is only for testing this should be medium"; // 46, one 2
+        CSVReader.DialogueRow test6 = new CSVReader.DialogueRow();
+        test6.character = CSVReader.CharacterEnum.Her;
+        test6.dialogue = "This is only for testing but intersting"; // 39, one 2
+        CSVReader.DialogueRow test7 = new CSVReader.DialogueRow();
+        test7.character = CSVReader.CharacterEnum.Me;
+        test7.dialogue = "lol"; // 3, one 1
 
         tests.Add(test);
         tests.Add(test1);
         tests.Add(test2);
         tests.Add(test3);
         tests.Add(test4);
+        tests.Add(test5);
+        tests.Add(test6);
+        tests.Add(test7);
     }
 
     private void Update()

@@ -66,14 +66,24 @@ public class MessagesManager : MonoBehaviour
         }
     }
 
-    private void DisplayMessage(Transform messageTemplateType, string content)
+    private void DisplayMessage(Transform messages, string content)
     {
-        if (messagesCount >= MAX_MESSAGES)
-            messagesHistory.Dequeue();
-        else ++messagesCount;
-        
-        Transform newMessage = Instantiate(messageTemplateType, transform);
-        newMessage.GetChild(0).GetComponent<TextMeshProUGUI>().text = content;
+        Transform newMessage = Instantiate(messages, Vector3.zero, Quaternion.identity);
+        newMessage.gameObject.SetActive(false);
+        MessageUI messageUI= newMessage.GetComponent<MessageUI>();
+        messageUI.UpdateText(content);
+
+        while (messageUI.Size + messagesCount > 12)
+        {
+            Transform temp = messagesHistory.Dequeue();
+            messagesCount -= temp.GetComponent<MessageUI>().Size;
+            Destroy(temp.gameObject);
+        }
+
+        messagesCount += messageUI.Size;
+        Debug.Log(messagesCount);
+        newMessage.SetParent(transform);
+        newMessage.gameObject.SetActive(true);
         messagesHistory.Enqueue(newMessage);
     }
 
