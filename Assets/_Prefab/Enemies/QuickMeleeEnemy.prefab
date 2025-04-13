@@ -99,6 +99,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3772109466012250631, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
+      propertyPath: m_Speed
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6535207415566726200, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
       propertyPath: _range
       value: 0.2
