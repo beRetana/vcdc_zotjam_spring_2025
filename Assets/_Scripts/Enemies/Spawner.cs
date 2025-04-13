@@ -33,13 +33,15 @@ public class Spawner : MonoBehaviour
     private void Start()
     {
         portal.SetActive(false);
-        StartCoroutine(Spawning());
+        
         waves = new Transform[5][];
         waves[0] = wave1;
         waves[1] = wave2;
         waves[2] = wave3;
         waves[3] = wave4;
         waves[4] = wave5;
+
+        StartCoroutine(Spawning());
     }
 
     private void Spawn(Transform[] wave)
