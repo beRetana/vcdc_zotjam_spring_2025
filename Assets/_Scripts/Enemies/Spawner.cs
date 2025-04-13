@@ -58,8 +58,8 @@ public class Spawner : MonoBehaviour
     {
         for (int i = 0; i < waves.Length; ++i)
         {
-            yield return new WaitForSecondsRealtime(inbetwenSpawn);
             Spawn(waves[i]);
+            yield return new WaitForSecondsRealtime(inbetwenSpawn);
         }
 
         portal.SetActive(true);

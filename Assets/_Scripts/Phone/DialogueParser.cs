@@ -17,12 +17,12 @@ public class DialogueParser : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        CSVReader.OnFinishedReadingDialogue += OpenDialogue;
+        //CSVReader.OnFinishedReadingDialogue += OpenDialogue;
     }
 
-    private void OpenDialogue()
+    public void OpenDialogue(int sceneNum, string EventName)
     {
-        BeginDialogue(0, "Opening");
+        BeginDialogue(sceneNum, EventName);
     }
 
     private void BeginDialogue(int sceneNum, string eventName)

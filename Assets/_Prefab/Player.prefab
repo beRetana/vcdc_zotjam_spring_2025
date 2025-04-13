@@ -833,8 +833,8 @@ MonoBehaviour:
   _baseSpeed: 5
   _sprintSpeed: 7
   _dashTime: 0.5
-  _dashSpeed: 15
-  _dashDamage: 10
+  _dashSpeed: 13
+  _dashDamage: 15
   happyScript: {fileID: 4284072329252252643}
 --- !u!114 &547331374711749930
 MonoBehaviour:
@@ -849,15 +849,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackSpeed: 1
-  _meleeAttackArea: 0.5
-  _meleeAttackRange: 5
-  _meleeAttackOneDamage: 10
+  _meleeAttackArea: 1
+  _meleeAttackRange: 2
+  _meleeAttackOneDamage: 5
   _meleeAttackTwoDamage: 10
-  _chargedAttackDamage: 20
+  _chargedAttackDamage: 100
   _chargingTime: 2
   _chargeHoldingTime: 0.5
-  _ultiRangeAttack: 10
-  _ultiDamageAttack: 50
+  _ultiRangeAttack: 25
+  _ultiDamageAttack: 100
   _ultiNecessaryPoints: 100
   _enemiesMask:
     serializedVersion: 2
