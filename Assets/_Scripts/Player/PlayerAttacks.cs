@@ -17,10 +17,13 @@ public class PlayerAttacks : MonoBehaviour
     //[SerializeField, Range(2f, 20f)] private float _rangedAttackRange = 8f;
     [SerializeField, Range(1f, 50f)] private float _ultiRangeAttack = 10f;
     [SerializeField, Range(1f, 100f)] private float _ultiDamageAttack = 50f;
+    [SerializeField, Range(1f, 100f)] private float _ultiNecessaryPoints = 100f;
+
+    [SerializeField] private LayerMask _enemiesMask;
 
     private PlayerController _playerController;
     private float _chargedAttackRatio;
-
+    private float _ultiCurrentPoints;
 
     // counts if youre in a loop yet or not
     private Coroutine _attackTimerCoroutine;
@@ -56,9 +59,17 @@ public class PlayerAttacks : MonoBehaviour
         _playerController.PlayerActions.Enable();
     }
 
-    private void UltimateAttack(InputAction.CallbackContext obj)
+    private void UltimateAttack(InputAction.CallbackContext context)
     {
-        throw new System.NotImplementedException();
+        if (_ultiNecessaryPoints != _ultiCurrentPoints) return;
+
+        Collider[] collisions = Physics.OverlapSphere(transform.position, _ultiRangeAttack, _enemiesMask);
+
+        foreach (Collider collision in collisions)
+        {
+            float ratio = Mathf.Min(1, _ultiRangeAttack / (collision.transform.position - transform.position).magnitude);
+            collision.transform.GetComponent<EnemyHealth>().ModifyHealth(ratio * _ultiDamageAttack);
+        }
     }
 
     void OnDisable()
@@ -66,6 +77,7 @@ public class PlayerAttacks : MonoBehaviour
         _playerController.PlayerActions.Melee.started -= MeleeAttacks;
         _playerController.PlayerActions.Range.started -= StartCharge;
         _playerController.PlayerActions.Range.canceled -= StopCharge;
+        _playerController.PlayerActions.Ultimate.performed -= UltimateAttack;
         _playerController.PlayerActions.Disable();
     }
 
