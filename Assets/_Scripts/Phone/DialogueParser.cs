@@ -67,7 +67,7 @@ public class DialogueParser : MonoBehaviour
         switch (r.type)
         {
             case CSVReader.TypeEnum.Std:
-                Debug.Log(r);
+                SendMessage(r);
                 RemoveCurrentDialogue();
                 PlayDialogue();
                 break;
@@ -80,18 +80,18 @@ public class DialogueParser : MonoBehaviour
 
 
             case CSVReader.TypeEnum.Q:
-                Debug.Log(r);
+                SendMessage(r);
                 OpenQuestion(r.sectionIndex);
                 break;
 
             case CSVReader.TypeEnum.R1:
-                Debug.Log(r);
+                SendMessage(r);
                 break;
             case CSVReader.TypeEnum.R2:
-                Debug.Log(r);
+                SendMessage(r);
                 break;
             case CSVReader.TypeEnum.R3:
-                Debug.Log(r);
+                SendMessage(r);
                 break;
         }
     }
@@ -117,9 +117,11 @@ public class DialogueParser : MonoBehaviour
 
         if (sceneResponses.TryGetValue(sectionIndex, out string[] choices))
         {
-            Debug.Log($"[1] {choices[0]}");
-            Debug.Log($"[2] {choices[1]}");
-            Debug.Log($"[3] {choices[2]}");
+            SendReponseOptions(choices);
+
+            //Debug.Log($"[1] {choices[0]}");
+            //Debug.Log($"[2] {choices[1]}");
+            //Debug.Log($"[3] {choices[2]}");
         }
     }
 
@@ -150,7 +152,7 @@ public class DialogueParser : MonoBehaviour
 
         while (_dialogueList.First != null && _dialogueList.First.Value.type == type)
         {
-            Debug.Log(_dialogueList.First.Value);
+            SendMessage(_dialogueList.First.Value);
             RemoveCurrentDialogue();
 
         }
