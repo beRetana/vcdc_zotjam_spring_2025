@@ -6,12 +6,13 @@ public class PhoneManagerUI : MonoBehaviour
     [SerializeField] private DialogueOptionsManager _optionsManager;
     [SerializeField] private MessagesManager _messagesManager;
 
-    /*
+    
+
     private List<CSVReader.DialogueRow> tests;
     private int indexer;
-
+    /*
     private void Start()
-    {
+    {   
         tests = new List<CSVReader.DialogueRow>();
         CSVReader.DialogueRow test = new CSVReader.DialogueRow();
         test.character = CSVReader.CharacterEnum.Her;
@@ -55,7 +56,7 @@ public class PhoneManagerUI : MonoBehaviour
             DisplayMessage(tests[indexer]);
             ++indexer;
         }
-    }*/
+    }  */
 
     public void DisplayOptionsUI(CSVReader.DialogueRow[] dialogueOptions)
     {

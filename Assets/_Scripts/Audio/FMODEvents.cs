@@ -16,6 +16,12 @@ public class FMODEvents : MonoBehaviour
      [field: Header("Cross Punch")]
      [field: SerializeField] public EventReference CrossPunch {get; private set;}
 
+     [field: Header("Dash SFX")]
+     [field: SerializeField] public EventReference DashSFX {get; private set;}
+
+     [field: Header("MessageReceived")]
+     [field: SerializeField] public EventReference MessageReceived {get; private set;}
+
     //AudioManager.instance.PlayOneShot(FMODEvents.instance.PunchWhiff,this.transform.position);
     
     
