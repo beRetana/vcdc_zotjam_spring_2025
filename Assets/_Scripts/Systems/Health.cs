@@ -58,6 +58,8 @@ public class Health : MonoBehaviour
 
     public void LoseHealth()
     {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.TakeDamage,this.transform.position);
+
         // you lose!!!
         if (totalHP - 1 == 0)
         {
