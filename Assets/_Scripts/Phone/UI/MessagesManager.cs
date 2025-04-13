@@ -68,6 +68,8 @@ public class MessagesManager : MonoBehaviour
 
     private void DisplayMessage(Transform messages, string content)
     {
+        AudioManager.instance?.PlayOneShot(FMODEvents.instance.MessageReceived,PlayerMovement.Instance.transform.position);
+
         Transform newMessage = Instantiate(messages, Vector3.zero, Quaternion.identity);
         newMessage.gameObject.SetActive(false);
         MessageUI messageUI= newMessage.GetComponent<MessageUI>();
@@ -81,7 +83,7 @@ public class MessagesManager : MonoBehaviour
         }
 
         messagesCount += messageUI.Size;
-        Debug.Log(messagesCount);
+        //Debug.Log(messagesCount);
         newMessage.SetParent(transform);
         newMessage.gameObject.SetActive(true);
         messagesHistory.Enqueue(newMessage);

@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField, Range(1f, 500f)] protected float _maxHealth;
+    [SerializeField, Range(1f, 100f)] protected int _rewardPoints;
 
     protected float _health;
 
@@ -28,6 +29,6 @@ public class EnemyHealth : MonoBehaviour
 
     protected virtual void OnDeath()
     {
-        Destroy(gameObject);
+        PlayerMovement.Instance.GetComponent<Points>().EnemyDeath(_rewardPoints);
     }
 }

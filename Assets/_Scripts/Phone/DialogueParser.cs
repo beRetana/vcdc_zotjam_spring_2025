@@ -4,13 +4,14 @@ using System.Collections.Generic;
 public class DialogueParser : MonoBehaviour
 {
     [SerializeField] CSVReader _CSVReader;
+    [SerializeField] MessageQueue _MessageQueue;
 
     private LinkedList<CSVReader.DialogueRow> _dialogueList;
     private CSVReader.TypeEnum responseType;
 
     public bool questionOpen { get; private set; }
 
-    private Dictionary<int, string[]> sceneResponses;
+    private Dictionary<int, CSVReader.DialogueRow[]> sceneResponses;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -29,7 +30,7 @@ public class DialogueParser : MonoBehaviour
         CSVReader.SectionsList eventSectionList = _CSVReader.GetEventDialogueListObject(sceneNum, eventName);
 
         _dialogueList = new LinkedList<CSVReader.DialogueRow>();
-        sceneResponses = new Dictionary<int, string[]>();
+        sceneResponses = new Dictionary<int, CSVReader.DialogueRow[]>();
         responseType = CSVReader.TypeEnum.Std;
 
         foreach (CSVReader.DialogueRowList section in eventSectionList.sectionsList)
@@ -41,10 +42,10 @@ public class DialogueParser : MonoBehaviour
                 if( row.messageIndex == 0 && (row.type == CSVReader.TypeEnum.R1 || row.type == CSVReader.TypeEnum.R2 || row.type == CSVReader.TypeEnum.R3))
                 {
                     if (!sceneResponses.ContainsKey(row.sectionIndex))
-                        sceneResponses[row.sectionIndex] = new string[3];
+                        sceneResponses[row.sectionIndex] = new CSVReader.DialogueRow[3];
 
                     int idx = (int)(row.type - CSVReader.TypeEnum.R1);
-                    sceneResponses[row.sectionIndex][idx] = row.dialogue;
+                    sceneResponses[row.sectionIndex][idx] = row;
                 }
             }
         }
@@ -115,8 +116,9 @@ public class DialogueParser : MonoBehaviour
     {
         questionOpen = true;
 
-        if (sceneResponses.TryGetValue(sectionIndex, out string[] choices))
+        if (sceneResponses.TryGetValue(sectionIndex, out CSVReader.DialogueRow[] choices))
         {
+
             SendReponseOptions(choices);
 
             //Debug.Log($"[1] {choices[0]}");
@@ -125,11 +127,18 @@ public class DialogueParser : MonoBehaviour
         }
     }
 
+    public void GetWorstDialogue(CSVReader.TypeEnum worstType)
+    {
+        questionOpen = false;
+        SkipToResponse(worstType);
+        _MessageQueue.SelectedWorstDialogue();
+    }
+
 
     public bool TakeAction(int actionNum) // 1 2 or 3
     {
-        //Debug.Log($"Attempt Take Action: {actionNum}. questionOpen = {questionOpen}");
-        if (!questionOpen) return false;
+        Debug.Log($"Attempt Take Action: {actionNum}. questionOpen = {questionOpen && _MessageQueue.AcceptingResponses}");
+        if (!questionOpen || !_MessageQueue.AcceptingResponses) return false;
 
         Debug.Log($"[{actionNum}]");
 
@@ -137,6 +146,7 @@ public class DialogueParser : MonoBehaviour
         questionOpen = false;
 
         SkipToResponse(selectedType);
+        _MessageQueue.SelectedDialogue();
         return true;
 
     }
@@ -170,13 +180,15 @@ public class DialogueParser : MonoBehaviour
 
     private void SendMessage(CSVReader.DialogueRow r)
     {
-        Debug.Log(r);
+        //Debug.Log(r);
+        _MessageQueue.QueueMessage(r);
     }
 
-    private void SendReponseOptions(string[] reponseChoices)
+    private void SendReponseOptions(CSVReader.DialogueRow[] responseChoices)
     {
-        Debug.Log($"[1] {reponseChoices[0]}");
-        Debug.Log($"[2] {reponseChoices[1]}");
-        Debug.Log($"[3] {reponseChoices[2]}");
+        //Debug.Log($"[1] {reponseChoices[0]}");
+        //Debug.Log($"[2] {reponseChoices[1]}");
+        //Debug.Log($"[3] {reponseChoices[2]}");
+        _MessageQueue.QueueResponseOptions(responseChoices);
     }
 }
