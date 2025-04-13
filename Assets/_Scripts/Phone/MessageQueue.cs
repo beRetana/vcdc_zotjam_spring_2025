@@ -7,6 +7,9 @@ public class MessageQueue : MonoBehaviour
     const float AVG_ADDITIONAL_MESSAGE_TIME = .5f;
     const float AVG_RESPONSE_TIMER = 6.9f;
 
+    public delegate void EventMessageCompletion();
+    public static EventMessageCompletion OnEventMessageCompletion;
+
     public bool AcceptingResponses { get; private set; } = false;
 
     private PhoneManagerUI phoneManagerUI;
@@ -60,6 +63,17 @@ public class MessageQueue : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        SceneTransition.OnSceneLoaded += FindObjectComponents;
+    }
+
+    private void FindObjectComponents()
+    {
+        loveManager = FindFirstObjectByType<Love>();
+        timerUIManager = FindFirstObjectByType<TimerUI>();
+    }
+
     private void Start()
     {
         phoneManagerUI = FindFirstObjectByType<PhoneManagerUI>();
@@ -103,7 +117,7 @@ public class MessageQueue : MonoBehaviour
                 timerUIManager.SetTime(messageTimer);
         }
     }
-    
+
 
 
     private void NextMessage()
@@ -112,9 +126,15 @@ public class MessageQueue : MonoBehaviour
         {
             previousTextEnum = _MessageQueue.First.Value.textEnum;
             _MessageQueue.RemoveFirst();
+
+            if (_MessageQueue.Count == 0)
+            {
+                Debug.Log("DONE WITH EVENT");
+                OnEventMessageCompletion?.Invoke();
+
+            }
         }
     }
-
     private void EnterMessage()
     {
         MessageObject currentMessage = _MessageQueue.First.Value;
@@ -185,7 +205,7 @@ public class MessageQueue : MonoBehaviour
 
 
         if (dialogueRow.lovePoints != 0)
-           loveManager.editHerLove(dialogueRow.lovePoints);
+           FindFirstObjectByType<Love>().editHerLove(dialogueRow.lovePoints);
         //else
           //  Debug.Log("No Love Manager");
     }

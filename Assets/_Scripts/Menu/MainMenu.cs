@@ -4,9 +4,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public delegate void GameStarting();
+    public static GameStarting OnGameStarting;
+
     public void StartGame()
     {
-        SceneManager.LoadScene("Stage 1");
+        OnGameStarting?.Invoke();
+        FindFirstObjectByType<SceneTransition>().NextScene("conner");
     }
 
     public void QuitGame()

@@ -7,6 +7,11 @@ public class DialogueController : MonoBehaviour
     private PlayerController _playerController;
     [SerializeField] DialogueParser dialogueParser;
 
+    private void OnEnable()
+    {
+        DontDestroyOnLoad(this);
+    }
+
     void Start()
     {
         _playerController = new();

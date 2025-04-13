@@ -10,6 +10,11 @@ public class PhoneManagerUI : MonoBehaviour
 
     private List<CSVReader.DialogueRow> tests;
     private int indexer;
+
+    private void OnEnable()
+    {
+        DontDestroyOnLoad(this);
+    }
     /*
     private void Start()
     {   

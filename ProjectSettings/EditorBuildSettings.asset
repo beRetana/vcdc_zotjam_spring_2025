@@ -11,9 +11,27 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_Scenes/Stage 1.unity
     guid: d6045b741f13c354fa8c10100f202d99
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/Annabella Menus.unity
     guid: 600eaaf73ca9fab4e97a4d3217f5f5b4
+  - enabled: 0
+    path: Assets/_Scenes/Malachy/Malachy BigUI.unity
+    guid: c0b77de2493ca4c5d8b5189ddd7312ab
+  - enabled: 0
+    path: Assets/_Scenes/BUILD/Forest_F1.unity
+    guid: 627d3630ff4fac54d969ca20759dc091
+  - enabled: 1
+    path: Assets/_Scenes/Conner.unity
+    guid: 781695fcbc32ea345add112b01b00369
+  - enabled: 1
+    path: Assets/_Art/Stages/City.unity
+    guid: 29cdaf56c7bfeaf4a98880327bc9ce11
+  - enabled: 1
+    path: Assets/_Art/Stages/Church.unity
+    guid: 2d89d98c484959943b0cfd8d03070058
+  - enabled: 1
+    path: Assets/_Scenes/BUILD/MainMenu.unity
+    guid: 57e655bb4c80fc043921994ce75fd1b8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: f6ad3729400de4bfbb63e34be308f1df, type: 3}
   m_UseUCBPForAssetBundles: 0
