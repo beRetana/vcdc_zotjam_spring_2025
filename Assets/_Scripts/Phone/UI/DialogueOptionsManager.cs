@@ -18,6 +18,15 @@ public class DialogueOptionsManager : MonoBehaviour
         
     }
 
+    public void DisplayResponseStringOptions(string[] dialogueStringOptions)
+    {
+        for (int index = 0; index < 3; ++index)
+        {
+            _dialogueOptionsUI[index].UpdateOption(index + 1, dialogueStringOptions[index]);
+            _dialogueOptionsUI[index].gameObject.SetActive(true);
+        }
+    }
+
     public void DisableResponseOptions()
     {
         for (int index = 0; index < _dialogueOptionsUI.Length; ++index)

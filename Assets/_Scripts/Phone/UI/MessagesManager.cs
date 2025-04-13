@@ -83,7 +83,7 @@ public class MessagesManager : MonoBehaviour
         }
 
         messagesCount += messageUI.Size;
-        Debug.Log(messagesCount);
+        //Debug.Log(messagesCount);
         newMessage.SetParent(transform);
         newMessage.gameObject.SetActive(true);
         messagesHistory.Enqueue(newMessage);

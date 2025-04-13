@@ -63,6 +63,16 @@ public class PhoneManagerUI : MonoBehaviour
         _optionsManager.DisplayResponseOptions(dialogueOptions);
     }
 
+    public void DisplayStringOptionsUI(string[] dialogueStringOptions)
+    {
+        _optionsManager.DisplayResponseStringOptions(dialogueStringOptions);
+    }
+
+    public void DisplayNoOptionsUI()
+    {
+        _optionsManager.DisableResponseOptions();
+    }
+
     public void DisplayMessage(CSVReader.DialogueRow dialogueRow)
     {
         _messagesManager.SendMessage(dialogueRow);

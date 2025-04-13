@@ -137,7 +137,8 @@ public class PlayerMovement : MonoBehaviour
         enemyHealth.ModifyHealth(_dashDamage);
         rb?.AddForce(_dashSpeed * direction, ForceMode.Impulse);
         yield return new WaitForSeconds(1f);
-        rb.isKinematic = true;
+        if (rb != null)
+            rb.isKinematic = true;
     }
 
     private void Update()
