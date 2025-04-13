@@ -9,6 +9,8 @@ public class ChasePlayer : TaskBase
     private GameObject _player;
     private Enemy _actor;
 
+    public float AttackRange { get { return _attackRange; } }
+
     protected override void Start()
     {
         base.Start();
@@ -18,13 +20,11 @@ public class ChasePlayer : TaskBase
     }
     public override void Disable()
     {
-        base.Disable();
         _startChasing = false;
     }
 
     public override void Enable()
     {
-        base.Enable();
         _startChasing = true;
     }
 
@@ -36,7 +36,6 @@ public class ChasePlayer : TaskBase
         {
             Debug.Log("Got Close Engough: Switching to Attacking");
             _actor.UpdateBehaviour(Enemy.EnemyState.Attacking);
-            Disable();
         }
     }
 
