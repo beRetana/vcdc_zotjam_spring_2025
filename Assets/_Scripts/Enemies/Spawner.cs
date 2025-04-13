@@ -52,7 +52,7 @@ public class Spawner : MonoBehaviour
         textMeshPro.text = $"Enemies Left: {counter}";
         foreach (Transform t in wave)
         {
-            if (odd)
+            if (!odd)
             {
                 Instantiate(enemyFirstWave, t.position, Quaternion.identity);
                 odd = true;
