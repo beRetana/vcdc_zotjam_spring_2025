@@ -11,6 +11,7 @@ public class MessageQueue : MonoBehaviour
 
     private PhoneManagerUI phoneManagerUI;
     [SerializeField] Love loveManager;
+    [SerializeField] TimerUI timerUIManager;
 
     public enum TimerEnum { None, Typing, Responding };
     TimerEnum timerEnum = TimerEnum.None;
@@ -98,6 +99,8 @@ public class MessageQueue : MonoBehaviour
         else
         {
             messageTimer -= Time.fixedDeltaTime;
+            if(currentMessage.textEnum == TextEnum.ResponseOptions)
+                timerUIManager.SetTime(messageTimer);
         }
     }
     
@@ -137,6 +140,8 @@ public class MessageQueue : MonoBehaviour
     /// </summary>
     private void ExitMessage()
     {
+        timerUIManager.StopTime();
+
         MessageObject currentMessage = _MessageQueue.First.Value;
 
         switch (currentMessage.textEnum)
