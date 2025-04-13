@@ -57,4 +57,8 @@ public class Happy : MonoBehaviour
         }
     }
 
+    public float getHappyPercent()
+    {
+        return (float)herHappy / happyCap;
+    }
 }
