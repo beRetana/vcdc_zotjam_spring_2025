@@ -22,9 +22,11 @@ public class EnemyHealth : MonoBehaviour
 
     public virtual void ModifyHealth(float modifier)
     {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.EnemyTakeDamage,this.transform.position);
         _health = Mathf.Max(_health - modifier, 0f);
         if (_health <= 0f) OnDeath();
         else OnEnemyAttacked?.Invoke();
+        Debug.Log($"Damage done: {modifier}");
     }
 
     protected virtual void OnDeath()

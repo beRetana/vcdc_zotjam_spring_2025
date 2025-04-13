@@ -44,3 +44,94 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1239773b2f80694c954cc32751fb670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <PunchWhiff>k__BackingField:
+    Guid:
+      Data1: 415249936
+      Data2: 1232527228
+      Data3: 1489926330
+      Data4: -1683061159
+    Path: event:/Punch Whiff
+  <JabPunch>k__BackingField:
+    Guid:
+      Data1: -99786115
+      Data2: 1254025218
+      Data3: -1148704371
+      Data4: 444822129
+    Path: event:/Punch 1
+  <CrossPunch>k__BackingField:
+    Guid:
+      Data1: 1109586227
+      Data2: 1242263114
+      Data3: -2007276393
+      Data4: -1773184857
+    Path: event:/Punch 2 (Cross)
+  <DashSFX>k__BackingField:
+    Guid:
+      Data1: 1525950004
+      Data2: 1153587252
+      Data3: 237289663
+      Data4: 534822509
+    Path: event:/Dash SFX
+  <MessageReceived>k__BackingField:
+    Guid:
+      Data1: 632394916
+      Data2: 1148423694
+      Data3: 2144131519
+      Data4: 1708122129
+    Path: event:/MessageReceived
+  <HaymakerCharge>k__BackingField:
+    Guid:
+      Data1: 193281085
+      Data2: 1095222015
+      Data3: 486727837
+      Data4: -673421680
+    Path: event:/Haymaker Charge
+  <HaymakerImpact>k__BackingField:
+    Guid:
+      Data1: -711542344
+      Data2: 1116603558
+      Data3: 1220518334
+      Data4: 1444911552
+    Path: event:/Haymaker Impact
+  <ULTSFX>k__BackingField:
+    Guid:
+      Data1: -632202100
+      Data2: 1310498810
+      Data3: 298434199
+      Data4: -1367495761
+    Path: event:/Ult SFX
+  <TakeDamage>k__BackingField:
+    Guid:
+      Data1: 753982188
+      Data2: 1254537663
+      Data3: 1075090337
+      Data4: 1557759091
+    Path: event:/TakeDamage
+  <EnemyTakeDamage>k__BackingField:
+    Guid:
+      Data1: -187625024
+      Data2: 1319069161
+      Data3: -688827468
+      Data4: -336769410
+    Path: event:/EnemyTakeDamage
+  <HappyNoise>k__BackingField:
+    Guid:
+      Data1: 1741720693
+      Data2: 1309456585
+      Data3: -1030987902
+      Data4: 1638310369
+    Path: event:/HappyNoise
+  <SadNoise>k__BackingField:
+    Guid:
+      Data1: 1932882702
+      Data2: 1255940579
+      Data3: 1700041639
+      Data4: 1973314669
+    Path: event:/SadNoise
+  <ShankAttack>k__BackingField:
+    Guid:
+      Data1: -1676329698
+      Data2: 1123209183
+      Data3: -1359307635
+      Data4: 1709648833
+    Path: event:/EnemyShank

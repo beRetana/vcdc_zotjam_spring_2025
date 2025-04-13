@@ -115,7 +115,7 @@ public class F_CharFst : MonoBehaviour
                     MaterialValue = 5;
                     break;
                 default:
-                    MaterialValue = 0;
+                    MaterialValue = 1;
                     break;
 
             }

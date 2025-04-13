@@ -793,6 +793,7 @@ GameObject:
   - component: {fileID: 384687502169301907}
   - component: {fileID: 6729891348430750458}
   - component: {fileID: 5627978215784720162}
+  - component: {fileID: -2012286233789457485}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -832,8 +833,8 @@ MonoBehaviour:
   _baseSpeed: 5
   _sprintSpeed: 7
   _dashTime: 0.5
-  _dashSpeed: 15
-  _dashDamage: 10
+  _dashSpeed: 13
+  _dashDamage: 15
   happyScript: {fileID: 4284072329252252643}
 --- !u!114 &547331374711749930
 MonoBehaviour:
@@ -848,15 +849,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackSpeed: 1
-  _meleeAttackArea: 0.5
-  _meleeAttackRange: 5
-  _meleeAttackOneDamage: 10
+  _meleeAttackArea: 1
+  _meleeAttackRange: 2
+  _meleeAttackOneDamage: 5
   _meleeAttackTwoDamage: 10
-  _chargedAttackDamage: 20
+  _chargedAttackDamage: 100
   _chargingTime: 2
   _chargeHoldingTime: 0.5
-  _ultiRangeAttack: 10
-  _ultiDamageAttack: 50
+  _ultiRangeAttack: 25
+  _ultiDamageAttack: 100
   _ultiNecessaryPoints: 100
   _enemiesMask:
     serializedVersion: 2
@@ -992,5 +993,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0437cf3a0305d0a469f929b5a652cd86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-2012286233789457485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8510501772523145487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c07ed13dbcc18af49b3b8fa83eaf9c00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
