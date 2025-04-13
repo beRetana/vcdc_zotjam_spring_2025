@@ -83,6 +83,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: QuickMeleeEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 2139195666900185950, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 10f9d2b6f595587409792d05be9c43c4, type: 3}
+    - target: {fileID: 2139195666900185950, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2139195666900185950, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2139195666900185950, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6535207415566726200, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
       propertyPath: _damage
       value: 1
@@ -101,6 +117,26 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 7adddd1b83671e747996e8780ecc4684, type: 2}
     - target: {fileID: 7879496720397367497, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
       propertyPath: _rewardPoints
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8614408607878193596, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8614408607878193596, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8614408607878193596, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: 8614408607878193596, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.175
+      objectReference: {fileID: 0}
+    - target: {fileID: 8614408607878193596, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
