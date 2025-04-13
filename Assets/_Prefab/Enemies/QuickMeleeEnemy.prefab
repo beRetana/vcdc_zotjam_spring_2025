@@ -95,6 +95,10 @@ PrefabInstance:
       propertyPath: _attackArea
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6832885186332861264, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7adddd1b83671e747996e8780ecc4684, type: 2}
     - target: {fileID: 7879496720397367497, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
       propertyPath: _rewardPoints
       value: 1
