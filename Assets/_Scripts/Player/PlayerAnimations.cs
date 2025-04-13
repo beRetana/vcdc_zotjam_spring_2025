@@ -8,6 +8,7 @@ public class PlayerAnimations : MonoBehaviour
     private const string DASHING = "Dashing";
     private const string DASHED = "Dashed";
     private const string WALKING = "Walking";
+    private const string CHARGING = "Charging";
 
     private void Start()
     {
@@ -26,6 +27,7 @@ public class PlayerAnimations : MonoBehaviour
 
     public void Dashed()
     {
+        _animator.ResetTrigger(DASHED);
         _animator.SetTrigger(DASHED);
     }
 
@@ -34,5 +36,9 @@ public class PlayerAnimations : MonoBehaviour
         _animator.SetBool(WALKING, active);
     }
 
+    public void Charging(bool active)
+    {
+        _animator.SetBool(CHARGING, active);
+    }
 
 }

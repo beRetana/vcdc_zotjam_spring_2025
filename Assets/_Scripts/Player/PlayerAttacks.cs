@@ -21,6 +21,7 @@ public class PlayerAttacks : MonoBehaviour
     [SerializeField] private LayerMask _enemiesMask;
 
     private PlayerController _playerController;
+    private PlayerAnimations _playerAnimations;
     private float _ultiCurrentPoints;
 
     // combo state
@@ -45,6 +46,7 @@ public class PlayerAttacks : MonoBehaviour
     void Start()
     {
         _playerController = new PlayerController();
+        _playerAnimations = GetComponent<PlayerAnimations>();
         Enable();
         HaymakerCharge = AudioManager.instance.CreateInstance(FMODEvents.instance.HaymakerCharge);
         HaymakerImpact = AudioManager.instance.CreateInstance(FMODEvents.instance.HaymakerImpact);
@@ -134,6 +136,7 @@ public class PlayerAttacks : MonoBehaviour
     {
         if (_charging != null) StopCoroutine(_charging);
         _charging = StartCoroutine(ChargeAttack());
+
     }
 
     private void StopCharge(InputAction.CallbackContext ctx)
