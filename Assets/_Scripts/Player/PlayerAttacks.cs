@@ -99,6 +99,9 @@ public class PlayerAttacks : MonoBehaviour
                 can_go_into_two = false;
             }
         }
+
+       
+
         // /*
     }
 
@@ -128,13 +131,21 @@ public class PlayerAttacks : MonoBehaviour
     private void AttackMeleeOne()
     {
         Debug.Log("1");
-        MeleeAttack(_meleeAttackOneDamage);
+        bool hit = MeleeAttack(_meleeAttackOneDamage);
+        if (hit)
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.JabPunch, this.transform.position);
+        else
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.PunchWhiff, this.transform.position);
     }
 
     private void AttackMeleeTwo()
     {
         Debug.Log("2");
-        MeleeAttack(_meleeAttackTwoDamage);
+        bool hit = MeleeAttack(_meleeAttackTwoDamage);
+        if (hit)
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.CrossPunch, this.transform.position); // or a different sound if you have for combo 2
+        else
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.PunchWhiff, this.transform.position);
     }
 
     IEnumerator AttackTimer(){
@@ -151,12 +162,20 @@ public class PlayerAttacks : MonoBehaviour
 
     // */
 
-    private void MeleeAttack(float damage)
+    private bool MeleeAttack(float damage)
+{
+    RaycastHit raycastHit;
+    if (Physics.SphereCast(transform.position, _meleeAttackArea, Vector3.right * _facingRight, out raycastHit, _meleeAttackRange))
     {
-        RaycastHit raycastHit;
-        if (!Physics.SphereCast(transform.position, _meleeAttackArea, Vector3.right * _facingRight, out raycastHit, _meleeAttackRange)) return;
-        raycastHit.transform.GetComponent<EnemyHealth>()?.ModifyHealth(damage);
+        var enemyHealth = raycastHit.transform.GetComponent<EnemyHealth>();
+        if (enemyHealth != null)
+        {
+            enemyHealth.ModifyHealth(damage);
+            return true; // It hit!
+        }
     }
+    return false; // It missed!
+}
 
     
 }
