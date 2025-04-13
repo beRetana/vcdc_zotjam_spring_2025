@@ -1123,7 +1123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 650159424}
   bonusHealthBar: {fileID: 1245593}
-  genericMaxHP: 5
+  imageryMax: 5
 --- !u!1 &1524745328
 GameObject:
   m_ObjectHideFlags: 0
