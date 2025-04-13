@@ -293,7 +293,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: bd3cb4af8406d4436a2ae8c2aafe1f8d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e660fd56e7e4b194bbaabad0cfc8f355, type: 3}
   m_Color: {r: 0, g: 0.5415806, b: 0.6698113, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -905,8 +905,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointScript: {fileID: 4674449396441536891}
-  happyDebug: {fileID: 2045503553181847340}
-  herHappy: 20
+  loveDebug: {fileID: 0}
+  herLove: 20
 --- !u!136 &3169220560898088210
 CapsuleCollider:
   m_ObjectHideFlags: 0
