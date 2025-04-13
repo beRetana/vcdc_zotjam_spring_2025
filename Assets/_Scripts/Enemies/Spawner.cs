@@ -5,7 +5,8 @@ using UnityEngine.UIElements;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private Transform enemy;
+    [SerializeField] private Transform enemyFirstWave;
+    [SerializeField] private Transform enemySecondWave;
     [SerializeField] private Transform[] wave1;
     [SerializeField] private Transform[] wave2;
     [SerializeField] private Transform[] wave3;
@@ -16,6 +17,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float inbetwenSpawn;
     private Transform[][] waves;
     private int counter;
+    private bool odd;
 
     public static Spawner Instance { get; private set; }
 
@@ -50,7 +52,16 @@ public class Spawner : MonoBehaviour
         textMeshPro.text = $"Enemies Left: {counter}";
         foreach (Transform t in wave)
         {
-            Instantiate(enemy, t.position, Quaternion.identity);
+            if (!odd)
+            {
+                Instantiate(enemyFirstWave, t.position, Quaternion.identity);
+                odd = true;
+            }
+            else
+            {
+                Instantiate(enemySecondWave, t.position, Quaternion.identity);
+                odd = false;
+            }  
         }
     }
 
