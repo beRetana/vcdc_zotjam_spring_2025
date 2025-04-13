@@ -1,0 +1,101 @@
+RowName,Scene,Event,SectionIndex,Type,MessageIndex,Character,Dialogue,LovePoints
+0-Opening-0-Q-0,0,Opening,0,Q,0,Her,Hey I thought you were cute,
+0-Opening-0-R1-0,0,Opening,0,R1,0,Me,ty I think you’re plenty cute too,
+0-Opening-0-R1-1,0,Opening,0,R1,1,Her,You’re so sweet I think I could get used to you,5
+0-Opening-0-R2-0,0,Opening,0,R2,0,Me,thanks ig,
+0-Opening-0-R2-1,0,Opening,0,R2,1,Her,What’s your problem Js take my compliment silly,-3
+0-Opening-0-R3-0,0,Opening,0,R3,0,Me,How did you get my number,
+0-Opening-0-R3-1,0,Opening,0,R3,1,Her,Umm it’s on your profile LOL you’re so funny,3
+0-Opening-1-Std-0,0,Opening,1,Std,0,Her,So tell me about yourself,
+0-Opening-1-Std-1,0,Opening,1,Std,1,Me,I'm a spy,
+0-Opening-1-Std-2,0,Opening,1,Std,2,Her,A spy So cool you got any cool gadgets,
+0-Opening-1-Std-3,0,Opening,1,Std,3,Me,Uhhh I usually just punch my way through problems,
+0-Opening-1-Std-4,0,Opening,1,Std,4,Her,Oooh we got a tough guy huh,
+0-Opening-1-Std-5,0,Opening,1,Std,5,Me,Mhm holdup I needa take care of some goons rq,
+0-Opening-1-Std-6,0,Opening,1,Std,6,Her,Nuh uh you’re gonna keep texting me mr,
+0-ExitHouse-0-Q-0,0,ExitHouse,0,Q,0,Her,Do you enjoy being a spy,
+0-ExitHouse-0-R1-0,0,ExitHouse,0,R1,0,Me,...,
+0-ExitHouse-0-R1-1,0,ExitHouse,0,R1,1,Her,I’ll take that as a no then jeez Dw I’ll take care of you,-3
+0-ExitHouse-0-R2-0,0,ExitHouse,0,R2,0,Me,It’s alright ,
+0-ExitHouse-0-R2-1,0,ExitHouse,0,R2,1,Her,You know you can be honest with me Dw I’ll take care of you,-1
+0-ExitHouse-0-R3-0,0,ExitHouse,0,R3,0,Me,I honestly hate it,
+0-ExitHouse-0-R3-1,0,ExitHouse,0,R3,1,Her,Poor baby dw I’ll take care of you,5
+0-ExitHouse-1-Q-0,0,ExitHouse,1,Q,0,Her,Why don’t you like being a spy,
+0-ExitHouse-1-R1-0,0,ExitHouse,1,R1,0,Me,I think spies are pretty weak they rely too much on tech,
+0-ExitHouse-1-R1-1,0,ExitHouse,1,R1,1,Her,I think you’re pretty strong handsome,3
+0-ExitHouse-1-R2-0,0,ExitHouse,1,R2,0,Me,I don’t like sneaking around and lying,
+0-ExitHouse-1-R2-1,0,ExitHouse,1,R2,1,Her,GREEN FLAG,5
+0-ExitHouse-1-R3-0,0,ExitHouse,1,R3,0,Me,I’m js bored of it,
+0-ExitHouse-1-R3-1,0,ExitHouse,1,R3,1,Her,Dw we’ll have lots of fun tg,1
+1-LoadingScreen-0-Std-0,1,LoadingScreen,0,Std,0,Her,Wait I think I’m getting kidnapped,
+1-LoadingScreen-0-Std-1,1,LoadingScreen,0,Std,1,Me,HUH,
+1-LoadingScreen-0-Std-2,1,LoadingScreen,0,Std,2,Her,Yeah oh wait They wanna talk to you,
+1-LoadingScreen-0-Std-3,1,LoadingScreen,0,Std,3,Me,Could you give the phone to them rq,
+1-LoadingScreen-0-Std-4,1,LoadingScreen,0,Std,4,Her,HELLO AGENT,
+1-LoadingScreen-0-Std-5,1,LoadingScreen,0,Std,5,Me,Count your days mf (mother fricker),
+1-LoadingScreen-0-Std-6,1,LoadingScreen,0,Std,6,Her,SO SCARY,
+1-LoadingScreen-0-Std-7,1,LoadingScreen,0,Std,7,Her,YOU AREN’T CATCHING UP ANYTIME SOON,
+1-LoadingScreen-0-Std-8,1,LoadingScreen,0,Std,8,Me,We’ll see,
+2-CityLevel-0-Q-0,2,CityLevel,0,Q,0,Her,Hey baby wyd,
+2-CityLevel-0-R1-0,2,CityLevel,0,R1,0,Me,Savin yo,
+2-CityLevel-0-R1-1,2,CityLevel,0,R1,1,Her,My hero <3,5
+2-CityLevel-0-R2-0,2,CityLevel,0,R2,0,Me,Fighting some goons,
+2-CityLevel-0-R2-1,2,CityLevel,0,R2,1,Her,You don’t care abt me,-3
+2-CityLevel-0-R3-0,2,CityLevel,0,R3,0,Me,Nothin much,
+2-CityLevel-0-R3-1,2,CityLevel,0,R3,1,Her,Can you get to savin me mf (mother fricker),-5
+2-CityLevel-1-Q-0,2,CityLevel,1,Q,0,Her,Guess my favorite flower,
+2-CityLevel-1-R1-0,2,CityLevel,1,R1,0,Me,Rose,
+2-CityLevel-1-R1-1,2,CityLevel,1,R1,1,Her,Close but no cigar,1
+2-CityLevel-1-R2-0,2,CityLevel,1,R2,0,Me,Venus Flytraps,
+2-CityLevel-1-R2-1,2,CityLevel,1,R2,1,Her,Who tf likes… nvm ts pmo icl,-5
+2-CityLevel-1-R3-0,2,CityLevel,1,R3,0,Me,Bleeding Hearts,
+2-CityLevel-1-R3-1,2,CityLevel,1,R3,1,Her,Omg how did you know!,5
+2-CityLevel-2-Q-0,2,CityLevel,2,Q,0,Her,What are you looking for in a woman,
+2-CityLevel-2-R1-0,2,CityLevel,2,R1,0,Me,Looking for you,
+2-CityLevel-2-R1-1,2,CityLevel,2,R1,1,Her,Oh babyyy you’re such a flirt,5
+2-CityLevel-2-R2-0,2,CityLevel,2,R2,0,Me,A strong independent girl,
+2-CityLevel-2-R2-1,2,CityLevel,2,R2,1,Her,Oh I’m plenty strong believe me,2
+2-CityLevel-2-R3-0,2,CityLevel,2,R3,0,Me,I’m not looking for a relationship rn,
+2-CityLevel-2-R3-1,2,CityLevel,2,R3,1,Her,Why are you even talking to me rn,-5
+2-CityLevel-3-Std-0,2,CityLevel,3,Std,0,Her,My birthday is April 11,
+2-CityLevel-3-Std-1,2,CityLevel,3,Std,1,Me,Wait that’s my birthday too,
+2-CityLevel-3-Std-2,2,CityLevel,3,Std,2,Her,Oh my goodness it was meant to be <3,
+3-LoadingScreen2-0-Std-0,3,LoadingScreen2,0,Std,0,Her,They say they’re taking me to some chapel,
+3-LoadingScreen2-0-Std-1,3,LoadingScreen2,0,Std,1,Me,What why,
+3-LoadingScreen2-0-Std-2,3,LoadingScreen2,0,Std,2,Her,TO MARRY HER OFC,
+3-LoadingScreen2-0-Std-3,3,LoadingScreen2,0,Std,3,Me,Oh it’s you again,
+3-LoadingScreen2-0-Std-4,3,LoadingScreen2,0,Std,4,Her,WE’RE GOING TO WIN THIS ARMS RACE AND OBTAIN THE LOVE BOMB,
+3-LoadingScreen2-0-Std-5,3,LoadingScreen2,0,Std,5,Me,She doesn’t love you,
+3-LoadingScreen2-0-Std-6,3,LoadingScreen2,0,Std,6,Her,WE’LL MAKE HER LOVE US,
+3-LoadingScreen2-0-Std-7,3,LoadingScreen2,0,Std,7,Me,Lowk an ick ngl,
+3-LoadingScreen2-0-Std-8,3,LoadingScreen2,0,Std,8,Her,Ikr pls save meeee,
+3-LoadingScreen2-0-Std-9,3,LoadingScreen2,0,Std,9,Me,I’ll be right there baby,
+4-WeddingLevel-0-Std-0,4,WeddingLevel,0,Std,0,Me,You hangin in there,
+4-WeddingLevel-0-Std-1,4,WeddingLevel,0,Std,1,Her,Missin you </3,
+4-WeddingLevel-0-Std-2,4,WeddingLevel,0,Std,2,Me,I’m here js wait a lil bit longer,
+4-WeddingLevel-1-Q-0,4,WeddingLevel,1,Q,0,Her,Would you still love me if I turned into a worm,
+4-WeddingLevel-1-R1-0,4,WeddingLevel,1,R1,0,Me,Yah ofc I would,
+4-WeddingLevel-1-R1-1,4,WeddingLevel,1,R1,1,Her,ty baby,2
+4-WeddingLevel-1-R2-0,4,WeddingLevel,1,R2,0,Me,I’d build a little worm paradise for you,
+4-WeddingLevel-1-R2-1,4,WeddingLevel,1,R2,1,Her,AWWW you’re so sweet,5
+4-WeddingLevel-1-R3-0,4,WeddingLevel,1,R3,0,Me,Hell no,
+4-WeddingLevel-1-R3-1,4,WeddingLevel,1,R3,1,Her,ikiab ima slime you out,-5
+4-WeddingLevel-2-Q-0,4,WeddingLevel,2,Q,0,Her,Do you remember my birthday,
+4-WeddingLevel-2-R1-0,4,WeddingLevel,2,R1,0,Me,April 11,
+4-WeddingLevel-2-R1-1,4,WeddingLevel,2,R1,1,Her,That’s right Omg he loves me,5
+4-WeddingLevel-2-R2-0,4,WeddingLevel,2,R2,0,Me,April 21,
+4-WeddingLevel-2-R2-1,4,WeddingLevel,2,R2,1,Her,How did you forget your own birthday too,-3
+4-WeddingLevel-2-R3-0,4,WeddingLevel,2,R3,0,Me,April 31,
+4-WeddingLevel-2-R3-1,4,WeddingLevel,2,R3,1,Her,April doesn’t even have 31 days you bum,-5
+4-WeddingLevel-3-Q-0,4,WeddingLevel,3,Q,0,Her,Do you love me,
+4-WeddingLevel-3-R1-0,4,WeddingLevel,3,R1,0,Me,More than you know,
+4-WeddingLevel-3-R1-1,4,WeddingLevel,3,R1,1,Her,Awwww ILY2,5
+4-WeddingLevel-3-R2-0,4,WeddingLevel,3,R2,0,Me,A lil bit,
+4-WeddingLevel-3-R2-1,4,WeddingLevel,3,R2,1,Her,Js a lil Ts pmo ngl icl,-4
+4-WeddingLevel-3-R3-0,4,WeddingLevel,3,R3,0,Me,Nah,
+4-WeddingLevel-3-R3-1,4,WeddingLevel,3,R3,1,Her,You need to die,-5
+4-WeddingLevel-4-Std-0,4,WeddingLevel,4,Std,0,Me,Will you marry me,
+4-WeddingLevel-4-Std-1,4,WeddingLevel,4,Std,1,Her,OMG REALLY,
+4-WeddingLevel-4-Std-2,4,WeddingLevel,4,Std,2,Me,Yeah after I save you will you marry me,
+4-WeddingLevel-4-Std-3,4,WeddingLevel,4,Std,3,Her,YESYESYES save me already >;3,
+4-WeddingLevel-4-Std-4,4,WeddingLevel,4,Std,4,Me,Alright gimme a sec,

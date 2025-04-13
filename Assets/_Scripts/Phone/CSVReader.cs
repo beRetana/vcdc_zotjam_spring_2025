@@ -198,12 +198,14 @@ public class CSVReader : MonoBehaviour
         currentRow.eventName = data[TOTAL_COLS * (i + 1) + 2];
 
         currentRow.sectionIndex = TryParseInt(data[TOTAL_COLS * (i + 1) + 3]);
+        //Debug.Log(data[TOTAL_COLS * (i + 1) + 4]);
         currentRow.type = (TypeEnum)Enum.Parse(typeof(TypeEnum), data[TOTAL_COLS * (i + 1) + 4]);
         currentRow.messageIndex = TryParseInt(data[TOTAL_COLS * (i + 1) + 5]);
         currentRow.character = (CharacterEnum)Enum.Parse(typeof(CharacterEnum), data[TOTAL_COLS * (i + 1) + 6]);
         currentRow.dialogue = data[TOTAL_COLS * (i + 1) + 7];
         currentRow.lovePoints = TryParseInt(data[TOTAL_COLS * (i + 1) + 8]);
 
+        Debug.Log(currentRow);
         return currentRow;
     }
 
