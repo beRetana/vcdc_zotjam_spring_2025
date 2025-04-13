@@ -9,6 +9,8 @@ public class FaceUI : MonoBehaviour
 
     [SerializeField] Image image;
 
+    private int currentFaceIndex;
+
     private bool gameOver = false;
 
     private float recentLovePercent;
@@ -24,39 +26,50 @@ public class FaceUI : MonoBehaviour
 
     private void UpdateLoveFaceUI(float lovePercent)
     {
-        if(! (lovePercent >= 0)) //check if given
-        {
-            Debug.Log("NO LVOE GIVEN");
-            return;
-        }
         Debug.Log("Love percent: " + 100 * lovePercent);
         recentLovePercent = lovePercent;
         switch (100 * lovePercent)
         {
             case > 84:
-                image.sprite = standardFaces[6];
+                ChangeFaceToIndex(6);
                 break;
             case > 67:
-                image.sprite = standardFaces[5];
+                ChangeFaceToIndex(5);
                 break;
             case > 51:
-                image.sprite = standardFaces[4];
+                ChangeFaceToIndex(4);
                 break;
             case > 35:
-                image.sprite = standardFaces[3];
+                ChangeFaceToIndex(3);
                 break;
             case > 19:
-                image.sprite = standardFaces[2];
+                ChangeFaceToIndex(2);
                 break;
             case > 10:
-                image.sprite = standardFaces[1];
+                ChangeFaceToIndex(1);
                 break;
             default:
-                image.sprite = standardFaces[0];
+                ChangeFaceToIndex(0);
                 break;
 
         }
     }
+
+    private void ChangeFaceToIndex(int faceIndex)
+    {
+        image.sprite = standardFaces[faceIndex];
+        if (faceIndex > currentFaceIndex)
+        {
+            // got happier
+        }
+        else if (faceIndex < currentFaceIndex)
+        {
+            // got sadder
+        }
+
+        currentFaceIndex = faceIndex;
+    }
+
 
     public void UpdateUI(float lovePercent)
     {
