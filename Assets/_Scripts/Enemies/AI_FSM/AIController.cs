@@ -141,6 +141,11 @@ namespace AI_FSM{
             _agent.updateRotation = active;
         }
 
+        public float GetStoppingDistance()
+        {
+            return _agent.stoppingDistance;
+        }
+
         /// <summary>
         /// Abort the current task and reset the AI to idle.
         /// </summary>
