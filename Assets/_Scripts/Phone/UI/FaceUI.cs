@@ -24,6 +24,11 @@ public class FaceUI : MonoBehaviour
 
     private void UpdateLoveFaceUI(float lovePercent)
     {
+        if(! (lovePercent >= 0)) //check if given
+        {
+            Debug.Log("NO LVOE GIVEN");
+            return;
+        }
         Debug.Log("Love percent: " + 100 * lovePercent);
         recentLovePercent = lovePercent;
         switch (100 * lovePercent)
