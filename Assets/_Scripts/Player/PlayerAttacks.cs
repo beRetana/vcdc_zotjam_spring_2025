@@ -19,7 +19,6 @@ public class PlayerAttacks : MonoBehaviour
     [SerializeField, Range(1f, 100f)] private float _ultiDamageAttack = 50f;
     [SerializeField, Range(1f, 100f)] private float _ultiNecessaryPoints = 100f;
     [SerializeField] private LayerMask _enemiesMask;
-
     [SerializeField] private GameObject ultiVFX;
 
     private PlayerController _playerController;
@@ -50,8 +49,26 @@ public class PlayerAttacks : MonoBehaviour
         _playerController = new PlayerController();
         _playerAnimations = GetComponent<PlayerAnimations>();
         Enable();
-        //HaymakerCharge = AudioManager.instance.CreateInstance(FMODEvents.instance.HaymakerCharge);
+
+        // Create FMOD instances
+        HaymakerCharge = AudioManager.instance.CreateInstance(FMODEvents.instance.HaymakerCharge);
         HaymakerImpact = AudioManager.instance.CreateInstance(FMODEvents.instance.HaymakerImpact);
+    }
+
+    // ─────── CHARGING ENTRY POINT ───────
+    private void StartCharge(InputAction.CallbackContext ctx)
+    {
+        if (_charging != null) 
+            StopCoroutine(_charging);
+
+        _playerAnimations.Charging(true);
+
+        // Start the FMOD charge sound immediately
+        HaymakerCharge.start();
+
+        // Begin charging loop
+        _isCharging = true;
+        _charging = StartCoroutine(ChargeAttack());
     }
 
     void Enable()
@@ -76,7 +93,6 @@ public class PlayerAttacks : MonoBehaviour
 
     private void UltimateAttack(InputAction.CallbackContext ctx)
     {
-        //if (_ultiCurrentPoints < _ultiNecessaryPoints) return;
         _playerAnimations.Ulti();
     }
 
@@ -88,8 +104,7 @@ public class PlayerAttacks : MonoBehaviour
 
         foreach (var c in hits)
         {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.ULTSFX,this.transform.position);
-
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.ULTSFX, transform.position);
             float ratio = Mathf.Min(1, _ultiRangeAttack / (c.transform.position - transform.position).magnitude);
             c.GetComponent<EnemyHealth>()?.ModifyHealth(ratio * _ultiDamageAttack);
         }
@@ -144,40 +159,27 @@ public class PlayerAttacks : MonoBehaviour
         _attackTimerCoroutine = null;
     }
 
-    // ─────── CHARGING LOGIC CHANGES ───────
-
-    private void StartCharge(InputAction.CallbackContext ctx)
-    {
-        if (_charging != null) StopCoroutine(_charging);
-        _playerAnimations.Charging(true);
-        _charging = StartCoroutine(ChargeAttack());
-
-    }
-
+    // ─────── CHARGING EXIT POINT ───────
     private void StopCharge(InputAction.CallbackContext ctx)
     {
         if (!_isCharging) return;
 
-        // stop charging loop
         _isCharging = false;
         StopCoroutine(_charging);
 
         if (_canReleaseAttack)
         {
-            // fade out charge SFX, play impact & deal damage
             HaymakerCharge.stop(STOP_MODE.ALLOWFADEOUT);
             HaymakerImpact.start();
             MeleeAttack(_chargedAttackRatio * _chargedAttackDamage);
         }
         else
         {
-            // cancelled too early
             HaymakerCharge.stop(STOP_MODE.IMMEDIATE);
         }
 
         _playerAnimations.Charging(false);
 
-        // reset
         _currentChargeTime = 0f;
         _chargedAttackRatio = 0f;
         _canReleaseAttack = false;
@@ -190,7 +192,6 @@ public class PlayerAttacks : MonoBehaviour
         _chargedAttackRatio = 0f;
         _canReleaseAttack = false;
 
-        // start the charge SFX
         PLAYBACK_STATE ps;
         HaymakerCharge.getPlaybackState(out ps);
         if (ps == PLAYBACK_STATE.STOPPED)
@@ -201,13 +202,9 @@ public class PlayerAttacks : MonoBehaviour
             _currentChargeTime += Time.deltaTime;
             _chargedAttackRatio = Mathf.Clamp01(_currentChargeTime / _chargingTime);
 
-            // unlock release after 40% charge
             if (!_canReleaseAttack && _chargedAttackRatio >= 0.40f)
-            {
                 _canReleaseAttack = true;
-            }
 
-            // auto‑fire at full charge (100%)
             if (_chargedAttackRatio >= .6f)
             {
                 _isCharging = false;
@@ -221,8 +218,6 @@ public class PlayerAttacks : MonoBehaviour
             yield return null;
         }
     }
-
-    // ────────────────────────────────────────
 
     private bool MeleeAttack(float damage)
     {
