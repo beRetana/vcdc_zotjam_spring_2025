@@ -6,12 +6,15 @@ using UnityEngine.UIElements;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private Transform enemy;
-    [SerializeField] private Transform[][] waves;
+    [SerializeField] private Transform[] wave1;
+    [SerializeField] private Transform[] wave2;
+    [SerializeField] private Transform[] wave3;
+    [SerializeField] private Transform[] wave4;
+    [SerializeField] private Transform[] wave5;
     [SerializeField] private TextMeshProUGUI textMeshPro;
     [SerializeField] private GameObject portal;
-    [SerializeField] private float delayToSpawn;
     [SerializeField] private float inbetwenSpawn;
-    [SerializeField] private int wavesToUse;
+    private Transform[][] waves;
     private int counter;
 
     public static Spawner Instance { get; private set; }
@@ -27,21 +30,16 @@ public class Spawner : MonoBehaviour
         Instance = this;
     }
 
-    [System.Serializable]
-    public struct Waves
-    {
-
-        Transform[] wave1;
-        Transform[] wave2;
-        Transform[] wave3;
-        Transform[] wave4;
-        Transform[] wave5;
-    }
-
     private void Start()
     {
         portal.SetActive(false);
         StartCoroutine(Spawning());
+        waves = new Transform[5][];
+        waves[0] = wave1;
+        waves[1] = wave2;
+        waves[2] = wave3;
+        waves[3] = wave4;
+        waves[4] = wave5;
     }
 
     private void Spawn(Transform[] wave)
