@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 7879496720397367497}
   - component: {fileID: 61992083625062216}
   - component: {fileID: 5977361145479537321}
+  - component: {fileID: 4373734094952898956}
+  - component: {fileID: 6535207415566726200}
   m_Layer: 0
   m_Name: EnemyBase
   m_TagString: Untagged
@@ -87,7 +89,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!195 &3772109466012250631
 NavMeshAgent:
@@ -161,6 +163,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackRange: 5
+--- !u!114 &4373734094952898956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233777855051885908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c085406f4ab894b9a035559749a612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stunnedTime: 1
+--- !u!114 &6535207415566726200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233777855051885908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11a3fcaf6fbb9a54e845308a20f818ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 10
+  _range: 5
 --- !u!1 &4453990524209196255
 GameObject:
   m_ObjectHideFlags: 0
