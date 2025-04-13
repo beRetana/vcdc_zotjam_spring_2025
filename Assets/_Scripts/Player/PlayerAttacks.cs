@@ -1,10 +1,11 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using FMOD.Studio;
 
 public class PlayerAttacks : MonoBehaviour
 {
-    [SerializeField, Range(.2f, 2f), Tooltip("How long the player has to switch into attack two")] 
+    [SerializeField, Range(.2f, 2f), Tooltip("How long the player has to switch into attack two")]
     private float _attackSpeed = 1f;
     [SerializeField, Range(.1f, 5f)] private float _meleeAttackArea = .5f;
     [SerializeField, Range(.1f, 10f)] private float _meleeAttackRange = 5f;
@@ -14,220 +15,202 @@ public class PlayerAttacks : MonoBehaviour
     [SerializeField, Range(0f, 2f)] private float _chargingTime = 2f;
     [SerializeField, Range(0f, .5f)] private float _chargeHoldingTime = .5f;
 
-    //[SerializeField, Range(2f, 20f)] private float _rangedAttackRange = 8f;
     [SerializeField, Range(1f, 50f)] private float _ultiRangeAttack = 10f;
     [SerializeField, Range(1f, 100f)] private float _ultiDamageAttack = 50f;
     [SerializeField, Range(1f, 100f)] private float _ultiNecessaryPoints = 100f;
-
     [SerializeField] private LayerMask _enemiesMask;
 
     private PlayerController _playerController;
-    private float _chargedAttackRatio;
     private float _ultiCurrentPoints;
 
-    // counts if youre in a loop yet or not
+    // combo state
     private Coroutine _attackTimerCoroutine;
-    private Coroutine _charging;
-
-    // tells you if you can enter into two to continue the combo
     private bool can_go_into_two;
+    private enum MeleeAttackType { One, Two, Charged }
+    private MeleeAttackType _meleeAttackType = MeleeAttackType.One;
+    private int _facingRight = 1;
+    public int FacingRight { get { return _facingRight; } set { _facingRight = value; } }
 
-    private enum MeleeAttackType{
-        One,
-        Two,
-        Charged,
-    }
+    // charging state
+    private Coroutine _charging;
+    private bool _isCharging = false;
+    private bool _canReleaseAttack = false;
+    private float _currentChargeTime = 0f;
+    private float _chargedAttackRatio = 0f;
 
-    private MeleeAttackType _meleeAttackType;
-    private int _facingRight = 1; 
-    // Facing right is assigned 1 and -1 for left this is to send the attacks on the right direction.
-
-    public int FacingRight { get { return _facingRight; } set { _facingRight = value;}}
+    // FMOD event instances
+    private EventInstance HaymakerCharge;
+    private EventInstance HaymakerImpact;
 
     void Start()
     {
-        _playerController = new();
+        _playerController = new PlayerController();
         Enable();
+        HaymakerCharge = AudioManager.instance.CreateInstance(FMODEvents.instance.HaymakerCharge);
+        HaymakerImpact = AudioManager.instance.CreateInstance(FMODEvents.instance.HaymakerImpact);
     }
 
     void Enable()
     {
-        _playerController.PlayerActions.Melee.started += MeleeAttacks;
-        _playerController.PlayerActions.Range.started += StartCharge;
-        _playerController.PlayerActions.Range.canceled += StopCharge;
-        _playerController.PlayerActions.Ultimate.performed += UltimateAttack;
-        _playerController.PlayerActions.Enable();
-    }
-
-    private void UltimateAttack(InputAction.CallbackContext context)
-    {
-        if (_ultiNecessaryPoints != _ultiCurrentPoints) return;
-
-        Collider[] collisions = Physics.OverlapSphere(transform.position, _ultiRangeAttack, _enemiesMask);
-
-        foreach (Collider collision in collisions)
-        {
-            float ratio = Mathf.Min(1, _ultiRangeAttack / (collision.transform.position - transform.position).magnitude);
-            collision.transform.GetComponent<EnemyHealth>().ModifyHealth(ratio * _ultiDamageAttack);
-        }
+        var actions = _playerController.PlayerActions;
+        actions.Melee.started += MeleeAttacks;
+        actions.Range.started += StartCharge;
+        actions.Range.canceled += StopCharge;
+        actions.Ultimate.performed += UltimateAttack;
+        actions.Enable();
     }
 
     void OnDisable()
     {
-        _playerController.PlayerActions.Melee.started -= MeleeAttacks;
-        _playerController.PlayerActions.Range.started -= StartCharge;
-        _playerController.PlayerActions.Range.canceled -= StopCharge;
-        _playerController.PlayerActions.Ultimate.performed -= UltimateAttack;
-        _playerController.PlayerActions.Disable();
+        var actions = _playerController.PlayerActions;
+        actions.Melee.started -= MeleeAttacks;
+        actions.Range.started -= StartCharge;
+        actions.Range.canceled -= StopCharge;
+        actions.Ultimate.performed -= UltimateAttack;
+        actions.Disable();
     }
 
-    private void MeleeAttacks(InputAction.CallbackContext context)
+    private void UltimateAttack(InputAction.CallbackContext ctx)
     {
-        /*
-        switch (_meleeAttackType)
+        if (_ultiCurrentPoints < _ultiNecessaryPoints) return;
+        var hits = Physics.OverlapSphere(transform.position, _ultiRangeAttack, _enemiesMask);
+        foreach (var c in hits)
         {
-            case MeleeAttackType.One:
-                AttackMeleeOne();
-                break;
-            case MeleeAttackType.Two:
-                AttackMeleeTwo();
-                break;
+            float ratio = Mathf.Min(1, _ultiRangeAttack / (c.transform.position - transform.position).magnitude);
+            c.GetComponent<EnemyHealth>()?.ModifyHealth(ratio * _ultiDamageAttack);
         }
-        */
+    }
 
-        // mary code, remove if it doesnt work
-        // /*
-        // its not cases because i dont rlly wanna do cases if im not using two.
-        // maybe implement cases if we have more and more attacks but i do NOT
-        // want to animate ALLAT!!! 😭
-        if(_meleeAttackType ==  MeleeAttackType.One)
+    private void MeleeAttacks(InputAction.CallbackContext ctx)
+    {
+        if (_meleeAttackType == MeleeAttackType.One)
         {
-            if(!can_go_into_two)
+            if (!can_go_into_two)
             {
                 AttackMeleeOne();
                 can_go_into_two = true;
-
-                // no overlap!
-                if (_attackTimerCoroutine != null){
-                    StopCoroutine(_attackTimerCoroutine);
-                }
-                // starts the wait timer to see if we enter the other attack
+                if (_attackTimerCoroutine != null) StopCoroutine(_attackTimerCoroutine);
                 _attackTimerCoroutine = StartCoroutine(AttackTimer());
             }
             else
             {
                 AttackMeleeTwo();
-
-                // no overlap, again
-                if (_attackTimerCoroutine != null) {
-                    StopCoroutine(_attackTimerCoroutine);
-                }
-
-                // go back to the first attack type. no need to wait for anything 
+                if (_attackTimerCoroutine != null) StopCoroutine(_attackTimerCoroutine);
                 _meleeAttackType = MeleeAttackType.One;
                 can_go_into_two = false;
             }
         }
-
-       
-
-        // /*
     }
 
-    /*
     private void AttackMeleeOne()
     {
-        MeleeAttack(meleeAttackOneVFX);
-        StartCoroutine(AttackTimer());
-    }
-
-    private void AttackMeleeTwo()
-    {
-        StopCoroutine(AttackTimer());
-        MeleeAttack(meleeAttackTwoVFX);
-        _meleeAttackType = MeleeAttackType.One;
-    }
-
-    IEnumerator AttackTimer(){
-        _meleeAttackType = MeleeAttackType.Two;
-        yield return new WaitForSeconds(_attackSpeed);
-        _meleeAttackType = MeleeAttackType.One;
-    }
-    */
-
-    // mary edits:
-    // /*
-    private void AttackMeleeOne()
-    {
-        Debug.Log("1");
         bool hit = MeleeAttack(_meleeAttackOneDamage);
-        return;
-        if (hit)
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.JabPunch, this.transform.position);
-        else
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.PunchWhiff, this.transform.position);
+        AudioManager.instance.PlayOneShot(
+            hit ? FMODEvents.instance.JabPunch : FMODEvents.instance.PunchWhiff,
+            transform.position
+        );
     }
 
     private void AttackMeleeTwo()
     {
-        Debug.Log("2");
         bool hit = MeleeAttack(_meleeAttackTwoDamage);
-        if (hit)
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.CrossPunch, this.transform.position); // or a different sound if you have for combo 2
-        else
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.PunchWhiff, this.transform.position);
+        AudioManager.instance.PlayOneShot(
+            hit ? FMODEvents.instance.CrossPunch : FMODEvents.instance.PunchWhiff,
+            transform.position
+        );
     }
 
-    IEnumerator AttackTimer(){
-        // wait for this time, to see if you enter again
+    private IEnumerator AttackTimer()
+    {
         yield return new WaitForSeconds(_attackSpeed);
-
-        // didnt go fast enough, now youre cooked.
         can_go_into_two = false;
-
-        // reset if nothing
         _meleeAttackType = MeleeAttackType.One;
         _attackTimerCoroutine = null;
     }
 
-    private void StartCharge(InputAction.CallbackContext context)
+    // ─────── CHARGING LOGIC CHANGES ───────
+
+    private void StartCharge(InputAction.CallbackContext ctx)
     {
-        _charging = StartCoroutine(Charging(_chargingTime, _chargeHoldingTime));
+        if (_charging != null) StopCoroutine(_charging);
+        _charging = StartCoroutine(ChargeAttack());
     }
 
-    private void StopCharge(InputAction.CallbackContext context)
+    private void StopCharge(InputAction.CallbackContext ctx)
     {
+        if (!_isCharging) return;
+
+        // stop charging loop
+        _isCharging = false;
         StopCoroutine(_charging);
-        MeleeAttack(Mathf.Min(_chargedAttackRatio, 1) * _chargedAttackDamage);
-        _chargedAttackRatio = 0;
-    }
 
-    IEnumerator Charging(float chargeTime, float holdingTime)
-    {
-        float timer = 0;
-        while (timer < chargeTime + holdingTime)
+        if (_canReleaseAttack)
         {
-            yield return new WaitForFixedUpdate();
-            timer += Time.deltaTime;
-            _chargedAttackRatio = timer / chargeTime;
+            // fade out charge SFX, play impact & deal damage
+            HaymakerCharge.stop(STOP_MODE.ALLOWFADEOUT);
+            HaymakerImpact.start();
+            MeleeAttack(_chargedAttackRatio * _chargedAttackDamage);
+        }
+        else
+        {
+            // cancelled too early
+            HaymakerCharge.stop(STOP_MODE.IMMEDIATE);
         }
 
-        MeleeAttack(Mathf.Min(_chargedAttackRatio, 1) * _chargedAttackDamage);
-        _chargedAttackRatio = 0;
+        // reset
+        _currentChargeTime = 0f;
+        _chargedAttackRatio = 0f;
+        _canReleaseAttack = false;
     }
+
+    private IEnumerator ChargeAttack()
+    {
+        _isCharging = true;
+        _currentChargeTime = 0f;
+        _chargedAttackRatio = 0f;
+        _canReleaseAttack = false;
+
+        // start the charge SFX
+        PLAYBACK_STATE ps;
+        HaymakerCharge.getPlaybackState(out ps);
+        if (ps == PLAYBACK_STATE.STOPPED)
+            HaymakerCharge.start();
+
+        while (_isCharging)
+        {
+            _currentChargeTime += Time.deltaTime;
+            _chargedAttackRatio = Mathf.Clamp01(_currentChargeTime / _chargingTime);
+
+            // unlock release after 40% charge
+            if (!_canReleaseAttack && _chargedAttackRatio >= 0.40f)
+            {
+                _canReleaseAttack = true;
+            }
+
+            // auto‑fire at full charge (100%)
+            if (_chargedAttackRatio >= .6f)
+            {
+                _isCharging = false;
+                HaymakerCharge.stop(STOP_MODE.ALLOWFADEOUT);
+                HaymakerImpact.start();
+                MeleeAttack(_chargedAttackRatio * _chargedAttackDamage);
+                yield break;
+            }
+
+            yield return null;
+        }
+    }
+
+    // ────────────────────────────────────────
 
     private bool MeleeAttack(float damage)
     {
-        RaycastHit raycastHit;
-        if (Physics.SphereCast(transform.position, _meleeAttackArea, Vector3.right * _facingRight, out raycastHit, _meleeAttackRange))
+        RaycastHit hit;
+        if (Physics.SphereCast(transform.position, _meleeAttackArea, Vector3.right * _facingRight, out hit, _meleeAttackRange))
         {
-            var enemyHealth = raycastHit.transform.GetComponent<EnemyHealth>();
-            if (enemyHealth != null)
-            {
-                enemyHealth.ModifyHealth(damage);
-                return true; // It hit!
-            }
+            hit.transform.GetComponent<EnemyHealth>()?.ModifyHealth(damage);
+            return true;
         }
-        return false; // It missed!
+        return false;
     }
 }
