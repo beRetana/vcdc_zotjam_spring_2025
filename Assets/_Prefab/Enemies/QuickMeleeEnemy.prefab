@@ -95,6 +95,10 @@ PrefabInstance:
       propertyPath: _attackArea
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 7879496720397367497, guid: eef7378d1703ddd43867fd950c36461d, type: 3}
+      propertyPath: _rewardPoints
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

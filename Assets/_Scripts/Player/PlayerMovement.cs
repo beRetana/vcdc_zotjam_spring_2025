@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     private PlayerController _playerController;
     private PlayerAttacks _playerAttacks;
+    private PlayerAnimations _playerAnimations;
     private Rigidbody _rigidbody;
     private Vector2 _movementInput;
 
@@ -38,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         _playerController = new();
+        _playerAnimations = GetComponent<PlayerAnimations>();
         _playerAttacks = GetComponent<PlayerAttacks>();
         _rigidbody = GetComponent<Rigidbody>();
         _movementSpeed = _baseSpeed;
@@ -77,7 +79,9 @@ public class PlayerMovement : MonoBehaviour
     void HandleMovementInput(InputAction.CallbackContext context)
     {
         _movementInput = context.action.ReadValue<Vector2>();
-        SwitchFacing((int)_movementInput.x);
+        if (_movementInput.magnitude == 0) _playerAnimations.Walking(false);
+        else _playerAnimations.Walking(true);
+            SwitchFacing((int)_movementInput.x);
         _playerAttacks.FacingRight = (int)transform.localScale.x;
     }
 
@@ -110,11 +114,13 @@ public class PlayerMovement : MonoBehaviour
     void StartSprint(InputAction.CallbackContext context)
     {
         _movementSpeed = _sprintSpeed;
+        _playerAnimations.Sprinting(true);
     }
 
     void EndSprint(InputAction.CallbackContext context)
     {
         _movementSpeed = _baseSpeed;
+        _playerAnimations.Sprinting(false);
     }
 
     IEnumerator Dashing()
