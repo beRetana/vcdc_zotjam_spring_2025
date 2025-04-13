@@ -6,19 +6,11 @@ public class DialogueParser : MonoBehaviour
     [SerializeField] CSVReader _CSVReader;
 
     private LinkedList<CSVReader.DialogueRow> _dialogueList;
-    private string[] responses;
-
     private CSVReader.TypeEnum responseType;
+
     public bool questionOpen { get; private set; }
-    public bool responseOpen { get; private set; }
 
-
-    SceneResponses sceneResponses;
-
-    public struct SceneResponses
-    {
-        public Dictionary<int, string[]> sceneToResponses;
-    }
+    private Dictionary<int, string[]> sceneResponses;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -34,109 +26,64 @@ public class DialogueParser : MonoBehaviour
 
     private void BeginDialogue(int sceneNum, string eventName)
     {
-        IEnumerable<CSVReader.DialogueRow> dialogueRowIE = _CSVReader.GetEventDialogueList(sceneNum, eventName);
+        CSVReader.SectionsList eventSectionList = _CSVReader.GetEventDialogueListObject(sceneNum, eventName);
 
-        PopulateDialogueList(dialogueRowIE);
+        _dialogueList = new LinkedList<CSVReader.DialogueRow>();
+        sceneResponses = new Dictionary<int, string[]>();
+        responseType = CSVReader.TypeEnum.Std;
 
+        foreach (CSVReader.DialogueRowList section in eventSectionList.sectionsList)
+        {
+            foreach(CSVReader.DialogueRow row in section.dialogueRowList)
+            {
+                _dialogueList.AddLast(row);
+
+                if( row.messageIndex == 0 && (row.type == CSVReader.TypeEnum.R1 || row.type == CSVReader.TypeEnum.R2 || row.type == CSVReader.TypeEnum.R3))
+                {
+                    if (!sceneResponses.ContainsKey(row.sectionIndex))
+                        sceneResponses[row.sectionIndex] = new string[3];
+
+                    int idx = (int)(row.type - CSVReader.TypeEnum.R1);
+                    sceneResponses[row.sectionIndex][idx] = row.dialogue;
+                }
+            }
+        }
 
         PlayDialogue();
     }
 
-    private bool PopulateDialogueList(IEnumerable<CSVReader.DialogueRow> dialogueRowIE)
-    {
-        _dialogueList = new LinkedList<CSVReader.DialogueRow>();
-        responseType = CSVReader.TypeEnum.Std;
-
-        sceneResponses = new SceneResponses()
-        {
-            sceneToResponses = new Dictionary<int, string[]>()
-        };
-
-        int index = 0;
-        int q_index = -1;
-        responses = new string[3];
-
-        CSVReader.TypeEnum prevType = CSVReader.TypeEnum.Std;
-
-        foreach(CSVReader.DialogueRow r in dialogueRowIE)
-        {
-            if (r.type != prevType)
-            {
-                prevType = r.type;
-
-                if (r.type == CSVReader.TypeEnum.R1)
-                {
-                    sceneResponses.sceneToResponses.Add(r.sectionIndex, new string[3]);
-                    sceneResponses.sceneToResponses[r.sectionIndex][0] = r.dialogue;
-                }
-                else if (r.type == CSVReader.TypeEnum.R2)
-                {
-                    sceneResponses.sceneToResponses[r.sectionIndex][1] = r.dialogue;
-                }
-                else if (r.type == CSVReader.TypeEnum.R3)
-                {
-                    sceneResponses.sceneToResponses[r.sectionIndex][2] = r.dialogue;
-                    Debug.Log($"{r.sectionIndex}: [1] {sceneResponses.sceneToResponses[r.sectionIndex][0]} [2] {sceneResponses.sceneToResponses[r.sectionIndex][1]} [3] {sceneResponses.sceneToResponses[r.sectionIndex][2]}");
-                }
-
-            }
-            _dialogueList.AddLast(r);
-
-            ++index;
-        }
-
-        return q_index >= 0;
-    }
-
-    private void NextDialogue()
-    {
-        if (RemoveCurrentDialogue())
-            PlayDialogue();
-
-    }
-
-    private bool RemoveCurrentDialogue()
-    {
-        //Debug.Log($"Deleting:  {_dialogueList.Count} -> {_dialogueList.Count -1}");
-        if (_dialogueList.Count <= 1)
-        {
-            EndDialogue();
-            return false;
-        }
-        _dialogueList.RemoveFirst();
-        return true;
-    }
-
-
-    private void EndDialogue()
-    {
-        Debug.Log("END DIALOGUE");
-    }
-
     private void PlayDialogue()
     {
+        if(_dialogueList.Count == 0)
+        {
+            EndDialogue();
+            return;
+        }
         EvaluateDialogueRow(_dialogueList.First.Value);
     }
 
     private void EvaluateDialogueRow(CSVReader.DialogueRow r)
     {
-        //Debug.Log("TYPE" + r.type);
         switch (r.type)
         {
             case CSVReader.TypeEnum.Std:
                 Debug.Log(r);
-                NextDialogue();
+                RemoveCurrentDialogue();
+                PlayDialogue();
                 break;
+
+            case CSVReader.TypeEnum.Wait:
+                Debug.Log($"Wait for {r.dialogue} seconds");
+                RemoveCurrentDialogue();
+                PlayDialogue();
+                break;
+
 
             case CSVReader.TypeEnum.Q:
-                //Debug.Log("QUESTION");
                 Debug.Log(r);
-                OpenQuestion(r);
-                //NextDialogue();
+                OpenQuestion(r.sectionIndex);
                 break;
 
-
-                
             case CSVReader.TypeEnum.R1:
                 Debug.Log(r);
                 break;
@@ -146,81 +93,88 @@ public class DialogueParser : MonoBehaviour
             case CSVReader.TypeEnum.R3:
                 Debug.Log(r);
                 break;
-
-
-            case CSVReader.TypeEnum.Wait:
-                Debug.Log($"Wait for {r.dialogue} seconds");
-                NextDialogue();
-                break;
         }
     }
 
-    private void OpenQuestion(CSVReader.DialogueRow r)
+
+    private void RemoveCurrentDialogue()
     {
-        questionOpen = true;
-        Debug.Log($"[1] {sceneResponses.sceneToResponses[r.sectionIndex][0]}");
-        Debug.Log($"[2] {sceneResponses.sceneToResponses[r.sectionIndex][1]}");
-        Debug.Log($"[3] {sceneResponses.sceneToResponses[r.sectionIndex][2]}");
+        if (_dialogueList.Count > 0)
+            _dialogueList.RemoveFirst();
     }
 
-    //private void PlayDialogueLine()
+
+    private void EndDialogue()
+    {
+        Debug.Log("END DIALOGUE");
+    }
+
+
+
+    private void OpenQuestion(int sectionIndex)
+    {
+        questionOpen = true;
+
+        if (sceneResponses.TryGetValue(sectionIndex, out string[] choices))
+        {
+            Debug.Log($"[1] {choices[0]}");
+            Debug.Log($"[2] {choices[1]}");
+            Debug.Log($"[3] {choices[2]}");
+        }
+    }
+
 
     public bool TakeAction(int actionNum) // 1 2 or 3
     {
+        //Debug.Log($"Attempt Take Action: {actionNum}. questionOpen = {questionOpen}");
         if (!questionOpen) return false;
 
+        Debug.Log($"[{actionNum}]");
 
-        Debug.Log($"[{actionNum}] {responses[actionNum - 1]}");
-
-        
-
-        if (actionNum == 1) responseType = CSVReader.TypeEnum.R1;
-        else if (actionNum == 2) responseType = CSVReader.TypeEnum.R2;
-        else if (actionNum == 3) responseType = CSVReader.TypeEnum.R3;
-
-        GoToResponse(responseType);
-
+        CSVReader.TypeEnum selectedType = CSVReader.TypeEnum.R1 + (actionNum - 1);
         questionOpen = false;
+
+        SkipToResponse(selectedType);
         return true;
+
     }
 
-    private void GoToResponse(CSVReader.TypeEnum type)
+    private void SkipToResponse(CSVReader.TypeEnum type)
     {
         responseType = CSVReader.TypeEnum.Std;
         //PlayDialogue();
         while (_dialogueList.First != null && _dialogueList.First.Value.type != type)
         {
             RemoveCurrentDialogue();
-
-            if(_dialogueList.First == null)
-            {
-                EndDialogue();
-                return;
-            }
         }
-        PlayAllOfResponse(type);
 
-    }
-
-    private void PlayAllOfResponse(CSVReader.TypeEnum type)
-    {
         while (_dialogueList.First != null && _dialogueList.First.Value.type == type)
         {
-            //EvaluateDialogueRow(_dialogueList.First.Value);
-            PlayDialogue();
+            Debug.Log(_dialogueList.First.Value);
             RemoveCurrentDialogue();
+
         }
 
-        while (_dialogueList.First != null && _dialogueList.First.Value.type == CSVReader.TypeEnum.R2)
+        while(_dialogueList.First != null &&
+            (_dialogueList.First.Value.type == CSVReader.TypeEnum.R1 ||
+            _dialogueList.First.Value.type == CSVReader.TypeEnum.R2 ||
+            _dialogueList.First.Value.type == CSVReader.TypeEnum.R3))
         {
             RemoveCurrentDialogue();
         }
-        while (_dialogueList.First != null && _dialogueList.First.Value.type == CSVReader.TypeEnum.R3)
-        {
-            RemoveCurrentDialogue();
-        }
-
 
         PlayDialogue();
+    }
+
+    private void SendMessage(CSVReader.DialogueRow r)
+    {
+        Debug.Log(r);
+    }
+
+    private void SendReponseOptions(string[] reponseChoices)
+    {
+        Debug.Log($"[1] {reponseChoices[0]}");
+        Debug.Log($"[2] {reponseChoices[1]}");
+        Debug.Log($"[3] {reponseChoices[2]}");
     }
 }

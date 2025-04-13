@@ -735,9 +735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e009e2f26b2074b1199a4763af0b7d01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textAssetData: {fileID: 4900000, guid: 39036904c66d94072acf2357065afe2d, type: 3}
-  myDialogueList:
-    dialogueRows: []
+  textAssetData: {fileID: 4900000, guid: 37c385f7d66d94c04a82714d8cf5f309, type: 3}
 --- !u!114 &1518571562
 MonoBehaviour:
   m_ObjectHideFlags: 0
