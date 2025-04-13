@@ -9,7 +9,7 @@ public class Happy : MonoBehaviour
     [SerializeField] private Points pointScript;
     
     // call this in other functions
-    public static int happyCap = 100; // liimit to the happy amt
+    public const int happyCap = 100; // liimit to the happy amt
     
     [SerializeField] private TextMeshProUGUI happyDebug; // text
     [SerializeField] public int herHappy = 20; // her happiness, defualt 20
@@ -18,12 +18,6 @@ public class Happy : MonoBehaviour
     void Start()
     {
         UpdateHappinessUI();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public int getHappy()

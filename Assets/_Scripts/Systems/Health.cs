@@ -19,19 +19,6 @@ public class Health : MonoBehaviour
         bonusHealthBar.setHealth(0);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyUp(KeyCode.Backspace))
-        {
-            LoseHealth();
-        }
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            GainHealth();
-        }
-    }
-
     // when you want to have a BONUS HEALTH BAR.
     // i assume you want to also gain health if you area
     // increasing the max value, like you gain a new
@@ -54,7 +41,6 @@ public class Health : MonoBehaviour
         {
             // if you surpass the first row
             if (totalHP + 1 > imageryMax){
-                Debug.Log("bonus!");
                 bonusHealthBar.gainHealth();
             }
             else
