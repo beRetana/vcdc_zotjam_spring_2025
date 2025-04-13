@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{1f429445-c2d3-4b7f-9d58-596385f85f45}">
+		<property name="assetPath">
+			<value>Phone Message Send (OG).wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.3921541950113379</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{db4b3adc-723a-4831-b228-6fae46c4f919}</destination>
+		</relationship>
+	</object>
+</objects>
