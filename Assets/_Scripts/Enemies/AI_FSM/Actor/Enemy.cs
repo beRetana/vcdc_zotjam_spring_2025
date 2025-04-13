@@ -4,8 +4,6 @@ using UnityEngine;
 public class Enemy : AIActor
 {
     protected ChasePlayer _chasePlayer;
-    protected EnemyAttack _enemyAttack;
-    protected Stunned _stunned;
     protected GameObject _player;
     protected EnemyState _enemyState;
     protected AIController _controller;
@@ -19,25 +17,22 @@ public class Enemy : AIActor
 
     protected void Start()
     {
+        _chasePlayer = GetComponent<ChasePlayer>();
+        _chasePlayer.Enable();
+        _player = PlayerMovement.Instance.gameObject;
         _enemyState = EnemyState.Chasing;
         _controller = GetComponent<AIController>();
-        _chasePlayer = GetComponent<ChasePlayer>();
-        _enemyAttack = GetComponent<EnemyAttack>();
-        _stunned = GetComponent<Stunned>();
-
-        _chasePlayer.Enable();
-
-        _player = PlayerMovement.Instance.gameObject;
         _controller.SetRotationActive(false);
     }
 
-    public virtual void UpdateBehaviour(EnemyState newEnemyState)
+    public void UpdateBehaviour(EnemyState newEnemyState)
     {
         if (newEnemyState != _enemyState)
         {
             _enemyState = newEnemyState;
             AbortBehaviors();
         }
+
         TransitionOfBehaviors();
     }
 
@@ -49,7 +44,6 @@ public class Enemy : AIActor
                 _chasePlayer.Enable();
                 break;
             case EnemyState.Attacking:
-                _enemyAttack.Enable();
                 break;
             case EnemyState.Stunned:
                 break;
@@ -58,8 +52,8 @@ public class Enemy : AIActor
 
     public override void AbortBehaviors()
     {
-        _chasePlayer?.Disable();
-        _enemyAttack?.Disable();
-        _stunned?.Disable();
+        _chasePlayer.Disable();
+        // attack
+        // stunned
     }
 }

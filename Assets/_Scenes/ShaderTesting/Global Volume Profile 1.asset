@@ -1,33 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-2997841199726358434
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5426a9c76e047e479bcd36f6f920676, type: 3}
-  m_Name: Dither
-  m_EditorClassIdentifier: 
-  active: 1
-  Spread:
-    m_OverrideState: 1
-    m_Value: 1
-  RedColorCount:
-    m_OverrideState: 1
-    m_Value: 12
-  GreenColorCount:
-    m_OverrideState: 1
-    m_Value: 12
-  BlueColorCount:
-    m_OverrideState: 1
-    m_Value: 12
-  BayerLevel:
-    m_OverrideState: 1
-    m_Value: 2
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
   m_Name: Global Volume Profile 1
   m_EditorClassIdentifier: 
-  components:
-  - {fileID: 7124852758580698777}
-  - {fileID: -2997841199726358434}
+  components: []
 --- !u!114 &63304443372213603
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -61,43 +31,6 @@ MonoBehaviour:
   typeName: 
   <passName>k__BackingField: 
   isEnabled:
-    m_OverrideState: 1
-    m_Value: 1
-  m_Material: {fileID: 0}
---- !u!114 &7124852758580698777
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c2951d93d22b134b9b50beff5df7851, type: 3}
-  m_Name: GrayScale
-  m_EditorClassIdentifier: 
-  active: 1
-  intensity:
-    m_OverrideState: 1
-    m_Value: 1
---- !u!114 &8066396903424117939
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d3fc9c28ae293b46986ce70b8a678e0, type: 3}
-  m_Name: PixelationEffect
-  m_EditorClassIdentifier: 
-  active: 1
-  <displayName>k__BackingField: 
-  m_IsInitialized: 0
-  typeName: 
-  <passName>k__BackingField: 
-  pixelSize:
     m_OverrideState: 1
     m_Value: 1
   m_Material: {fileID: 0}

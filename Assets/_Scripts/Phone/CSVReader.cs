@@ -4,19 +4,25 @@ using System.Collections.Generic;
 
 public class CSVReader : MonoBehaviour
 {
+    /// <summary>
+    /// 
+    /// EventDictionary
+    ///     eventDictionary | dictionary<string, EventDialogue>
+    ///
+    /// EventDialogue
+    ///     dialogueRows | List<DialogueRow>
+    ///
+    /// EventDictionary myEventDictionary
+    /// myEventDictionary.eventDictionary[eventName].dialogueRows | every dialogue line with eventName = eventName                                 
+    ///         
+    /// </summary>
     const int TOTAL_COLS = 9;
+
 
     public delegate void FinishedReadingDialogue();
     public static event FinishedReadingDialogue OnFinishedReadingDialogue;
 
     public TextAsset textAssetData;
-
-    public enum CharacterEnum { None, Her, Me };
-    public enum TypeEnum { Std, Q, R1, R2, R3, Wait };
-
-    public EventsDictionary myDialogueEventDictionary;
-
-
 
     [System.Serializable]
     public struct DialogueRow
@@ -35,159 +41,71 @@ public class CSVReader : MonoBehaviour
         {
             return $"[{rowName}]:".PadRight(30) +
                 $"{character}: {dialogue}".PadRight(40) +
-                $"{((lovePoints == 0) ? $"" : ((lovePoints > 0) ? "+" + lovePoints : lovePoints))}";
+                $"{((lovePoints==0)? $"" : ((lovePoints>0)? "+" + lovePoints : lovePoints))}";
         }
 
     }
-    [System.Serializable]
-    public struct DialogueRowList { public List<DialogueRow> dialogueRowList; }
-    [System.Serializable]
-    public struct SectionsList { public List<DialogueRowList> sectionsList; }
-    [System.Serializable]
-    public struct EventsDictionary { public Dictionary<string, SectionsList> eventsDictionary; }
+
+    public enum CharacterEnum { None, Her, Me };
+    public enum TypeEnum { Std, Q, R1, R2, R3, Wait };
 
 
-
-    private void ReadCSV()
+    [System.Serializable]
+    public struct EventDialogue
     {
-        myDialogueEventDictionary = new EventsDictionary()
-        {
-            eventsDictionary = new Dictionary<string, SectionsList>()
-        };
+        public List<DialogueRow> dialogueRows;
+    }
 
+    // THIS IS THE BIG IMPORTANT PART LOOK HERE!!!!!!!
+    [System.Serializable]
+    public struct EventDictionary
+    {
+        public Dictionary<string, EventDialogue> eventDictionary;
+    }
+
+
+
+
+    public EventDictionary myDialgogueEventDictionary = new EventDictionary()
+    {
+        eventDictionary = new Dictionary<string, EventDialogue>()
+    };
+
+    public EventDialogue myDialogueList = new EventDialogue();
+
+    void ReadCSV()
+    {
         string[] data = textAssetData.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
+
         int tableSize = data.Length / TOTAL_COLS - 1;
         Debug.Log($"Table size = {tableSize}");
+        myDialogueList.dialogueRows = new List<DialogueRow>();
 
         string previousEvent = "";
         string currentEvent = "";
 
-
-
-
-        SectionsList mySectionsList = new SectionsList()
+        for (int i = 0; i < tableSize; ++i, previousEvent = currentEvent)
         {
-            sectionsList = new List<DialogueRowList>()
-        };
-        DialogueRowList currentDialogueRowList = new DialogueRowList()
-        {
-            dialogueRowList = new List<DialogueRow>()
-        };
+            // check if NEW scene-eventName combo comes
+            currentEvent = data[TOTAL_COLS * (i + 1) + 1] + "-" + data[TOTAL_COLS * (i + 1) + 2];
 
-        int currentSectionIndex = -1;
-
-        for (int i = 0; i < tableSize; ++i)
-        {
-            DialogueRow row = ReadRow(data, i);
-            currentEvent = row.scene + "-" + row.eventName;
-
-
-            if (!(String.Equals(currentEvent, previousEvent)) && (i != 0))
+            if ( !(String.Equals(currentEvent, previousEvent)) && (i != 0))
             {
-                if (currentDialogueRowList.dialogueRowList.Count > 0)
-                    mySectionsList.sectionsList.Add(currentDialogueRowList);
-
-                //close event
-                Debug.Log($"Adding EventDialogue list of size = {mySectionsList.sectionsList.Count} to key = {previousEvent}");
-                myDialogueEventDictionary.eventsDictionary.Add(previousEvent, mySectionsList);
-
-                mySectionsList = new SectionsList() { sectionsList = new List<DialogueRowList>() };
-                currentDialogueRowList = new DialogueRowList() { dialogueRowList = new List<DialogueRow>() };
-                currentSectionIndex = -1;
+                Debug.Log($"Adding EventDialogue list of size = {myDialogueList.dialogueRows.Count} to key = {previousEvent}");
+                myDialgogueEventDictionary.eventDictionary.Add(previousEvent, myDialogueList);
+                myDialogueList = new EventDialogue()
+                {
+                    dialogueRows = new List<DialogueRow>()
+                };
+                
             }
 
-            if(row.sectionIndex != currentSectionIndex)
-
-            {
-                if (currentDialogueRowList.dialogueRowList.Count > 0)
-                    mySectionsList.sectionsList.Add(currentDialogueRowList);
-                currentDialogueRowList = new DialogueRowList() { dialogueRowList = new List<DialogueRow>() };
-                currentSectionIndex = row.sectionIndex;
-            }
-
-            currentDialogueRowList.dialogueRowList.Add(row);
-            previousEvent = currentEvent;
-            //mySectionsList.sectionsList.Add(ReadRow(data, i));
+            myDialogueList.dialogueRows.Add(ReadRow(data, i));
         }
-
-        if (currentDialogueRowList.dialogueRowList.Count > 0)
-            mySectionsList.sectionsList.Add(currentDialogueRowList);
-
-        if (!string.IsNullOrEmpty(previousEvent))
-            myDialogueEventDictionary.eventsDictionary.Add(previousEvent, mySectionsList);
-
 
         Debug.Log("Finished Reading Dialogue");
-
-        //ReadSection();
-        PrintAllDialogue();
         OnFinishedReadingDialogue?.Invoke();
     }
-
-
-
-    //void ReadCSV()
-    //{
-    //    string[] data = textAssetData.text.Split(new string[] { ",", "\n" }, StringSplitOptions.None);
-
-    //    int tableSize = data.Length / TOTAL_COLS - 1;
-    //    Debug.Log($"Table size = {tableSize}");
-
-    //    myDialogueList.eventDialogueSections = new List<DialogueRow>();
-
-    //    string previousEvent = "";
-    //    string currentEvent = "";
-
-    //    for (int i = 0; i < tableSize; ++i, previousEvent = currentEvent)
-    //    {
-    //        // check if NEW scene-eventName combo comes
-    //        currentEvent = data[TOTAL_COLS * (i + 1) + 1] + "-" + data[TOTAL_COLS * (i + 1) + 2];
-
-    //        if ( !(String.Equals(currentEvent, previousEvent)) && (i != 0))
-    //        {
-    //            Debug.Log($"Adding EventDialogue list of size = {myDialogueList.eventDialogueSections.Count} to key = {previousEvent}");
-    //            myDialgogueEventDictionary.eventDictionary.Add(previousEvent, myDialogueList);
-
-    //            myDialogueList = new EventDialogueSections()
-    //            {
-    //                eventDialogueSections = new List<DialogueRow>()
-    //            };
-
-    //        }
-
-    //        myDialogueList.eventDialogueSections.Add(ReadRow(data, i));
-    //    }
-    //    Debug.Log("Finished Reading Dialogue");
-
-    //    PrintAllDialogue();
-    //    OnFinishedReadingDialogue?.Invoke();
-    //}
-
-    private void PrintAllDialogue()
-    {
-        Debug.Log("========== Dialogue ==========");
-
-        foreach(KeyValuePair<string,SectionsList> entry in myDialogueEventDictionary.eventsDictionary)
-        {
-            Debug.Log($"\n=== Event: {entry.Key} ===");
-
-            SectionsList eventSections = entry.Value;
-
-            for (int i = 0; i < eventSections.sectionsList.Count; ++i)
-            {
-                DialogueRowList section = eventSections.sectionsList[i];
-
-                Debug.Log($"--- Section{i} ---");
-
-                foreach (DialogueRow row in section.dialogueRowList)
-                {
-                    Debug.Log($"    {row}");
-                }
-            }
-        }
-        Debug.Log("========== End of Dialogue ==========");
-    }
-
 
     private DialogueRow ReadRow(string[] data, int i)
     {
@@ -219,18 +137,14 @@ public class CSVReader : MonoBehaviour
         ReadCSV();
     }
 
-    public SectionsList GetEventDialogueListObject(int sceneNum, string eventName)
+    public EventDialogue GetEventDialogueListObject(int sceneNum, string eventName)
     {
-        string key = sceneNum + "-" + eventName;
-
-        Debug.Log("KEYYYYY " + key);
-
-        return myDialogueEventDictionary.eventsDictionary[key];
+        return myDialgogueEventDictionary.eventDictionary[sceneNum + "-" + eventName];
     }
 
-    //public List<DialogueRowList> GetEventDialogueList(int sceneNum, string eventName)
-    //{
-    //    return myDialogueEventDictionary.eventsDictionary[sceneNum + "-" + eventName].sectionsList;
-    //}
+    public IEnumerable<DialogueRow> GetEventDialogueList(int sceneNum, string eventName)
+    {
+        return myDialgogueEventDictionary.eventDictionary[sceneNum + "-" + eventName].dialogueRows;
+    }
 
 }

@@ -7,16 +7,10 @@ public class FMODEvents : MonoBehaviour
 {
 
 
-     [field: Header("Punch Whiff")]
-     [field: SerializeField] public EventReference PunchWhiff {get; private set;}
+    // [field: Header("sonarPing")]
+    // [field: SerializeField] public EventReference sonarPing {get; private set;}
 
-     [field: Header("Jab Punch")]
-     [field: SerializeField] public EventReference JabPunch {get; private set;}
-
-     [field: Header("Cross Punch")]
-     [field: SerializeField] public EventReference CrossPunch {get; private set;}
-
-    //AudioManager.instance.PlayOneShot(FMODEvents.instance.PunchWhiff,this.transform.position);
+    
     
     
     public static FMODEvents instance {get; private set;}
