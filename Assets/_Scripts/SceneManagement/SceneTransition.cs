@@ -12,7 +12,7 @@ public class SceneTransition : MonoBehaviour
     public delegate void SceneLoaded();
     public static SceneLoaded OnSceneLoaded;
 
-    public string nextSceneName = "conner";
+    public string nextSceneName = "Forest_S1";
 
     public delegate void StartGamePlay();
     public static StartGamePlay OnStartGamePlay;
@@ -29,11 +29,12 @@ public class SceneTransition : MonoBehaviour
     public void NextScene(string nextSceneStringName)
     {
         nextSceneName = nextSceneStringName;
-        if(nextSceneName == "conner")
+        if(nextSceneName == "Forest_S1")
         {
             canvasGroup.alpha = 1f;
-            SceneManager.LoadScene("conner");
+            SceneManager.LoadScene("Forest_S1");
             OnStartGamePlay?.Invoke();
+            Debug.Log("SATAGEFINO)");
             return;
         }
         StartCoroutine(ExitCurrentSceneLoadNextScene());

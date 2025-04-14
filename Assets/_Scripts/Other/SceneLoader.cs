@@ -4,6 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    public delegate void FinishedBattle(int nextScene);
+    public static FinishedBattle OnFinishedBattle;
+
+    public static int nextLoadSceneInt = 0;
+
     public void LoadSceneByName(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
@@ -27,6 +32,7 @@ public class SceneLoader : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        LoadNextScene();
+        OnFinishedBattle?.Invoke(nextLoadSceneInt);
+        //LoadNextScene();
     }
 }

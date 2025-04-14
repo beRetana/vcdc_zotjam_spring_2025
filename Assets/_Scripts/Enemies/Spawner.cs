@@ -20,9 +20,11 @@ public class Spawner : MonoBehaviour
     private bool odd;
 
     public static Spawner Instance { get; private set; }
-
+    
     void Awake()
     {
+        EventsManager.OnStartSpawning += StartSpawning;
+
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -43,7 +45,13 @@ public class Spawner : MonoBehaviour
         waves[3] = wave4;
         waves[4] = wave5;
 
+        //StartCoroutine(Spawning());
+    }
+
+    private void StartSpawning()
+    {
         StartCoroutine(Spawning());
+
     }
 
     private void Spawn(Transform[] wave)

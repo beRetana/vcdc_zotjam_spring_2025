@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour
     public void StartGame()
     {
         OnGameStarting?.Invoke();
-        FindFirstObjectByType<SceneTransition>().NextScene("conner");
+        FindFirstObjectByType<SceneTransition>().NextScene("Forest_S1");
     }
 
     public void QuitGame()

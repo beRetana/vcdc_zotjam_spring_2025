@@ -5,6 +5,9 @@ public class EventsManager : MonoBehaviour
     [SerializeField] DialogueParser dialogueParser;
     [SerializeField] SceneTransition sceneTransition;
 
+    public delegate void StartSpawning();
+    public static StartSpawning OnStartSpawning;
+
     private string currentEvent;
 
 
@@ -14,25 +17,35 @@ public class EventsManager : MonoBehaviour
 
 
         SceneTransition.OnStartGamePlay += FirstDialogue;
+        SceneLoader.OnFinishedBattle += OpenLoadingScreen;
         // On Win_conner += LoadingScreen;
         // On Win_city += LoadingScreen2;
     }
 
+
     private void FirstDialogue()
     {
         OpenDialogue(0, "Opening");
+        Debug.Log("OPENING DIALOGUE");
+    }
+
+    private void OpenLoadingScreen(int sceneToLoad)
+    {
+        if (sceneToLoad == 1) LoadingScreen();
+        else if (sceneToLoad == 2) LoadingScreen2();
+        else if (sceneToLoad == 3) sceneTransition.NextScene("Church_3");
     }
 
     private void LoadingScreen()
     {
         OpenDialogue(1, "LoadingScreen");
-        sceneTransition.NextScene("city");
+        sceneTransition.NextScene("Forest_S1");
     }
 
     private void LoadingScreen2()
     {
         OpenDialogue(3, "LoadingScreen2");
-        sceneTransition.NextScene("church");
+        sceneTransition.NextScene("City_2");
     }
 
 
@@ -44,27 +57,29 @@ public class EventsManager : MonoBehaviour
             case "Opening":
                 sceneTransition.EnterGameScene();
                 OpenDialogue(0, "ExitHouse");
+                OnStartSpawning?.Invoke();
                 // TK Spawn enemies
                 break;
 
             case "ExitHouse":
                 //this is after the dialogue ends, but we must continue fighting
 
-                OpenDialogue(1, "LoadingScreen"); //TK DELETE
-                sceneTransition.NextScene("city"); //TK DELETE
+                //OpenDialogue(1, "LoadingScreen"); //TK DELETE
+                //sceneTransition.NextScene("City_2"); //TK DELETE
 
                 break;
 
             case "LoadingScreen":
                 sceneTransition.EnterGameScene();
                 OpenDialogue(2, "CityLevel");
+                OnStartSpawning?.Invoke();
                 break;
 
             case "CityLevel":
                 //this is after the dialogue ends, but we must continue fighting
 
-                OpenDialogue(3, "LoadingScreen2"); //TK DELETE
-                sceneTransition.NextScene("church"); //TK DELETE
+                //OpenDialogue(3, "LoadingScreen2"); //TK DELETE
+                //sceneTransition.NextScene("Church_3"); //TK DELETE
 
 
                 break;
@@ -72,6 +87,7 @@ public class EventsManager : MonoBehaviour
             case "LoadingScreen2":
                 sceneTransition.EnterGameScene();
                 OpenDialogue(4, "WeddingLevel");
+                OnStartSpawning?.Invoke();
                 break;
 
             case "WeddingLevel":
@@ -83,6 +99,7 @@ public class EventsManager : MonoBehaviour
 
     private void OpenDialogue(int sceneIndex, string eventName)
     {
+        Debug.Log("ope");
         currentEvent = eventName;
         dialogueParser.OpenDialogue(sceneIndex, eventName);
     }
