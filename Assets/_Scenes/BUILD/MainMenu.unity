@@ -1172,7 +1172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a44b674c8a9d4338a49f8643d2c489d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueParser: {fileID: 2050134086}
+  dialogueParser: {fileID: 2050134091}
   sceneTransition: {fileID: 1546476684}
 --- !u!114 &1546476684
 MonoBehaviour:
@@ -1909,7 +1909,7 @@ GameObject:
   - component: {fileID: 2050134089}
   - component: {fileID: 2050134088}
   - component: {fileID: 2050134087}
-  - component: {fileID: 2050134086}
+  - component: {fileID: 2050134091}
   m_Layer: 0
   m_Name: Dialogue
   m_TagString: Untagged
@@ -1917,20 +1917,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2050134086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2050134085}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce9930a68122040548dcd44d6d30e33f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _CSVReader: {fileID: 2050134088}
-  _MessageQueue: {fileID: 2050134087}
 --- !u!114 &2050134087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1957,7 +1943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e009e2f26b2074b1199a4763af0b7d01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textAssetData: {fileID: 4900000, guid: 46b05f8c1fe614476bcb80dc48db6349, type: 3}
+  textAssetData: {fileID: 4900000, guid: 8b65076af60e0441e9e04f526223c7c4, type: 3}
 --- !u!114 &2050134089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1970,7 +1956,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2475f0266f12e4245988f1edf8a81153, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueParser: {fileID: 2050134086}
+  dialogueParser: {fileID: 2050134091}
 --- !u!4 &2050134090
 Transform:
   m_ObjectHideFlags: 0
@@ -1986,6 +1972,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2050134091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050134085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce9930a68122040548dcd44d6d30e33f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _CSVReader: {fileID: 2050134088}
+  _MessageQueue: {fileID: 2050134087}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
