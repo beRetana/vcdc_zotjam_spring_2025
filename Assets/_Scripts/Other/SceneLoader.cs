@@ -7,7 +7,7 @@ public class SceneLoader : MonoBehaviour
     public delegate void FinishedBattle(int nextScene);
     public static FinishedBattle OnFinishedBattle;
 
-    public static int nextLoadSceneInt = 0;
+    public static int nextLoadSceneInt = 1;
 
     public void LoadSceneByName(string sceneName)
     {

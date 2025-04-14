@@ -20,10 +20,18 @@ public class Spawner : MonoBehaviour
     private bool odd;
 
     public static Spawner Instance { get; private set; }
-    
-    void Awake()
+
+    private void OnEnable()
     {
         EventsManager.OnStartSpawning += StartSpawning;
+    }
+    private void OnDisable()
+    {
+        EventsManager.OnStartSpawning -= StartSpawning;
+    }
+
+    void Awake()
+    {
 
         if (Instance != null && Instance != this)
         {
