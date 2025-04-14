@@ -31,7 +31,7 @@ public class EventsManager : MonoBehaviour
 
     private void OpenLoadingScreen(int sceneToLoad)
     {
-        if (sceneToLoad == 1) LoadingScreen();
+        if (sceneToLoad == 1) LoadingScreen();//LoadingScreen();
         else if (sceneToLoad == 2) LoadingScreen2();
         else if (sceneToLoad == 3) sceneTransition.NextScene("Church_3");
     }
