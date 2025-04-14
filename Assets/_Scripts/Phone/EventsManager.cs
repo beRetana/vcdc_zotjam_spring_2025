@@ -31,21 +31,25 @@ public class EventsManager : MonoBehaviour
 
     private void OpenLoadingScreen(int sceneToLoad)
     {
-        if (sceneToLoad == 1) LoadingScreen();//LoadingScreen();
-        else if (sceneToLoad == 2) LoadingScreen2();
-        else if (sceneToLoad == 3) sceneTransition.NextScene("Church_3");
+        if (sceneToLoad == 1) Debug.LogError("loading nothing");//;//LoadingScreen();
+        else if (sceneToLoad == 2) LoadingScreen();
+        else if (sceneToLoad == 3) LoadingScreen2();
+            //sceneTransition.NextScene("Church_3");
     }
 
     private void LoadingScreen()
     {
+        Debug.LogWarning("LOADING SCREEN 1");
         OpenDialogue(1, "LoadingScreen");
-        sceneTransition.NextScene("Forest_S1");
+        sceneTransition.NextScene("City_2");
     }
 
     private void LoadingScreen2()
     {
+        Debug.LogWarning("LOADING SCREEN 2");
+
         OpenDialogue(3, "LoadingScreen2");
-        sceneTransition.NextScene("City_2");
+        sceneTransition.NextScene("Church_3");
     }
 
 
