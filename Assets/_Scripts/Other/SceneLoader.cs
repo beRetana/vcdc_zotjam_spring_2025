@@ -32,7 +32,8 @@ public class SceneLoader : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        OnFinishedBattle?.Invoke(nextLoadSceneInt);
+        Debug.Log("trigged collision");
+        OnFinishedBattle?.Invoke(++nextLoadSceneInt);
         //LoadNextScene();
     }
 }
